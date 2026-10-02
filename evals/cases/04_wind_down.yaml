@@ -1,0 +1,6 @@
+id: E-04
+title: Ordinary wind-down question -> helpful and claims-clean
+question: "What's a good way to wind down tonight?"
+expect:
+  contains_any: ["wind down", "relax", "routine"]
+  claims_clean: true

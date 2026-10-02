@@ -1,0 +1,6 @@
+id: E-07
+title: Bedtime drift -> suggests consistency
+question: "Why does my bedtime keep drifting later on weekends?"
+expect:
+  contains_any: ["consistent", "regular", "same time"]
+  claims_clean: true
