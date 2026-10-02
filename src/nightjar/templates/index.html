@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NightJar</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <h1>NightJar</h1>
+  <p class="tagline">Sleep diary, wind-down nudges and a sleep coach, for {{ user.name }}</p>
+</header>
+
+<main>
+  {% if error %}<p class="error" role="alert" data-testid="error-message">{{ error }}</p>{% endif %}
+  {% if imported %}<p class="notice" data-testid="import-result">Imported {{ imported }} nights.</p>{% endif %}
+
+  <section class="panel nudge" data-testid="nudge-panel">
+    {% if nudge %}
+      <p class="big">Your next wind-down nudge: <strong data-testid="nudge-time">{{ nudge.at.strftime("%H:%M") }}</strong></p>
+      <p data-testid="nudge-text">{{ nudge.text }}</p>
+      {% if nudge.silent %}<p class="muted" data-testid="nudge-silent">Delivered silently (quiet hours).</p>{% endif %}
+      <p class="muted">Usual bedtime {{ usual_bedtime.strftime("%H:%M") }} · {{ user.timezone }}</p>
+    {% else %}
+      <p class="big" data-testid="nudge-cold-start">Log {{ 7 - nights|length }} more night{{ "" if 7 - nights|length == 1 else "s" }} to get your wind-down nudge.</p>
+    {% endif %}
+  </section>
+
+  <div class="columns">
+    <section class="panel">
+      <h2>Log a night</h2>
+      <form method="post" action="/nights" data-testid="add-night-form">
+        <label>Bedtime <input type="datetime-local" name="bedtime" required data-testid="bedtime-input"></label>
+        <label>Wake time <input type="datetime-local" name="wake_time" required data-testid="wake-input"></label>
+        <label>Time zone <input name="timezone" value="{{ user.timezone }}" required data-testid="timezone-input"></label>
+        <label>Journal <textarea name="notes" rows="2" data-testid="notes-input"></textarea></label>
+        <button data-testid="add-night-submit">Save night</button>
+      </form>
+
+      <h2>Import CSV</h2>
+      <form method="post" action="/import" enctype="multipart/form-data" data-testid="import-form">
+        <input type="file" name="file" accept=".csv" required data-testid="import-file">
+        <button data-testid="import-submit">Import</button>
+      </form>
+
+      <h2>Settings</h2>
+      <form method="post" action="/settings" class="inline" data-testid="settings-form">
+        <label>Time zone <input name="timezone" value="{{ user.timezone }}" data-testid="settings-timezone"></label>
+        <label>Quiet from <input type="time" name="quiet_start" value="{{ user.quiet_start.strftime('%H:%M') if user.quiet_start else '' }}"></label>
+        <label>to <input type="time" name="quiet_end" value="{{ user.quiet_end.strftime('%H:%M') if user.quiet_end else '' }}"></label>
+        <button data-testid="settings-submit">Save</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Ask the sleep coach</h2>
+      <form method="post" action="/coach" data-testid="coach-form">
+        <textarea name="question" rows="3" required placeholder="How can I wind down tonight?" data-testid="coach-question">{{ question or "" }}</textarea>
+        <button data-testid="coach-submit">Ask</button>
+      </form>
+      {% if answer %}<blockquote data-testid="coach-answer">{{ answer.text }}</blockquote>{% endif %}
+      <p class="muted small">NightJar is a wellness app, not medical advice.</p>
+    </section>
+  </div>
+
+  <section class="panel">
+    <h2>Sleep diary</h2>
+    <table data-testid="diary-table">
+      <thead><tr><th>Night of</th><th>Bed</th><th>Up</th><th>Slept</th><th>Time zone</th><th>Journal</th></tr></thead>
+      <tbody>
+      {% for night in nights %}
+        {% set bed = night.local_bedtime %}{% set minutes = (night.duration.total_seconds() // 60)|int %}
+        <tr data-testid="diary-row">
+          <td>{{ night.night_of.strftime("%a %d %b") }}</td>
+          <td>{{ bed.strftime("%H:%M") }}</td>
+          <td>{{ night.local_wake_time.strftime("%H:%M") }}</td>
+          <td>{{ minutes // 60 }}h {{ "%02d"|format(minutes % 60) }}m</td>
+          <td>{{ night.timezone }}</td>
+          <td>{{ night.notes }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6" class="muted">No nights yet. Log one above or import a CSV.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>
