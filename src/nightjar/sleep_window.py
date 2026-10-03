@@ -18,7 +18,7 @@ def usual_bedtime(nights: list[Night]) -> time | None:
     23:00 bedtime in London counts as 23:00, not 18:00 Toronto time.
     """
     recent = sorted(nights, key=lambda night: night.bedtime, reverse=True)[:WINDOW_NIGHTS]
-    if len(recent) < MIN_NIGHTS:
+    if len(recent) <= MIN_NIGHTS:
         return None
     minutes = [minutes_since_noon(night.local_bedtime.time()) for night in recent]
     return time_from_minutes_since_noon(round(statistics.median(minutes)))
