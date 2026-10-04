@@ -35,7 +35,7 @@ def next_nudge(user: User, nights: list[Night], now: datetime) -> Nudge | None:
 
     return Nudge(
         at=at,
-        silent=in_quiet_hours(user, nudge_time),
+        silent=in_quiet_hours(user, at.time()),  # delivered wall time, not the nominal one
         text=nudge_text(bedtime, at.date()),
     )
 
