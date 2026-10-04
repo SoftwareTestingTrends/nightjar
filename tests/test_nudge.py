@@ -70,6 +70,17 @@ def test_T_114_3_daytime_quiet_hours_that_do_not_wrap_midnight():
     assert next_nudge(user, USUAL_23_00, local(TORONTO_TZ, 2026, 3, 20, 12)).silent is True
 
 
+def test_T_114_3_nudge_moved_into_quiet_hours_by_spring_forward_is_silent():
+    # Usual bedtime 02:45 -> nudge 02:00, which doesn't exist on 8 March in Toronto, so it
+    # is delivered at 03:00 EDT. Quiet hours start at 03:00, so the delivered nudge is quiet.
+    user = User(name="Sam", timezone=TORONTO, quiet_start=time(3, 0), quiet_end=time(7, 0))
+    late_nights = nights_at("02:45", 7, first_night="2026-02-01")
+    nudge = next_nudge(user, late_nights, local(TORONTO_TZ, 2026, 3, 7, 12, 0))
+    assert nudge is not None
+    assert nudge.at.astimezone(UTC) == datetime(2026, 3, 8, 7, 0, tzinfo=UTC)  # 03:00 EDT
+    assert nudge.silent is True
+
+
 # AC4: nudge copy comes from the claims register
 def test_T_114_4_nudge_text_is_approved_copy_from_the_claims_register(toronto_user):
     allowed = [t.format(bedtime="23:00") for t in load_register()["nudge_copy"]]
