@@ -36,6 +36,9 @@ banned:
   - id: claim-diagnose
     pattern: '\bdiagnos\w*'
     reason: Implies a diagnosis.
+  - id: claim-sleep-benefit
+    pattern: '\bimprov\w*\s+(?:your\s+|the\s+)?sleep\b'
+    reason: Promises a sleep outcome. Wellness copy says what to do, not what it will fix.
   - id: disease-anxiety-disorder
     pattern: '\banxiety\s+disorders?\b'
     reason: Names a mental health condition.
