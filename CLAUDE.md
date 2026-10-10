@@ -7,9 +7,9 @@ NightJar is a sleep diary with a bedtime nudge and an AI sleep coach. It is a
 
 | Command | What it does | Healthy output ends with |
 |---|---|---|
-| `make test` | unit + API tests | `66 passed, 1 deselected` |
+| `make test` | unit + API tests | `122 passed, 2 deselected` |
 | `make lint` | ruff check + format check | `All checks passed!` / `already formatted` |
-| `make e2e` | Playwright browser test | `1 passed` (skipped if Chromium is missing) |
+| `make e2e` | Playwright browser test | `2 passed` (skipped if Chromium is missing) |
 | `make evals` | coach evals, mock coach, 3 runs/case | `8/8 cases at or above 100% pass rate` |
 | `make run` | app at http://127.0.0.1:8000 | `Application startup complete.` |
 

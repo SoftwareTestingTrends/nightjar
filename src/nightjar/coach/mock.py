@@ -45,7 +45,7 @@ class MockCoach:
         if any(word in question for word in ROUTINE_WORDS):
             return (
                 f"Your usual bedtime is around {bedtime or 'the same time each night'}. "
-                "About 45 minutes before, start to wind down: dim the lights, put your phone "
+                "A little before bedtime, start to wind down: dim the lights, put your phone "
                 "in another room, and do something slow like reading or a warm shower. "
                 "Doing the same steps each night helps you build a consistent bedtime routine."
             )

@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS user_settings (
     name TEXT NOT NULL,
     timezone TEXT NOT NULL,
     quiet_start TEXT,
-    quiet_end TEXT
+    quiet_end TEXT,
+    wind_down_lead_minutes INTEGER NOT NULL DEFAULT 45
 );
 """
 
@@ -44,6 +45,12 @@ class Diary:
         self.path = str(path)
         with self._connect() as db:
             db.executescript(SCHEMA)
+            columns = {row[1] for row in db.execute("PRAGMA table_info(user_settings)")}
+            if "wind_down_lead_minutes" not in columns:  # database from before the setting
+                db.execute(
+                    "ALTER TABLE user_settings"
+                    " ADD COLUMN wind_down_lead_minutes INTEGER NOT NULL DEFAULT 45"
+                )
 
     @contextmanager
     def _connect(self) -> Iterator[sqlite3.Connection]:
@@ -93,7 +100,8 @@ class Diary:
     def user(self) -> User:
         with self._connect() as db:
             row = db.execute(
-                "SELECT name, timezone, quiet_start, quiet_end FROM user_settings"
+                "SELECT name, timezone, quiet_start, quiet_end, wind_down_lead_minutes"
+                " FROM user_settings"
             ).fetchone()
         if row is None:
             return DEFAULT_USER
@@ -102,18 +110,22 @@ class Diary:
             timezone=row[1],
             quiet_start=_parse_time(row[2]),
             quiet_end=_parse_time(row[3]),
+            wind_down_lead_minutes=row[4],
         )
 
     def save_user(self, user: User) -> None:
         zone(user.timezone)  # validate before saving
         with self._connect() as db:
             db.execute(
-                "INSERT OR REPLACE INTO user_settings VALUES (1, ?, ?, ?, ?)",
+                "INSERT OR REPLACE INTO user_settings"
+                " (id, name, timezone, quiet_start, quiet_end, wind_down_lead_minutes)"
+                " VALUES (1, ?, ?, ?, ?, ?)",
                 (
                     user.name,
                     user.timezone,
                     _format_time(user.quiet_start),
                     _format_time(user.quiet_end),
+                    user.wind_down_lead_minutes,
                 ),
             )
 
