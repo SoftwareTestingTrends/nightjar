@@ -68,3 +68,18 @@ def test_T_114_1_e2e_adding_the_seventh_night_shows_the_nudge(page, base_url):
 
     expect(page.get_by_test_id("diary-row")).to_have_count(7)
     expect(page.get_by_test_id("nudge-time")).to_have_text("22:15")
+
+
+def test_T_114_8_e2e_picking_a_60_minute_lead_moves_the_nudge_15_minutes_earlier(page, base_url):
+    page.goto(base_url)
+    expect = playwright_api.expect
+    page.get_by_test_id("bedtime-input").fill("2026-03-16T23:00")
+    page.get_by_test_id("wake-input").fill("2026-03-17T07:00")
+    page.get_by_test_id("add-night-submit").click()
+    expect(page.get_by_test_id("nudge-time")).to_have_text("22:15")
+
+    page.get_by_test_id("settings-lead").select_option("60")
+    page.get_by_test_id("settings-submit").click()
+
+    expect(page.get_by_test_id("nudge-time")).to_have_text("22:00")
+    expect(page.get_by_test_id("settings-lead")).to_have_value("60")

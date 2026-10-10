@@ -108,3 +108,13 @@ def test_claude_coach_calls_the_messages_api(monkeypatch):
 def test_claude_coach_model_comes_from_env(monkeypatch):
     monkeypatch.setenv("NIGHTJAR_COACH_MODEL", "claude-opus-5-5")
     assert ClaudeCoach(client=SimpleNamespace()).model == "claude-opus-5-5"
+
+
+def test_T_114_10_mock_coach_never_names_a_lead_time_that_could_contradict_the_nudge(
+    sample_nights, tmp_path
+):
+    answer = ask_coach(
+        MockCoach(), sample_nights, "How can I wind down tonight?", tmp_path / "t.jsonl"
+    )
+    assert "wind down" in answer.text
+    assert "45" not in answer.text

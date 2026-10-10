@@ -1,10 +1,12 @@
-from datetime import UTC, datetime, timedelta
+import sqlite3
+from dataclasses import replace
+from datetime import UTC, datetime, time, timedelta
 
 import pytest
 from builders import LONDON, night
 
 from nightjar.diary import Diary, local_input_to_aware, parse_csv
-from nightjar.models import Night
+from nightjar.models import Night, User
 
 
 def test_nights_round_trip_through_sqlite_with_their_time_zone(tmp_path):
@@ -82,3 +84,54 @@ def test_night_of_is_the_evening_the_night_began():
     after_midnight = night("2026-03-07", "00:15")  # bedtime is early Sunday 8 March
     assert after_midnight.local_bedtime.day == 8
     assert after_midnight.night_of.isoformat() == "2026-03-07"
+
+
+OLD_USER_SETTINGS_TABLE = """
+CREATE TABLE user_settings (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    name TEXT NOT NULL,
+    timezone TEXT NOT NULL,
+    quiet_start TEXT,
+    quiet_end TEXT
+);
+"""
+
+
+def make_old_schema_database(path):
+    """A database as an earlier NightJar version left it: no wind-down lead column."""
+    db = sqlite3.connect(path)
+    db.executescript(OLD_USER_SETTINGS_TABLE)
+    db.execute("INSERT INTO user_settings VALUES (1, 'Sam', 'Europe/London', '22:00', '06:00')")
+    db.commit()
+    db.close()
+
+
+def test_T_114_9_a_database_from_the_old_schema_migrates_and_reads_as_45(tmp_path):
+    path = tmp_path / "old.db"
+    make_old_schema_database(path)
+
+    user = Diary(path).user()
+    assert user.wind_down_lead_minutes == 45
+    assert (user.timezone, user.quiet_start, user.quiet_end) == (
+        LONDON,
+        time(22, 0),
+        time(6, 0),
+    )
+
+
+def test_T_114_9_a_migrated_database_saves_and_keeps_a_chosen_lead(tmp_path):
+    path = tmp_path / "old.db"
+    make_old_schema_database(path)
+    diary = Diary(path)
+    diary.save_user(replace(diary.user(), wind_down_lead_minutes=60))
+
+    reopened = Diary(path)  # opening again must not fail on the already-added column
+    assert reopened.user().wind_down_lead_minutes == 60
+    assert reopened.user().timezone == LONDON
+
+
+def test_T_114_9_a_new_database_persists_the_lead_across_restarts(tmp_path):
+    path = tmp_path / "new.db"
+    assert Diary(path).user().wind_down_lead_minutes == 45
+    Diary(path).save_user(User(name="Sam", timezone=LONDON, wind_down_lead_minutes=30))
+    assert Diary(path).user().wind_down_lead_minutes == 30
