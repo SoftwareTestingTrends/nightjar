@@ -8,8 +8,6 @@ from nightjar.claims import load_register
 from nightjar.models import Night, User, zone
 from nightjar.sleep_window import usual_bedtime
 
-WIND_DOWN_LEAD = timedelta(minutes=45)
-
 
 @dataclass(frozen=True)
 class Nudge:
@@ -27,7 +25,7 @@ def next_nudge(user: User, nights: list[Night], now: datetime) -> Nudge | None:
         return None
 
     user_zone = zone(user.timezone)  # the user's *current* zone (AC2)
-    nudge_time = clock_minus(bedtime, WIND_DOWN_LEAD)
+    nudge_time = clock_minus(bedtime, timedelta(minutes=user.wind_down_lead_minutes))
     today = now.astimezone(user_zone).date()
     at = at_local_time(today, nudge_time, user_zone)
     if at.astimezone(UTC) <= now.astimezone(UTC):  # compare instants, not wall clocks

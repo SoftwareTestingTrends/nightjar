@@ -12,8 +12,8 @@ your laptop with no hardware, no phone and (by default) no API key.
 
 - **Sleep diary**: log nights (bedtime, wake time, time zone, journal notes) or import a CSV.
 - **Sleep window**: your usual bedtime is the median local bedtime of your last 14 nights.
-- **Wind-down nudge** (story S-114): 45 minutes before your usual bedtime, in your
-  current local time, silent during quiet hours.
+- **Wind-down nudge** (story S-114): 30, 45 or 60 minutes (your choice, default 45) before your usual
+  bedtime, in your current local time, silent during quiet hours.
 - **Claims register**: every phrase shown to users is checked against approved
   wellness phrases and banned disease claims (`claims/register.yaml`).
 - **AI sleep coach**: answers questions from your diary. Runs on a deterministic mock

@@ -5,6 +5,7 @@ from datetime import UTC, date, datetime, time, timedelta
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 MAX_NIGHT_LENGTH = timedelta(hours=16)
+ALLOWED_LEAD_MINUTES = (30, 45, 60)
 
 
 def zone(name: str) -> ZoneInfo:
@@ -62,3 +63,10 @@ class User:
     timezone: str  # where the user is now
     quiet_start: time | None = None  # Do Not Disturb, e.g. 23:00
     quiet_end: time | None = None  # e.g. 07:00
+    wind_down_lead_minutes: int = 45  # minutes before the usual bedtime
+
+    def __post_init__(self) -> None:
+        lead = self.wind_down_lead_minutes
+        if type(lead) is not int or lead not in ALLOWED_LEAD_MINUTES:
+            allowed = ", ".join(str(minutes) for minutes in ALLOWED_LEAD_MINUTES)
+            raise ValueError(f"Wind-down lead must be one of {allowed} minutes")

@@ -97,14 +97,18 @@ def create_app(
         timezone: str = Form(...),
         quiet_start: str = Form(""),
         quiet_end: str = Form(""),
+        wind_down_lead: str = Form(""),
     ):
+        saved = diary.user()
         try:
+            lead = int(wind_down_lead) if wind_down_lead.strip() else saved.wind_down_lead_minutes
             diary.save_user(
                 User(
-                    name=diary.user().name,
+                    name=saved.name,
                     timezone=timezone.strip(),
                     quiet_start=time.fromisoformat(quiet_start) if quiet_start else None,
                     quiet_end=time.fromisoformat(quiet_end) if quiet_end else None,
+                    wind_down_lead_minutes=lead,
                 )
             )
         except ValueError as error:
@@ -118,13 +122,15 @@ def create_app(
 
     @app.get("/api/nudge")
     def api_nudge():
-        nudge = next_nudge(diary.user(), diary.nights(), clock())
+        user = diary.user()
+        nudge = next_nudge(user, diary.nights(), clock())
         if nudge is None:
             return {"nudge": None, "reason": "Log at least 7 nights to get a nudge."}
         return {
             "nudge": {
                 "at": nudge.at.isoformat(),
                 "local_time": f"{nudge.at:%H:%M}",
+                "lead_minutes": user.wind_down_lead_minutes,
                 "silent": nudge.silent,
                 "text": nudge.text,
             }

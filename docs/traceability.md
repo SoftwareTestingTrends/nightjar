@@ -8,7 +8,7 @@ Test ids appear in test names, so `uv run pytest -k T_114_3` runs everything for
 
 | Criterion | Test id | Tests |
 |---|---|---|
-| AC1: 45 min before usual bedtime, current local time | T-114-1 | `tests/test_nudge.py::test_T_114_1_*`, `tests/test_api.py::test_T_114_1_import_csv_then_see_the_nudge`, `tests/e2e/test_add_night_e2e.py::test_T_114_1_e2e_*` |
+| AC1: `lead` min before usual bedtime (default 45), current local time | T-114-1 | `tests/test_nudge.py::test_T_114_1_*`, `tests/test_api.py::test_T_114_1_import_csv_then_see_the_nudge`, `tests/e2e/test_add_night_e2e.py::test_T_114_1_e2e_*` |
 | AC2: follows a time zone change from the next day | T-114-2 | `tests/test_nudge.py::test_T_114_2_*`, `tests/test_api.py::test_T_114_2_changing_time_zone_moves_the_nudge` |
 | AC3: silent during quiet hours, not skipped | T-114-3 | `tests/test_nudge.py::test_T_114_3_*`, `tests/test_api.py::test_T_114_3_quiet_hours_setting_makes_nudge_silent` |
 | AC4: copy only from the claims register | T-114-4 | `tests/test_nudge.py::test_T_114_4_*` |
