@@ -21,7 +21,7 @@
       <p class="big">Your next wind-down nudge: <strong data-testid="nudge-time">{{ nudge.at.strftime("%H:%M") }}</strong></p>
       <p data-testid="nudge-text">{{ nudge.text }}</p>
       {% if nudge.silent %}<p class="muted" data-testid="nudge-silent">Delivered silently (quiet hours).</p>{% endif %}
-      <p class="muted">{{ user.wind_down_lead_minutes }} min before your usual bedtime, {{ usual_bedtime.strftime("%H:%M") }} ·{{ user.timezone }}</p>
+      <p class="muted">{{ user.wind_down_lead_minutes }} min before your usual bedtime, {{ usual_bedtime.strftime("%H:%M") }} · {{ user.timezone }}</p>
     {% else %}
       <p class="big" data-testid="nudge-cold-start">Log {{ 7 - nights|length }} more night{{ "" if 7 - nights|length == 1 else "s" }} to get your wind-down nudge.</p>
     {% endif %}
