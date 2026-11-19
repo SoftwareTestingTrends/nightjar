@@ -1,0 +1,33 @@
+diff --git a/src/nightjar/nudge.py b/src/nightjar/nudge.py
+index afbfccd..59ee74c 100644
+--- a/src/nightjar/nudge.py
++++ b/src/nightjar/nudge.py
+@@ -67,6 +67,10 @@ def in_quiet_hours(user: User, clock_time: time) -> bool:
+ 
+ def nudge_text(bedtime: time, day: date) -> str:
+     """Pick approved copy from the claims register (AC4); it varies by day."""
+-    templates = load_register()["nudge_copy"]
++    templates = load_register().get("nudge_copy")
++    if not templates:
++        raise ValueError(
++            "claims/register.yaml has no nudge_copy entries; add at least one approved nudge phrase"
++        )
+     template = templates[day.toordinal() % len(templates)]
+     return template.format(bedtime=bedtime.strftime("%H:%M"))
+diff --git a/tests/test_nudge.py b/tests/test_nudge.py
+index 9d318f6..9fc69ed 100644
+--- a/tests/test_nudge.py
++++ b/tests/test_nudge.py
+@@ -127,6 +127,12 @@ def test_T_114_6_nudge_time_skipped_by_dst_moves_forward_an_hour(toronto_user):
+     assert nudge.at.astimezone(UTC) == datetime(2026, 3, 8, 7, 0, tzinfo=UTC)  # 03:00 EDT
+ 
+ 
++def test_T_114_4_empty_nudge_copy_fails_with_a_clear_error(toronto_user, monkeypatch):
++    monkeypatch.setattr("nightjar.nudge.load_register", lambda: {"nudge_copy": []})
++    with pytest.raises(ValueError, match="no nudge_copy entries"):
++        next_nudge(toronto_user, USUAL_23_00, now=local(TORONTO_TZ, 2026, 3, 20, 12, 0))
++
++
+ def test_naive_now_is_rejected(toronto_user):
+     with pytest.raises(ValueError, match="timezone-aware"):
+         next_nudge(toronto_user, USUAL_23_00, datetime(2026, 3, 20, 12, 0))  # noqa: DTZ001

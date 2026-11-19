@@ -1,0 +1,12 @@
+code1: 12 tests | misguided 0 | bug-finding 1 | fail on both 0
+   FINDS BUG test_T_114_3_silent_follows_the_delivered_time_when_dst_shifts_it_into_quiet_hours
+code2: 11 tests | misguided 0 | bug-finding 1 | fail on both 0
+   FINDS BUG test_T_114_3_skipped_hour_nudge_follows_the_time_it_is_actually_delivered
+code3: 8 tests | misguided 0 | bug-finding 1 | fail on both 0
+   FINDS BUG test_T_114_3_nudge_moved_by_spring_forward_gap_is_silent_if_delivered_in_quiet_hours
+spec1: 13 tests | misguided 0 | bug-finding 0 | fail on both 0
+spec2: 25 tests | misguided 0 | bug-finding 0 | fail on both 1
+   FAILS BOTH test_T_114_3_nudge_rolled_to_dst_day_keeps_its_silent_flag[toronto-fall-back]
+spec3: 15 tests | misguided 0 | bug-finding 2 | fail on both 0
+   FINDS BUG test_T_114_3_nudge_moved_forward_by_spring_forward_inside_quiet_hours_is_silent
+   FINDS BUG test_T_114_3_nudge_moved_forward_by_spring_forward_is_judged_at_its_real_time

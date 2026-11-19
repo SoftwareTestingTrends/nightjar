@@ -1,0 +1,130 @@
+diff --git a/.gitignore b/.gitignore
+index 684b51b..bd37762 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -6,5 +6,7 @@ __pycache__/
+ *.db
+ traces/*
+ !traces/.gitkeep
++logs/*
++!logs/.gitkeep
+ test-results/
+ .DS_Store
+diff --git a/docs/traceability.md b/docs/traceability.md
+index f9eb3c5..82fdd6b 100644
+--- a/docs/traceability.md
++++ b/docs/traceability.md
+@@ -22,7 +22,8 @@ midnight crossing, 14-night window, per-night zones), `tests/test_claims.py`,
+ ## Journal search (no story yet)
+ 
+ `GET /api/search?q=` and the home-page search box: `tests/test_search.py`
+-(typo tolerance, query echoed and escaped above results).
++(typo tolerance, query echoed and escaped above results, every non-empty search
++logged to `logs/search.log` as JSON lines: timestamp, query, result_count).
+ 
+ ## Coach (no story yet)
+ 
+diff --git a/src/nightjar/web.py b/src/nightjar/web.py
+index 0464d3f..49da6e4 100644
+--- a/src/nightjar/web.py
++++ b/src/nightjar/web.py
+@@ -3,6 +3,7 @@
+ Run with:  uv run uvicorn nightjar.web:create_app --factory --reload
+ """
+ 
++import json
+ import os
+ from collections.abc import Callable
+ from datetime import UTC, datetime, time
+@@ -23,6 +24,7 @@ from nightjar.search import search_nights
+ from nightjar.sleep_window import usual_bedtime
+ 
+ HERE = Path(__file__).parent
++DEFAULT_SEARCH_LOG_PATH = Path(os.environ.get("NIGHTJAR_SEARCH_LOG_PATH", "logs/search.log"))
+ Clock = Callable[[], datetime]
+ 
+ 
+@@ -44,11 +46,20 @@ def _night_json(night: Night) -> dict:
+     }
+ 
+ 
++def log_search(path: Path, now: datetime, query: str, result_count: int) -> None:
++    """Append one JSON line per search (JSON keeps odd characters in the query on one line)."""
++    path.parent.mkdir(parents=True, exist_ok=True)
++    record = {"timestamp": now.isoformat(), "query": query, "result_count": result_count}
++    with path.open("a", encoding="utf-8") as log_file:
++        log_file.write(json.dumps(record) + "\n")
++
++
+ def create_app(
+     diary: Diary | None = None,
+     coach: Coach | None = None,
+     clock: Clock = system_clock,
+     trace_path: Path = DEFAULT_TRACE_PATH,
++    search_log_path: Path = DEFAULT_SEARCH_LOG_PATH,
+ ) -> FastAPI:
+     diary = diary or Diary(os.environ.get("NIGHTJAR_DB", "nightjar.db"))
+     coach = coach or get_coach()
+@@ -68,11 +79,17 @@ def create_app(
+         }
+         return templates.TemplateResponse(request, "index.html", context, status_code=status_code)
+ 
++    def run_search(q: str) -> list[Night]:
++        results = search_nights(diary.nights(), q)
++        if q.strip():
++            log_search(search_log_path, clock(), q, len(results))
++        return results
++
+     @app.get("/", response_class=HTMLResponse)
+     def home(request: Request, q: str = ""):
+         if not q.strip():
+             return render(request)
+-        return render(request, search_query=q, search_results=search_nights(diary.nights(), q))
++        return render(request, search_query=q, search_results=run_search(q))
+ 
+     @app.post("/nights")
+     def add_night(
+@@ -145,7 +162,7 @@ def create_app(
+ 
+     @app.get("/api/search")
+     def api_search(q: str = ""):
+-        return {"query": q, "nights": [_night_json(n) for n in search_nights(diary.nights(), q)]}
++        return {"query": q, "nights": [_night_json(n) for n in run_search(q)]}
+ 
+     @app.post("/api/coach")
+     def api_coach(body: CoachQuestion):
+diff --git a/tests/test_search.py b/tests/test_search.py
+index 5f2dcd1..a2fc5ca 100644
+--- a/tests/test_search.py
++++ b/tests/test_search.py
+@@ -1,5 +1,6 @@
+ """Journal search: API and home page, using the real app with a temp database."""
+ 
++import json
+ from datetime import datetime
+ from zoneinfo import ZoneInfo
+ 
+@@ -20,6 +21,7 @@ def client(tmp_path):
+         coach=MockCoach(),
+         clock=lambda: NOON_IN_TORONTO,
+         trace_path=tmp_path / "coach.jsonl",
++        search_log_path=tmp_path / "logs" / "search.log",
+     )
+     return TestClient(app)
+ 
+@@ -51,3 +53,14 @@ def test_search_page_shows_escaped_query_above_results(client):
+     assert "&lt;b&gt;cofee" in page.text
+     assert "<b>cofee" not in page.text
+     assert 'data-testid="search-result"' in client.get("/", params={"q": "coffe"}).text
++
++
++def test_searches_are_logged_with_text_and_result_count(client, tmp_path):
++    add_note(client, "2026-03-01T23:00", "2026-03-02T07:00", "Had coffee late")
++    client.get("/api/search", params={"q": "cofee"})
++    client.get("/", params={"q": "zebra\nx"})
++    client.get("/api/search")  # empty query is not a search
++    lines = (tmp_path / "logs" / "search.log").read_text().splitlines()
++    records = [json.loads(line) for line in lines]
++    assert [(r["query"], r["result_count"]) for r in records] == [("cofee", 1), ("zebra\nx", 0)]
++    assert records[0]["timestamp"].startswith("2026-03-20T12:00")
+=== new file: logs/.gitkeep

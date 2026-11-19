@@ -1,0 +1,322 @@
+[
+ {
+  "task": "off-topic prompt change",
+  "run": "run-plain1",
+  "cost": 0.2122266,
+  "secs": 49.377,
+  "turns": 20,
+  "out": 5723,
+  "cache_read": 260083,
+  "cache_write": 25736
+ },
+ {
+  "task": "off-topic prompt change",
+  "run": "run-plain2",
+  "cost": 0.237313,
+  "secs": 61.736,
+  "turns": 22,
+  "out": 5867,
+  "cache_read": 339815,
+  "cache_write": 27659
+ },
+ {
+  "task": "off-topic prompt change",
+  "run": "run-plain3",
+  "cost": 0.20984000000000003,
+  "secs": 59.402,
+  "turns": 18,
+  "out": 5634,
+  "cache_read": 259920,
+  "cache_write": 25370
+ },
+ {
+  "task": "off-topic prompt change",
+  "run": "run-quick1",
+  "cost": 0.1513784,
+  "secs": 41.709,
+  "turns": 13,
+  "out": 3530,
+  "cache_read": 176712,
+  "cache_write": 20177
+ },
+ {
+  "task": "off-topic prompt change",
+  "run": "run-quick2",
+  "cost": 0.17588479999999998,
+  "secs": 49.363,
+  "turns": 14,
+  "out": 4593,
+  "cache_read": 185194,
+  "cache_write": 23222
+ },
+ {
+  "task": "off-topic prompt change",
+  "run": "run-quick3",
+  "cost": 0.1745434,
+  "secs": 50.161,
+  "turns": 15,
+  "out": 4767,
+  "cache_read": 181067,
+  "cache_write": 22658
+ },
+ {
+  "task": "crash fix (regression agent eval)",
+  "run": "run-crash1",
+  "cost": 0.1687096,
+  "secs": 72.438,
+  "turns": 15,
+  "out": 3234,
+  "cache_read": 246228,
+  "cache_write": 21772
+ },
+ {
+  "task": "crash fix (regression agent eval)",
+  "run": "run-crash2",
+  "cost": 0.1319904,
+  "secs": 117.052,
+  "turns": 14,
+  "out": 2895,
+  "cache_read": 210142,
+  "cache_write": 15244
+ },
+ {
+  "task": "off-topic change, new CLAUDE.md rule",
+  "run": "run-off1",
+  "cost": 0.0576532,
+  "secs": 52.26,
+  "turns": 5,
+  "out": 1104,
+  "cache_read": 52746,
+  "cache_write": 9013
+ },
+ {
+  "task": "off-topic change, new CLAUDE.md rule",
+  "run": "run-off2",
+  "cost": 0.08655539999999999,
+  "secs": 57.145,
+  "turns": 7,
+  "out": 1890,
+  "cache_read": 99637,
+  "cache_write": 11927
+ },
+ {
+  "task": "off-topic change, new CLAUDE.md rule",
+  "run": "run-off3",
+  "cost": 0.129462,
+  "secs": 150.607,
+  "turns": 8,
+  "out": 2641,
+  "cache_read": 145240,
+  "cache_write": 18495
+ },
+ {
+  "task": "stop the 'diagnose' fallback",
+  "run": "run-reg1",
+  "cost": 0.1256132,
+  "secs": 38.119,
+  "turns": 9,
+  "out": 2496,
+  "cache_read": 120886,
+  "cache_write": 19114
+ },
+ {
+  "task": "stop the 'diagnose' fallback",
+  "run": "run-reg2",
+  "cost": 0.148432,
+  "secs": 46.282,
+  "turns": 11,
+  "out": 2873,
+  "cache_read": 183330,
+  "cache_write": 20752
+ },
+ {
+  "task": "stop the 'diagnose' fallback",
+  "run": "run-reg3",
+  "cost": 0.162258,
+  "secs": 43.824,
+  "turns": 12,
+  "out": 3010,
+  "cache_read": 214030,
+  "cache_write": 22330
+ },
+ {
+  "task": "AI review of the summary",
+  "run": "review-sum1",
+  "cost": 0.1055938,
+  "secs": 28.984,
+  "turns": 3,
+  "out": 2867,
+  "cache_read": 62879,
+  "cache_write": 16084
+ },
+ {
+  "task": "AI review of the summary",
+  "run": "review-sum2",
+  "cost": 0.15024900000000002,
+  "secs": 29.456,
+  "turns": 7,
+  "out": 3215,
+  "cache_read": 171795,
+  "cache_write": 20929
+ },
+ {
+  "task": "AI review of the summary",
+  "run": "review-sum3",
+  "cost": 0.1918466,
+  "secs": 45.888,
+  "turns": 8,
+  "out": 4743,
+  "cache_read": 239323,
+  "cache_write": 24130
+ },
+ {
+  "task": "weekly summary endpoint",
+  "run": "run-sum1",
+  "cost": 0.1837146,
+  "secs": 37.479,
+  "turns": 10,
+  "out": 3817,
+  "cache_read": 212423,
+  "cache_write": 25758
+ },
+ {
+  "task": "weekly summary endpoint",
+  "run": "run-sum2",
+  "cost": 0.259096,
+  "secs": 64.231,
+  "turns": 17,
+  "out": 7737,
+  "cache_read": 318370,
+  "cache_write": 29503
+ },
+ {
+  "task": "weekly summary endpoint",
+  "run": "run-sum3",
+  "cost": 0.214546,
+  "secs": 53.507,
+  "turns": 12,
+  "out": 6165,
+  "cache_read": 245220,
+  "cache_write": 25955
+ },
+ {
+  "task": "production data repair",
+  "run": "run-advisory1",
+  "cost": 0.17961920000000003,
+  "secs": 42.074,
+  "turns": 15,
+  "out": 4158,
+  "cache_read": 320056,
+  "cache_write": 18495
+ },
+ {
+  "task": "production data repair",
+  "run": "run-advisory2",
+  "cost": 0.143078,
+  "secs": 36.042,
+  "turns": 8,
+  "out": 3296,
+  "cache_read": 203370,
+  "cache_write": 17353
+ },
+ {
+  "task": "production data repair",
+  "run": "run-hook1",
+  "cost": 0.1735772,
+  "secs": 37.229,
+  "turns": 11,
+  "out": 3780,
+  "cache_read": 296646,
+  "cache_write": 19101
+ },
+ {
+  "task": "production data repair",
+  "run": "run-hook2",
+  "cost": 0.1447536,
+  "secs": 38.217,
+  "turns": 9,
+  "out": 3458,
+  "cache_read": 199008,
+  "cache_write": 17585
+ },
+ {
+  "task": "production data repair",
+  "run": "run-readonly1",
+  "cost": 0.15739699999999998,
+  "secs": 39.74,
+  "turns": 10,
+  "out": 4159,
+  "cache_read": 205055,
+  "cache_write": 18691
+ },
+ {
+  "task": "production data repair",
+  "run": "run-readonly2",
+  "cost": 0.15585339999999995,
+  "secs": 36.266,
+  "turns": 12,
+  "out": 3227,
+  "cache_read": 263797,
+  "cache_write": 17696
+ },
+ {
+  "task": "journal search",
+  "run": "run-sec1",
+  "cost": 0.22438370000000002,
+  "secs": 70.791,
+  "turns": 19,
+  "out": 7564,
+  "cache_read": 289677,
+  "cache_write": 29935
+ },
+ {
+  "task": "journal search",
+  "run": "run-sec2",
+  "cost": 0.23873360000000002,
+  "secs": 74.664,
+  "turns": 17,
+  "out": 7810,
+  "cache_read": 352976,
+  "cache_write": 31324
+ },
+ {
+  "task": "journal search",
+  "run": "run-sec3",
+  "cost": 0.2150039,
+  "secs": 67.65,
+  "turns": 17,
+  "out": 6679,
+  "cache_read": 330019,
+  "cache_write": 28793
+ },
+ {
+  "task": "search logging",
+  "run": "run2-sec1",
+  "cost": 0.2072474,
+  "secs": 49.429,
+  "turns": 23,
+  "out": 6880,
+  "cache_read": 248474,
+  "cache_write": 28392
+ },
+ {
+  "task": "search logging",
+  "run": "run2-sec2",
+  "cost": 0.2163013,
+  "secs": 56.155,
+  "turns": 28,
+  "out": 7666,
+  "cache_read": 346453,
+  "cache_write": 26238
+ },
+ {
+  "task": "search logging",
+  "run": "run2-sec3",
+  "cost": 0.1858664,
+  "secs": 45.558,
+  "turns": 17,
+  "out": 5919,
+  "cache_read": 202324,
+  "cache_write": 26604
+ }
+]

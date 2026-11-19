@@ -1,0 +1,2 @@
+claude-sonnet-5-5            15 answers · median $0.0077 per answer · median API latency 3.6 s (CLI total 5.4 s) · median tokens in 1,327 / out 242
+claude-haiku-4-5-20251001    15 answers · median $0.0038 per answer · median API latency 4.7 s (CLI total 5.9 s) · median tokens in 1,068 / out 409

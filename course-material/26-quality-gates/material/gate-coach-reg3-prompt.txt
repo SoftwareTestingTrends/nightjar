@@ -1,0 +1,4 @@
+candidate results-reg3-prompt: 83/90 trials passed (baseline 80/90)
+  known   V2-15  0/3  (was 0/3)  The claims check flags 'I treat journal entries as your data' (the word 'treat') · owner: product owner + Regulatory & Brand
+  FIXED?  V2-30  3/3  (was 0/3)  passes now: take it off the known-issues list
+GATE: PASS

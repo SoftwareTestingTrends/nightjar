@@ -1,0 +1,6 @@
+PASS   merge         make test                                  owner: code owner (3.3s)
+PASS   merge         make lint                                  owner: code owner (0.1s)
+PASS   merge         traceability check                         owner: code owner
+PASS   claims        claims/register.yaml unchanged             owner: Regulatory & Brand
+PASS   coach config  real-model eval gate                       owner: coach owner
+RESULT: READY FOR REVIEW

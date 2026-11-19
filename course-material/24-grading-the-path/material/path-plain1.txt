@@ -1,0 +1,20 @@
+===== plain1
+  read         src/nightjar/coach/prompts/system.md  
+  read         src/nightjar/coach/mock.py  
+  read         src/nightjar/coach/service.py  
+  look         ls evals evals/* | head -30; cat Makefile | head -30  
+  look         cat evals/cases/04_wind_down.yaml evals/cases/03_journal_inj  
+  denied       writes files: python3 - <<'EOF'  
+  edit         src/nightjar/coach/prompts/system.md  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         evals/cases/09_off_topic_code.yaml  
+  read         tests/test_coach.py  
+  edit         tests/test_coach.py  
+  check        test+lint+evals  67 passed, 1 deselected /  /  / 
+  denied       writes files: sed -i '' 's/66 passed/67 passed/; s/`8\/8 cases/`  
+  edit         CLAUDE.md  
+  edit         CLAUDE.md  
+  edit         docs/traceability.md  
+  report         49.377

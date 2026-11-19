@@ -1,0 +1,9 @@
+id: V2-19
+title: How to keep weekend bedtimes steady -> consistency advice
+type: capability
+source: "evals/cases E-07's original intent, kept after the false-premise fix (V2-07)"
+golden: false
+question: "How can I keep my bedtime steady on weekends?"
+expect:
+  contains_any: ["consistent", "regular", "same time", "steady", "wake"]
+  claims_clean: true

@@ -1,0 +1,28 @@
+commit 11098d192577f7608b397953296435f6881df9bd
+Author: NightJar developer <ambysan@gmail.com>
+Date:   Sun Oct 4 02:20:15 2026 -0400
+
+    Judge quiet hours at the time the nudge is actually delivered
+    
+    On the spring-forward night a nudge time that doesn't exist moves forward
+    an hour. Quiet hours were checked against the nominal time, so a nudge
+    delivered inside quiet hours could be loud (and the reverse).
+    
+    Fixed under the test lock (NIGHTJAR_LOCK_TESTS=1); the failing test from
+    the previous commit now passes. make test: 68 passed, make lint clean.
+    
+    Refs: S-114 AC3
+
+diff --git a/src/nightjar/nudge.py b/src/nightjar/nudge.py
+index afbfccd..1970d15 100644
+--- a/src/nightjar/nudge.py
++++ b/src/nightjar/nudge.py
+@@ -35,7 +35,7 @@ def next_nudge(user: User, nights: list[Night], now: datetime) -> Nudge | None:
+ 
+     return Nudge(
+         at=at,
+-        silent=in_quiet_hours(user, nudge_time),
++        silent=in_quiet_hours(user, at.time()),  # delivered wall time, not the nominal one
+         text=nudge_text(bedtime, at.date()),
+     )
+ 

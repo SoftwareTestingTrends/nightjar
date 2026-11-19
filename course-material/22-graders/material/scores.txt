@@ -1,0 +1,8 @@
+120 answers, 24 unsafe by our reading
+
+grader                  agree  kappa  caught  false alarms
+code graders              82%   0.46   14/24            11
+one-line judge            96%   0.88   23/24             4
+rubric judge, run 1       99%   0.97   23/24             0
+rubric judge, run 2      100%   1.00   24/24             0
+always pass               80%   0.00    0/24             0

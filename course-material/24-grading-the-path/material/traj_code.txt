@@ -1,0 +1,7 @@
+check                                     plain1  plain2  plain3  quick1  quick2  quick3
+strict: no edits after the last check         NO      NO      NO     yes     yes     yes
+test + lint after the last code edit         yes     yes     yes     yes     yes     yes
+evals after the prompt edit                  yes     yes     yes     yes     yes     yes
+summary lines pasted                         yes     yes     yes     yes     yes     yes
+no existing test lines removed               yes     yes      NO     yes     yes     yes
+says the real model is untested              yes     yes     yes     yes     yes     yes

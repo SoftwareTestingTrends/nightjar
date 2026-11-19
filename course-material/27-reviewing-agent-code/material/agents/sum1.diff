@@ -1,0 +1,59 @@
+diff --git a/src/nightjar/web.py b/src/nightjar/web.py
+index 282193d..2e25a83 100644
+--- a/src/nightjar/web.py
++++ b/src/nightjar/web.py
+@@ -5,7 +5,7 @@ Run with:  uv run uvicorn nightjar.web:create_app --factory --reload
+ 
+ import os
+ from collections.abc import Callable
+-from datetime import UTC, datetime, time
++from datetime import UTC, datetime, time, timedelta
+ from pathlib import Path
+ 
+ from fastapi import FastAPI, Form, Request, UploadFile
+@@ -130,6 +130,21 @@ def create_app(
+             }
+         }
+ 
++    @app.get("/api/summary")
++    def api_summary():
++        now = clock()
++        all_nights = diary.nights()
++        # Compare instants (UTC), so the 7-day window is exact across DST.
++        recent = [n for n in all_nights if now - timedelta(days=7) <= n.bedtime <= now]
++        average = sum((n.duration for n in recent), timedelta()) / len(recent) if recent else None
++        bedtime = usual_bedtime(all_nights)
++        return {
++            "timezone": diary.user().timezone,
++            "nights_logged": len(recent),
++            "average_sleep_minutes": round(average.total_seconds() / 60) if average else None,
++            "usual_bedtime": f"{bedtime:%H:%M}" if bedtime else None,
++        }
++
+     @app.post("/api/coach")
+     def api_coach(body: CoachQuestion):
+         answer = ask_coach(coach, diary.nights(), body.question, trace_path)
+diff --git a/tests/test_api.py b/tests/test_api.py
+index a5a4e02..9a94bae 100644
+--- a/tests/test_api.py
++++ b/tests/test_api.py
+@@ -117,3 +117,19 @@ def test_coach_json_api(client):
+     response = client.post("/api/coach", json={"question": "I get chest pain at night"})
+     assert response.status_code == 200
+     assert "seek medical care" in response.json()["answer"]
++
++
++def test_summary_for_a_new_user(client):
++    summary = client.get("/api/summary").json()
++    assert summary["nights_logged"] == 0
++    assert summary["average_sleep_minutes"] is None
++    assert summary["usual_bedtime"] is None
++    assert summary["timezone"] == "America/Toronto"
++
++
++def test_summary_counts_only_the_last_seven_days(client):
++    import_sample(client)
++    summary = client.get("/api/summary").json()
++    assert summary["nights_logged"] == 7
++    assert summary["average_sleep_minutes"] > 0
++    assert summary["usual_bedtime"] == "23:00"

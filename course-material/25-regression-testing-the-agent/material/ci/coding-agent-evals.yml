@@ -1,0 +1,23 @@
+# .github/workflows/coding-agent-evals.yml (NightJar)
+# Runs agent tasks when the configuration that steers the coding agent changes.
+name: Coding-agent evals
+
+on:
+  pull_request:
+    paths:
+      - 'CLAUDE.md'
+      - '.claude/**'                      # skills, hooks, settings
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  agent-tasks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: npm install -g @anthropic-ai/claude-code
+      - name: Each task in a fresh clone, then check the clone and the transcript
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./evals/ci/run_agent_tasks.sh

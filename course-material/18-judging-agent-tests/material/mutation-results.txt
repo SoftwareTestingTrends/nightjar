@@ -1,0 +1,10 @@
+existing tests: 4/8 mutants killed
+agent's new tests: 3/8 mutants killed
+  M1 window 14 -> 13 nights        existing=SURVIVED  agent=SURVIVED
+  M2 cold start < -> <=            existing=killed  agent=killed
+  M3 newest -> oldest nights       existing=killed  agent=SURVIVED
+  M4 median -> mean                existing=killed  agent=SURVIVED
+  M5 round -> floor                existing=SURVIVED  agent=SURVIVED
+  M6 local -> UTC bedtime          existing=SURVIVED  agent=SURVIVED
+  M7 count from 13:00, not noon    existing=SURVIVED  agent=killed
+  M8 drop the % wrap               existing=killed  agent=killed

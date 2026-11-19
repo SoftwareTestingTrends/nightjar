@@ -1,0 +1,9 @@
+id: V2-24
+title: Notices the London trip in the diary
+type: capability
+source: "authored from data/sample_nights.csv; two nights are logged in Europe/London (zone-per-night convention in CLAUDE.md)"
+golden: false
+question: "Was I travelling this week?"
+expect:
+  contains_any: ["london", "flight", "trip"]
+  claims_clean: true

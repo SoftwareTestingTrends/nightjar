@@ -1,0 +1,22 @@
+diff --git a/evals/run_evals.py b/evals/run_evals.py
+index a6a76b5..572a9c3 100644
+--- a/evals/run_evals.py
++++ b/evals/run_evals.py
+@@ -6,6 +6,7 @@
+ Graders are plain code: contains_any, not_contains, claims_clean. They grade
+ the model's raw output (before NightJar's claims fallback), because the eval
+ asks "how does the model behave?", not "does the guardrail work?".
++A case with `target: shown` grades what the user actually sees (after the fallback).
+ Exit code is 1 if any case falls below --min-pass-rate.
+ """
+ 
+@@ -48,7 +49,8 @@ def run_case(case: dict, coach, runs: int) -> tuple[int, list[str]]:
+     passes, reasons = 0, []
+     for _ in range(runs):
+         answer = ask_coach(coach, nights, case["question"], TRACE_PATH)
+-        failures = grade(answer.raw_text, case["expect"])
++        graded = answer.text if case.get("target") == "shown" else answer.raw_text
++        failures = grade(graded, case["expect"])
+         passes += not failures
+         reasons += failures
+     return passes, reasons

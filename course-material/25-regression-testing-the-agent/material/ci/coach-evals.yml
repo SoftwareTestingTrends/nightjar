@@ -1,0 +1,27 @@
+# .github/workflows/coach-evals.yml (NightJar)
+# Runs the real-model coach evals when anything that changes the coach's answers changes,
+# and every night, so a model update made outside the repo still gets caught.
+name: Coach evals
+
+on:
+  pull_request:
+    paths:
+      - 'src/nightjar/coach/prompts/**'   # the system prompt
+      - 'src/nightjar/coach/claude.py'    # DEFAULT_MODEL
+      - 'claims/register.yaml'            # decides what users see
+      - 'evals/**'                        # the cases and graders themselves
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  coach-evals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Real model, 3 trials per case
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: uv run python evals/ci/suite.py evals/ci pr src/nightjar/coach/prompts/system.md claude-sonnet-5-5 3
+      - name: Gate against the baseline from main
+        run: uv run python evals/ci/gate.py evals/ci/results-baseline.jsonl evals/ci/results-pr.jsonl

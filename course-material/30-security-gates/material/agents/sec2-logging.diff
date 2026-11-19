@@ -1,0 +1,135 @@
+diff --git a/.gitignore b/.gitignore
+index 684b51b..95ff03b 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -6,5 +6,6 @@ __pycache__/
+ *.db
+ traces/*
+ !traces/.gitkeep
++logs/*
+ test-results/
+ .DS_Store
+diff --git a/src/nightjar/web.py b/src/nightjar/web.py
+index 0b2a116..8fa790d 100644
+--- a/src/nightjar/web.py
++++ b/src/nightjar/web.py
+@@ -3,6 +3,7 @@
+ Run with:  uv run uvicorn nightjar.web:create_app --factory --reload
+ """
+ 
++import json
+ import os
+ from collections.abc import Callable
+ from datetime import UTC, datetime, time
+@@ -23,6 +24,7 @@ from nightjar.search import search_nights
+ from nightjar.sleep_window import usual_bedtime
+ 
+ HERE = Path(__file__).parent
++DEFAULT_SEARCH_LOG_PATH = Path(os.environ.get("NIGHTJAR_SEARCH_LOG_PATH", "logs/search.log"))
+ Clock = Callable[[], datetime]
+ 
+ 
+@@ -39,6 +41,7 @@ def create_app(
+     coach: Coach | None = None,
+     clock: Clock = system_clock,
+     trace_path: Path = DEFAULT_TRACE_PATH,
++    search_log_path: Path = DEFAULT_SEARCH_LOG_PATH,
+ ) -> FastAPI:
+     diary = diary or Diary(os.environ.get("NIGHTJAR_DB", "nightjar.db"))
+     coach = coach or get_coach()
+@@ -58,13 +61,21 @@ def create_app(
+         }
+         return templates.TemplateResponse(request, "index.html", context, status_code=status_code)
+ 
++    def run_search(q: str) -> list[Night]:
++        results = search_nights(diary.nights(), q)
++        search_log_path.parent.mkdir(parents=True, exist_ok=True)
++        record = {"at": clock().isoformat(), "query": q, "results": len(results)}
++        with search_log_path.open("a", encoding="utf-8") as log_file:
++            log_file.write(json.dumps(record) + "\n")
++        return results
++
+     @app.get("/", response_class=HTMLResponse)
+     def home(request: Request):
+         return render(request)
+ 
+     @app.get("/search", response_class=HTMLResponse)
+     def search_page(request: Request, q: str = ""):
+-        return render(request, search=q, results=search_nights(diary.nights(), q))
++        return render(request, search=q, results=run_search(q))
+ 
+     @app.post("/nights")
+     def add_night(
+@@ -137,6 +148,7 @@ def create_app(
+ 
+     @app.get("/api/search")
+     def api_search(q: str = ""):
++        results = run_search(q)
+         return {
+             "query": q,
+             "nights": [
+@@ -148,7 +160,7 @@ def create_app(
+                     "timezone": night.timezone,
+                     "notes": night.notes,
+                 }
+-                for night in search_nights(diary.nights(), q)
++                for night in results
+             ],
+         }
+ 
+diff --git a/tests/e2e/test_add_night_e2e.py b/tests/e2e/test_add_night_e2e.py
+index 9171d9f..2fe1e07 100644
+--- a/tests/e2e/test_add_night_e2e.py
++++ b/tests/e2e/test_add_night_e2e.py
+@@ -31,6 +31,7 @@ def base_url(tmp_path):
+         coach=MockCoach(),
+         clock=lambda: NOON_IN_TORONTO,
+         trace_path=tmp_path / "coach.jsonl",
++        search_log_path=tmp_path / "search.log",
+     )
+     with socket.socket() as sock:
+         sock.bind(("127.0.0.1", 0))
+diff --git a/tests/test_api.py b/tests/test_api.py
+index a5a4e02..7deafa5 100644
+--- a/tests/test_api.py
++++ b/tests/test_api.py
+@@ -22,6 +22,7 @@ def client(tmp_path):
+         coach=MockCoach(),
+         clock=lambda: NOON_IN_TORONTO,
+         trace_path=tmp_path / "coach.jsonl",
++        search_log_path=tmp_path / "search.log",
+     )
+     return TestClient(app)
+ 
+diff --git a/tests/test_search.py b/tests/test_search.py
+index 538af04..098cdf3 100644
+--- a/tests/test_search.py
++++ b/tests/test_search.py
+@@ -1,5 +1,6 @@
+ """Journal search: unit tests for matching and API/page tests."""
+ 
++import json
+ from datetime import datetime
+ from zoneinfo import ZoneInfo
+ 
+@@ -19,6 +20,7 @@ def client(tmp_path):
+         coach=MockCoach(),
+         clock=lambda: datetime(2026, 3, 20, 12, 0, tzinfo=ZoneInfo("America/Toronto")),
+         trace_path=tmp_path / "coach.jsonl",
++        search_log_path=tmp_path / "search.log",
+     )
+     return TestClient(app)
+ 
+@@ -65,3 +67,12 @@ def test_search_page_shows_search_text_escaped_and_results(client):
+     evil = client.get("/search", params={"q": "<script>x</script>"})
+     assert "<script>x</script>" not in evil.text
+     assert "&lt;script&gt;" in evil.text
++
++
++def test_search_is_logged_with_text_and_result_count(client, tmp_path):
++    add_note(client, "2026-03-10", "Had coffee late")
++    client.get("/search", params={"q": "coffee"})
++    client.get("/api/search", params={"q": "zzzz\nx"})
++    lines = (tmp_path / "search.log").read_text().splitlines()
++    records = [json.loads(line) for line in lines]
++    assert [(r["query"], r["results"]) for r in records] == [("coffee", 1), ("zzzz\nx", 0)]

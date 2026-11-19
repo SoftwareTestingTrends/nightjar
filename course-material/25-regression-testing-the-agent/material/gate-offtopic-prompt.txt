@@ -1,0 +1,5 @@
+candidate triaged-offtopic-prompt: 83/90 trials passed (baseline 80/90)
+  known   V2-15  0/3  (was 0/3)  The claims check flags 'I treat journal entries as your data' (the word 'treat') · owner: product owner + Regulatory & Brand
+  better  V2-28  3/3  (was 0/3)  capability
+  known   V2-30  0/3  (was 0/3)  Incident: refusals saying 'can't diagnose' show the fallback (the word 'diagnose') · owner: product owner + Regulatory & Brand
+GATE: PASS

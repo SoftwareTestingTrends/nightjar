@@ -1,0 +1,144 @@
+diff --git a/docs/traceability.md b/docs/traceability.md
+index 9a408f7..7a8741b 100644
+--- a/docs/traceability.md
++++ b/docs/traceability.md
+@@ -19,6 +19,13 @@ Supporting tests (not tied to one AC): `tests/test_sleep_window.py` (median,
+ midnight crossing, 14-night window, per-night zones), `tests/test_claims.py`,
+ `tests/test_coach.py`, `tests/test_diary.py`.
+ 
++## Weekly summary (no story yet)
++
++`GET /api/summary` returns `nights_logged` and `average_sleep_minutes` for nights
++whose wake time falls in the 7 days up to now (`null` average when none).
++Covered by `tests/test_summary.py::test_T_201_*` and
++`tests/test_api.py::test_T_201_6_api_summary`.
++
+ ## Coach (no story yet)
+ 
+ Safety behaviour of the coach is covered by `evals/cases/E-01..E-08` (run with
+diff --git a/src/nightjar/web.py b/src/nightjar/web.py
+index 282193d..f4d58a4 100644
+--- a/src/nightjar/web.py
++++ b/src/nightjar/web.py
+@@ -20,6 +20,7 @@ from nightjar.diary import Diary, local_input_to_aware, parse_csv
+ from nightjar.models import Night, User
+ from nightjar.nudge import next_nudge
+ from nightjar.sleep_window import usual_bedtime
++from nightjar.summary import weekly_summary
+ 
+ HERE = Path(__file__).parent
+ Clock = Callable[[], datetime]
+@@ -130,6 +131,14 @@ def create_app(
+             }
+         }
+ 
++    @app.get("/api/summary")
++    def api_summary():
++        summary = weekly_summary(diary.nights(), clock())
++        return {
++            "nights_logged": summary.nights_logged,
++            "average_sleep_minutes": summary.average_sleep_minutes,
++        }
++
+     @app.post("/api/coach")
+     def api_coach(body: CoachQuestion):
+         answer = ask_coach(coach, diary.nights(), body.question, trace_path)
+diff --git a/tests/test_api.py b/tests/test_api.py
+index a5a4e02..dd90ef6 100644
+--- a/tests/test_api.py
++++ b/tests/test_api.py
+@@ -117,3 +117,16 @@ def test_coach_json_api(client):
+     response = client.post("/api/coach", json={"question": "I get chest pain at night"})
+     assert response.status_code == 200
+     assert "seek medical care" in response.json()["answer"]
++
++
++def test_T_201_6_api_summary(client):
++    assert client.get("/api/summary").json() == {
++        "nights_logged": 0,
++        "average_sleep_minutes": None,
++    }
++
++    import_sample(client)
++    # Nights waking 03-14..03-20 fall in the 7 days before the fixed clock.
++    body = client.get("/api/summary").json()
++    assert body["nights_logged"] == 7
++    assert body["average_sleep_minutes"] == 479  # 3350 minutes over 7 nights = 478.6
+=== new file: src/nightjar/summary.py
+"""Weekly summary: how many nights were logged in the last 7 days, and the average sleep."""
+
+from dataclasses import dataclass
+from datetime import UTC, datetime, timedelta
+
+from nightjar.models import Night
+
+WINDOW = timedelta(days=7)
+
+
+@dataclass(frozen=True)
+class WeeklySummary:
+    nights_logged: int
+    average_sleep_minutes: int | None  # None when no nights were logged
+
+
+def weekly_summary(nights: list[Night], now: datetime) -> WeeklySummary:
+    """Nights whose wake time falls in the 7 x 24 hours up to `now`.
+
+    Compared as UTC instants, so DST and the user's zone don't shift the window.
+    """
+    if now.tzinfo is None:
+        raise ValueError("now must be timezone-aware")
+    end = now.astimezone(UTC)
+    start = end - WINDOW
+    recent = [n for n in nights if start < n.wake_time.astimezone(UTC) <= end]
+    if not recent:
+        return WeeklySummary(0, None)
+    total = sum((n.duration for n in recent), timedelta())
+    return WeeklySummary(len(recent), round(total / len(recent) / timedelta(minutes=1)))
+=== new file: tests/test_summary.py
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+import pytest
+from builders import LONDON, TORONTO, night
+
+from nightjar.models import Night
+from nightjar.summary import weekly_summary
+
+NOW = datetime(2026, 3, 20, 12, 0, tzinfo=ZoneInfo(TORONTO))
+
+
+def test_T_201_1_counts_and_averages_last_7_days():
+    nights = [
+        night("2026-03-19", "23:00", hours=8),
+        night("2026-03-18", "23:00", hours=7),
+        night("2026-03-10", "23:00", hours=4),  # too old
+    ]
+    summary = weekly_summary(nights, NOW)
+    assert summary.nights_logged == 2
+    assert summary.average_sleep_minutes == 450
+
+
+def test_T_201_2_no_nights_means_no_average():
+    summary = weekly_summary([night("2026-03-01", "23:00")], NOW)
+    assert (summary.nights_logged, summary.average_sleep_minutes) == (0, None)
+
+
+def test_T_201_3_window_edge_is_exclusive_and_future_nights_ignored():
+    wakes_exactly_7_days_ago = night("2026-03-12", "04:00", hours=8)  # wakes 03-13 12:00
+    not_yet_woken = night("2026-03-20", "23:00")
+    assert weekly_summary([wakes_exactly_7_days_ago, not_yet_woken], NOW).nights_logged == 0
+
+
+def test_T_201_4_dst_night_uses_real_duration():
+    # Toronto springs forward on 2026-03-08: 23:00 -> 07:00 is 7 real hours.
+    start = datetime(2026, 3, 7, 23, 0, tzinfo=ZoneInfo(TORONTO))
+    wake = datetime(2026, 3, 8, 7, 0, tzinfo=ZoneInfo(TORONTO))
+    now = datetime(2026, 3, 9, 12, 0, tzinfo=ZoneInfo(LONDON))
+    stay = Night(bedtime=start, wake_time=wake, timezone=TORONTO)
+    assert weekly_summary([stay], now).average_sleep_minutes == 420
+
+
+def test_T_201_5_naive_now_rejected():
+    with pytest.raises(ValueError):
+        weekly_summary([], datetime(2026, 3, 20, 12, 0))

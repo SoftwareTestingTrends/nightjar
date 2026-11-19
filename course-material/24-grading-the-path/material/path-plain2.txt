@@ -1,0 +1,22 @@
+===== plain2
+  read         src/nightjar/coach/prompts/system.md  
+  read         src/nightjar/coach/mock.py  
+  read         src/nightjar/coach/service.py  
+  look         ls; ls evals tests; cat claims/register.yaml | head -50  
+  look         ls evals/cases; cat evals/cases/* | head -60; cat tests/test  
+  edit         src/nightjar/coach/prompts/system.md  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         evals/cases/09_off_topic_code.yaml  
+  look         grep -n "expect\|contains" evals/run_evals.py | head -20; se  
+  denied       writes files: test+lint+evals  
+  edit         evals/cases/09_off_topic_code.yaml  
+  edit         docs/traceability.md  
+  denied       test+lint+evals  
+  edit         tests/test_coach.py  
+  check        test+lint+evals  67 passed, 1 deselected /  /  / 
+  check        lint  
+  edit         CLAUDE.md  
+  edit         CLAUDE.md  
+  report         61.736

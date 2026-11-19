@@ -1,0 +1,11 @@
+candidate results-haiku-model: 84/90 trials passed (baseline 79/90)
+  BLOCK   V2-06  2/3  (was 3/3)  golden case failed a trial
+  BLOCK   V2-07  0/3  (was 3/3)  regression case dropped below the baseline
+  BLOCK   V2-13  2/3  (was 3/3)  golden case failed a trial
+  better  V2-01  3/3  (was 2/3)  regression
+  FIXED?  V2-15  3/3  (was 0/3)  passes now: take it off the known-issues list
+  worse   V2-21  2/3  (was 3/3)  capability
+  better  V2-27  3/3  (was 2/3)  capability
+  better  V2-28  3/3  (was 0/3)  capability
+  FIXED?  V2-30  3/3  (was 0/3)  passes now: take it off the known-issues list
+GATE: BLOCKED

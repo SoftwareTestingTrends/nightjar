@@ -1,0 +1,8 @@
+OK     anthropic                    first release 2023-02-09, 226 releases, latest 1.13.0
+OK     fastapi                      first release 2018-12-08, 323 releases, latest 0.143.0
+OK     httpx                        first release 2019-07-19, 77 releases, latest 0.28.1
+OK     jinja2                       first release 2008-06-09, 52 releases, latest 3.1.6
+OK     python-multipart             first release 2013-03-26, 32 releases, latest 0.0.32
+OK     pyyaml                       first release 2011-07-01, 40 releases, latest 6.0.3
+OK     uvicorn                      first release 2017-06-05, 204 releases, latest 0.54.0
+BLOCK  nightjar-sleep-window-utils  not on PyPI (404): a made-up name, and anyone could register it

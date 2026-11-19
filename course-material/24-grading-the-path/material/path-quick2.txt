@@ -1,0 +1,15 @@
+===== quick2
+  look         cat src/nightjar/coach/prompts/system.md && cat src/nightjar  
+  look         ls evals/cases; head -30 evals/cases/* | head -60; grep -n "  
+  look         sed -n 10,45p tests/test_coach.py; sed -n 18,30p docs/tracea  
+  denied       writes files: test  
+  edit         src/nightjar/coach/prompts/system.md  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         tests/test_coach.py  
+  edit         evals/cases/09_off_topic_code.yaml  
+  edit         docs/traceability.md  
+  edit         CLAUDE.md  
+  check        test+lint+evals  67 passed, 1 deselected /  / 
+  report         49.363

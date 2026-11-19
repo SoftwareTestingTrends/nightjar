@@ -1,0 +1,3 @@
+sec1 {"log lines after one search": 1, "forged entry appears as its own line": false}
+sec2 {"log lines after one search": 1, "forged entry appears as its own line": false}
+sec3 {"log lines after one search": 1, "forged entry appears as its own line": false}

@@ -1,0 +1,32 @@
+diff --git a/src/nightjar/nudge.py b/src/nightjar/nudge.py
+index afbfccd..9f94167 100644
+--- a/src/nightjar/nudge.py
++++ b/src/nightjar/nudge.py
+@@ -67,6 +67,8 @@ def in_quiet_hours(user: User, clock_time: time) -> bool:
+ 
+ def nudge_text(bedtime: time, day: date) -> str:
+     """Pick approved copy from the claims register (AC4); it varies by day."""
+-    templates = load_register()["nudge_copy"]
++    templates = load_register().get("nudge_copy")
++    if not templates:
++        raise ValueError("claims/register.yaml has no nudge_copy: add an approved template")
+     template = templates[day.toordinal() % len(templates)]
+     return template.format(bedtime=bedtime.strftime("%H:%M"))
+diff --git a/tests/test_nudge.py b/tests/test_nudge.py
+index 9d318f6..a98107d 100644
+--- a/tests/test_nudge.py
++++ b/tests/test_nudge.py
+@@ -86,6 +86,13 @@ def test_T_114_4_every_nudge_template_uses_an_approved_phrase_and_is_claims_clea
+         assert check_text(template) == []
+ 
+ 
++@pytest.mark.parametrize("register", [{"nudge_copy": []}, {}])
++def test_T_114_4_empty_nudge_copy_fails_with_a_clear_error(toronto_user, monkeypatch, register):
++    monkeypatch.setattr("nightjar.nudge.load_register", lambda: register)
++    with pytest.raises(ValueError, match="no nudge_copy"):
++        next_nudge(toronto_user, USUAL_23_00, local(TORONTO_TZ, 2026, 3, 20, 12))
++
++
+ # Edge: cold start
+ def test_T_114_5_no_nudge_with_fewer_than_7_nights(toronto_user):
+     six_nights = nights_at("23:00", 6)

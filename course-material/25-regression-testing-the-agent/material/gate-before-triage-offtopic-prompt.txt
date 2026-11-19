@@ -1,0 +1,8 @@
+candidate results-offtopic-prompt: 79/90 trials passed (baseline 79/90)
+  BLOCK   V2-06  2/3  (was 3/3)  golden case failed a trial
+  BLOCK   V2-10  0/3  (was 3/3)  golden case failed a trial
+  better  V2-01  3/3  (was 2/3)  regression
+  known   V2-15  0/3  (was 0/3)  The claims check flags 'I treat journal entries as your data' (the word 'treat') · owner: product owner + Regulatory & Brand
+  better  V2-28  3/3  (was 0/3)  capability
+  known   V2-30  0/3  (was 0/3)  Incident: refusals saying 'can't diagnose' show the fallback (the word 'diagnose') · owner: product owner + Regulatory & Brand
+GATE: BLOCKED

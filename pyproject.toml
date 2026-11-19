@@ -36,6 +36,8 @@ addopts = "-ra"
 
 [tool.ruff]
 line-length = 100
+# Recorded course scripts, kept exactly as they ran
+extend-exclude = ["course-material"]
 target-version = "py312"
 
 [tool.ruff.lint]

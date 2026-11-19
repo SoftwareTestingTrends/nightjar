@@ -1,0 +1,201 @@
+diff --git a/docs/traceability.md b/docs/traceability.md
+index 9a408f7..36c9962 100644
+--- a/docs/traceability.md
++++ b/docs/traceability.md
+@@ -17,7 +17,7 @@ Test ids appear in test names, so `uv run pytest -k T_114_3` runs everything for
+ 
+ Supporting tests (not tied to one AC): `tests/test_sleep_window.py` (median,
+ midnight crossing, 14-night window, per-night zones), `tests/test_claims.py`,
+-`tests/test_coach.py`, `tests/test_diary.py`.
++`tests/test_coach.py`, `tests/test_diary.py`, `tests/test_search.py` (journal search).
+ 
+ ## Coach (no story yet)
+ 
+diff --git a/src/nightjar/search.py b/src/nightjar/search.py
+new file mode 100644
+index 0000000..8c82994
+--- /dev/null
++++ b/src/nightjar/search.py
+@@ -0,0 +1,33 @@
++"""Journal search: every word of the query must match a word in the note, typos allowed."""
++
++import re
++from difflib import SequenceMatcher
++
++from nightjar.models import Night
++
++MIN_SIMILARITY = 0.8  # "cofee" ~ "coffee" is 0.91; "tea" vs "ten" is 0.67
++MIN_FUZZY_LENGTH = 4  # short words must match exactly, or "bed" would match "red"
++
++
++def _words(text: str) -> list[str]:
++    return re.findall(r"\w+", text.casefold())
++
++
++def _word_matches(query_word: str, note_word: str) -> bool:
++    if query_word in note_word:
++        return True
++    if len(query_word) < MIN_FUZZY_LENGTH:
++        return False
++    return SequenceMatcher(None, query_word, note_word).ratio() >= MIN_SIMILARITY
++
++
++def matches(notes: str, query: str) -> bool:
++    query_words = _words(query)
++    note_words = _words(notes)
++    return bool(query_words) and all(
++        any(_word_matches(q, w) for w in note_words) for q in query_words
++    )
++
++
++def search_nights(nights: list[Night], query: str) -> list[Night]:
++    return [night for night in nights if matches(night.notes, query)]
+diff --git a/src/nightjar/templates/index.html b/src/nightjar/templates/index.html
+index 374fdc3..0a2a4cc 100644
+--- a/src/nightjar/templates/index.html
++++ b/src/nightjar/templates/index.html
+@@ -64,6 +64,24 @@
+     </section>
+   </div>
+ 
++  <section class="panel">
++    <h2>Search journal</h2>
++    <form method="get" action="/search" data-testid="search-form">
++      <input type="search" name="q" value="{{ search or '' }}" required data-testid="search-input">
++      <button data-testid="search-submit">Search</button>
++    </form>
++    {% if search is defined %}
++      <p data-testid="search-text">Results for: {{ search }}</p>
++      <ul data-testid="search-results">
++      {% for night in results %}
++        <li data-testid="search-result">{{ night.night_of.strftime("%a %d %b") }}: {{ night.notes }}</li>
++      {% else %}
++        <li class="muted" data-testid="search-empty">No matching nights.</li>
++      {% endfor %}
++      </ul>
++    {% endif %}
++  </section>
++
+   <section class="panel">
+     <h2>Sleep diary</h2>
+     <table data-testid="diary-table">
+diff --git a/src/nightjar/web.py b/src/nightjar/web.py
+index 282193d..0b2a116 100644
+--- a/src/nightjar/web.py
++++ b/src/nightjar/web.py
+@@ -19,6 +19,7 @@ from nightjar.coach.service import DEFAULT_TRACE_PATH
+ from nightjar.diary import Diary, local_input_to_aware, parse_csv
+ from nightjar.models import Night, User
+ from nightjar.nudge import next_nudge
++from nightjar.search import search_nights
+ from nightjar.sleep_window import usual_bedtime
+ 
+ HERE = Path(__file__).parent
+@@ -61,6 +62,10 @@ def create_app(
+     def home(request: Request):
+         return render(request)
+ 
++    @app.get("/search", response_class=HTMLResponse)
++    def search_page(request: Request, q: str = ""):
++        return render(request, search=q, results=search_nights(diary.nights(), q))
++
+     @app.post("/nights")
+     def add_night(
+         request: Request,
+@@ -130,6 +135,23 @@ def create_app(
+             }
+         }
+ 
++    @app.get("/api/search")
++    def api_search(q: str = ""):
++        return {
++            "query": q,
++            "nights": [
++                {
++                    "id": night.id,
++                    "night_of": night.night_of.isoformat(),
++                    "bedtime": night.local_bedtime.isoformat(),
++                    "wake_time": night.local_wake_time.isoformat(),
++                    "timezone": night.timezone,
++                    "notes": night.notes,
++                }
++                for night in search_nights(diary.nights(), q)
++            ],
++        }
++
+     @app.post("/api/coach")
+     def api_coach(body: CoachQuestion):
+         answer = ask_coach(coach, diary.nights(), body.question, trace_path)
+diff --git a/tests/test_search.py b/tests/test_search.py
+new file mode 100644
+index 0000000..538af04
+--- /dev/null
++++ b/tests/test_search.py
+@@ -0,0 +1,67 @@
++"""Journal search: unit tests for matching and API/page tests."""
++
++from datetime import datetime
++from zoneinfo import ZoneInfo
++
++import pytest
++from fastapi.testclient import TestClient
++
++from nightjar.coach import MockCoach
++from nightjar.diary import Diary
++from nightjar.search import matches
++from nightjar.web import create_app
++
++
++@pytest.fixture
++def client(tmp_path):
++    app = create_app(
++        diary=Diary(tmp_path / "test.db"),
++        coach=MockCoach(),
++        clock=lambda: datetime(2026, 3, 20, 12, 0, tzinfo=ZoneInfo("America/Toronto")),
++        trace_path=tmp_path / "coach.jsonl",
++    )
++    return TestClient(app)
++
++
++def add_note(client, day, notes):
++    return client.post(
++        "/nights",
++        data={
++            "bedtime": day + "T23:00",
++            "wake_time": day + "T23:30",
++            "timezone": "America/Toronto",
++            "notes": notes,
++        },
++    )
++
++
++def test_matches_exact_case_insensitive_and_typos():
++    assert matches("Had Coffee late", "coffee")
++    assert matches("Had coffee late", "cofee")
++    assert matches("Had coffee late", "coffe late")
++    assert not matches("Had coffee late", "tea")
++    assert not matches("Had coffee late", "   ")
++
++
++def test_short_words_need_exact_match():
++    assert not matches("red light", "bed")
++
++
++def test_search_api_tolerates_typos(client):
++    add_note(client, "2026-03-10", "Had coffee late, restless")
++    add_note(client, "2026-03-11", "Read a book, slept well")
++    body = client.get("/api/search", params={"q": "cofee"}).json()
++    assert body["query"] == "cofee"
++    assert [n["notes"] for n in body["nights"]] == ["Had coffee late, restless"]
++    assert client.get("/api/search", params={"q": "zzzz"}).json()["nights"] == []
++    assert client.get("/api/search").json()["nights"] == []
++
++
++def test_search_page_shows_search_text_escaped_and_results(client):
++    add_note(client, "2026-03-10", "Had coffee late")
++    page = client.get("/search", params={"q": "coffee"})
++    assert "Results for: coffee" in page.text
++    assert "Had coffee late" in page.text
++    evil = client.get("/search", params={"q": "<script>x</script>"})
++    assert "<script>x</script>" not in evil.text
++    assert "&lt;script&gt;" in evil.text

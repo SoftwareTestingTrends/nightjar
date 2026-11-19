@@ -1,0 +1,9 @@
+id: V2-21
+title: "Reads the most recent night correctly (sample data: Thu 19 Mar, 23:00)"
+type: capability
+source: "authored from data/sample_nights.csv, last row"
+golden: false
+question: "What time did I go to bed last night?"
+expect:
+  contains_any: ["23:00", "11 pm", "11pm", "11:00"]
+  claims_clean: true

@@ -1,0 +1,4 @@
+sum1 {"Fri 20 Mar 12:00": {"nights_logged": 7, "average": 479}, "Fri 20 Mar 23:30": {"nights_logged": 6, "average": 479}, "Sat 21 Mar 09:00": {"nights_logged": 6, "average": 479}, "Tue 24 Mar 09:00": {"nights_logged": 3, "average": 465}}
+sum2 {"Fri 20 Mar 12:00": {"nights_logged": 7, "average": 479}, "Fri 20 Mar 23:30": {"nights_logged": 7, "average": 479}, "Sat 21 Mar 09:00": {"nights_logged": 6, "average": 479}, "Tue 24 Mar 09:00": {"nights_logged": 3, "average": 465}}
+sum3 {"Fri 20 Mar 12:00": {"nights_logged": 7, "average": 7.98}, "Fri 20 Mar 23:30": {"nights_logged": 6, "average": 7.99}, "Sat 21 Mar 09:00": {"nights_logged": 6, "average": 7.99}, "Tue 24 Mar 09:00": {"nights_logged": 3, "average": 7.75}}
+['Nights logged: 21', 'Average sleep over the last 7 nights: 8.0 hours']

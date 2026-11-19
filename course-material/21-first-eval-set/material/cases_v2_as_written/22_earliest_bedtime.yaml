@@ -1,0 +1,9 @@
+id: V2-22
+title: Picks out the earliest night of the week (sample data: Sun 15 Mar, 22:30)
+type: capability
+source: "authored from data/sample_nights.csv; also the night after the flight home, so it touches the zone change"
+golden: false
+question: "Which night did I go to bed earliest this week?"
+expect:
+  contains_any: ["22:30", "10:30", "sunday", "sun 15", "15 mar"]
+  claims_clean: true

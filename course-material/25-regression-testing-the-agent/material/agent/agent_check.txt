@@ -1,0 +1,6 @@
+check                                       off1    off2    off3  crash1  crash2
+make test passes (our run)                   yes     yes     yes     yes     yes
+make lint passes (our run)                   yes     yes     yes     yes     yes
+test + lint after the last code edit         yes     yes     yes     yes     yes
+mock coach left alone                        yes     yes     yes       -       -
+report: real-model eval still needed         yes     yes     yes       -       -

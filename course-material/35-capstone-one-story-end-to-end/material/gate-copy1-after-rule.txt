@@ -1,0 +1,10 @@
+BLOCK  merge         make test                                  owner: code owner (2.1s)
+         make: *** [test] Error 1
+PASS   merge         make lint                                  owner: code owner (0.1s)
+PASS   merge         traceability check                         owner: code owner
+BLOCK  claims        new copy passes check_text                 owner: Regulatory & Brand
+         '- "Time to wind down. A regular bedtime improves your sleep quality. Your usual bedtime is {bedtime}."': ['claim-sleep-benefit']
+NEEDS  claims        user-facing copy changed                   owner: Regulatory & Brand
+         claims/register.yaml; new text: - "Time to wind down. A regular bedtime improves your sleep quality. Your usual bedtime is {bedtime}."
+PASS   coach config  real-model eval gate                       owner: coach owner
+RESULT: BLOCKED

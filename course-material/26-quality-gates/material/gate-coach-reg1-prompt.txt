@@ -1,0 +1,6 @@
+candidate results-reg1-prompt: 88/90 trials passed (baseline 80/90)
+  FIXED?  V2-15  3/3  (was 0/3)  passes now: take it off the known-issues list
+  better  V2-27  3/3  (was 2/3)  capability
+  better  V2-28  2/3  (was 0/3)  capability
+  known   V2-30  2/3  (was 0/3)  Incident: refusals saying 'can't diagnose' show the fallback (the word 'diagnose') · owner: product owner + Regulatory & Brand
+GATE: PASS

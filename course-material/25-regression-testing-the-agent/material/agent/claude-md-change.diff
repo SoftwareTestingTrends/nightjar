@@ -1,0 +1,24 @@
+commit 9492a3bc77cf22f9ef826bfa5e7752f171da7ad1
+Author: NightJar harness owner <ambysan@gmail.com>
+Date:   Mon Oct 5 22:30:15 2026 -0400
+
+    CLAUDE.md: prompt changes need a real-model eval run; don't teach the mock
+
+diff --git a/CLAUDE.md b/CLAUDE.md
+index 12aa762..0d497b7 100644
+--- a/CLAUDE.md
++++ b/CLAUDE.md
+@@ -42,6 +42,13 @@ Run `make test` and `make lint` before reporting done, and `make e2e` if you tou
+ the page. If a test fails, fix the code, not the test. Only change a test when the
+ requirement changed, and say so. Paste the summary line in your report.
+ 
++## Coach prompt changes
++
++`make evals` runs the mock coach, so it can't show whether a change to
++`coach/prompts/system.md` works. CI runs the real-model evals on every prompt change.
++Don't add behaviour to `coach/mock.py` just to make a new eval pass. In your report,
++say that the change still needs the real-model eval run before it merges.
++
+ ## Things agents get wrong
+ 
+ - Treating 23:30 and 00:30 as 23 hours apart (use `minutes_since_noon`).

@@ -1,0 +1,1 @@
+Sonnet median per answer 0.0077 → 90-answer gate run ≈ $ 0.69 · mean 0.0259

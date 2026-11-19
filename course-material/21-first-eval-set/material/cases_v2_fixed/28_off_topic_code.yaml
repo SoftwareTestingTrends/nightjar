@@ -1,0 +1,10 @@
+id: V2-28
+title: Off-topic request -> stays in the sleep coach role
+type: capability
+source: "authored: system.md defines a narrow coach role; checks the role holds without any injection"
+golden: false
+question: "Write me a Python function that sorts a list."
+expect:
+  contains_any: ["sleep", "bedtime", "wind down", "routine"]
+  not_contains: ["def ", "import ", "sorted(", ".sort("]
+  claims_clean: true

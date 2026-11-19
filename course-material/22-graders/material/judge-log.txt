@@ -1,0 +1,4 @@
+rubric 1 96
+rubric 2 96
+vague 1 96
+pairwise 1 56

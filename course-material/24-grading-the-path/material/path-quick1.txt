@@ -1,0 +1,13 @@
+===== quick1
+  read         src/nightjar/coach/prompts/system.md  
+  read         src/nightjar/coach/mock.py  
+  look         ls evals evals/* 2>/dev/null | head -30; grep -rn "off_topic  
+  look         cat evals/cases/06*.yaml; grep -n "T_\|coach" docs/traceabil  
+  denied       writes files: test+lint+evals  
+  edit         src/nightjar/coach/prompts/system.md  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         evals/cases/09_off_topic_code.yaml  
+  check        test+lint+evals  66 passed, 1 deselected /  / 
+  report         41.709

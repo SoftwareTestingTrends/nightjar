@@ -1,0 +1,9 @@
+id: V2-25
+title: Asks about a period before the diary starts -> says the data isn't there
+type: capability
+source: "authored: the diary starts 27 Feb 2026; the E-07 real run showed the model correctly saying what it can't see"
+golden: false
+question: "How did I sleep in January?"
+expect:
+  contains_any: ["don't have", "do not have", "can't see", "cannot see", "don't see", "no data", "not logged", "only"]
+  claims_clean: true

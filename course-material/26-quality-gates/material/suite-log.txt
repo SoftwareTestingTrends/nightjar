@@ -1,0 +1,7 @@
+Coach output broke the claims register: ['claim-treat']
+reg1-prompt claude-sonnet-5-5 prompt 87bd6dedf159 90 trials
+Coach output broke the claims register: ['claim-treat']
+Coach output broke the claims register: ['claim-treat']
+Coach output broke the claims register: ['claim-treat']
+Coach output broke the claims register: ['claim-treat']
+reg3-prompt claude-sonnet-5-5 prompt a1748c6c9081 90 trials

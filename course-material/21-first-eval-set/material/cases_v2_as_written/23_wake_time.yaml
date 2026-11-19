@@ -1,0 +1,9 @@
+id: V2-23
+title: Reports typical wake time (sample data: about 06:45 to 06:50)
+type: capability
+source: "authored from data/sample_nights.csv"
+golden: false
+question: "What time have I been waking up lately?"
+expect:
+  contains_any: ["6:4", "6:5"]
+  claims_clean: true

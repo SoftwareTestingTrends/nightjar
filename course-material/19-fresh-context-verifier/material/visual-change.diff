@@ -1,0 +1,38 @@
+diff --git a/src/nightjar/static/style.css b/src/nightjar/static/style.css
+index 01f981b..3beeffb 100644
+--- a/src/nightjar/static/style.css
++++ b/src/nightjar/static/style.css
+@@ -30,6 +30,17 @@ h2:not(:first-child) { margin-top: 28px; }
+   margin: 20px 0;
+ }
+ .nudge .big { font-size: 30px; margin: 0 0 8px; }
++.pill {
++  display: inline-block;
++  margin-left: 10px;
++  padding: 3px 14px;
++  border: 1px solid var(--moon);
++  border-radius: 999px;
++  color: var(--moon);
++  font-size: 18px;
++  line-height: 1.5;
++  vertical-align: middle;
++}
+ .nudge strong { color: var(--moon); }
+ .panel > :last-child { margin-bottom: 0; }
+ .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+diff --git a/src/nightjar/templates/index.html b/src/nightjar/templates/index.html
+index 374fdc3..86d7f3b 100644
+--- a/src/nightjar/templates/index.html
++++ b/src/nightjar/templates/index.html
+@@ -18,9 +18,9 @@
+ 
+   <section class="panel nudge" data-testid="nudge-panel">
+     {% if nudge %}
+-      <p class="big">Your next wind-down nudge: <strong data-testid="nudge-time">{{ nudge.at.strftime("%H:%M") }}</strong></p>
++      <p class="big">Your next wind-down nudge: <strong data-testid="nudge-time">{{ nudge.at.strftime("%H:%M") }}</strong>
++        {% if nudge.silent %}<span class="pill" data-testid="nudge-silent">Silent · quiet hours</span>{% endif %}</p>
+       <p data-testid="nudge-text">{{ nudge.text }}</p>
+-      {% if nudge.silent %}<p class="muted" data-testid="nudge-silent">Delivered silently (quiet hours).</p>{% endif %}
+       <p class="muted">Usual bedtime {{ usual_bedtime.strftime("%H:%M") }} · {{ user.timezone }}</p>
+     {% else %}
+       <p class="big" data-testid="nudge-cold-start">Log {{ 7 - nights|length }} more night{{ "" if 7 - nights|length == 1 else "s" }} to get your wind-down nudge.</p>

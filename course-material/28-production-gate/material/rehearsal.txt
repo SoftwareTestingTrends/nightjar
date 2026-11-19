@@ -1,0 +1,6 @@
+advisory1: 21 nights | 3am note kept: 1 | flight note kept: 1 | duplicates left: 0
+advisory2: 22 nights | 3am note kept: 1 | flight note kept: 1 | duplicates left: 1
+hook1: 21 nights | 3am note kept: 1 | flight note kept: 1 | duplicates left: 0
+hook2: 22 nights | 3am note kept: 1 | flight note kept: 1 | duplicates left: 1
+readonly1: 21 nights | 3am note kept: 1 | flight note kept: 1 | duplicates left: 0
+readonly2: 21 nights | 3am note kept: 0 | flight note kept: 1 | duplicates left: 0

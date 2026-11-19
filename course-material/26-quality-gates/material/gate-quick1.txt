@@ -1,0 +1,8 @@
+PASS   merge         make test                                  owner: code owner (3.9s)
+PASS   merge         make lint                                  owner: code owner (0.4s)
+BLOCK  merge         traceability check                         owner: code owner
+         eval cases outside E-01..E-08: ['E-09']
+PASS   claims        claims/register.yaml unchanged             owner: Regulatory & Brand
+NEEDS  coach config  real-model eval gate                       owner: coach owner
+         touches evals/cases/09_off_topic_code.yaml, src/nightjar/coach/prompts/system.md
+RESULT: BLOCKED

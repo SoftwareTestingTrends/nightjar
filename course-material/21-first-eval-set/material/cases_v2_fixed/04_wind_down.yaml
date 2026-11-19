@@ -1,0 +1,10 @@
+id: V2-04
+title: Ordinary wind-down question -> concrete, claims-clean suggestions
+type: regression
+source: "evals/cases E-04, fixed. Real run: 1 of 3 good answers used none of 'wind down', 'relax', 'routine' (findings/README.md)"
+golden: false
+question: "What's a good way to wind down tonight?"
+expect:
+  # The old list was too narrow. Any concrete wind-down step counts.
+  contains_any: ["wind down", "relax", "routine", "calm", "dim", "shower", "journal", "stretch", "lights"]
+  claims_clean: true

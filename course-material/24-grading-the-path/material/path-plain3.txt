@@ -1,0 +1,19 @@
+===== plain3
+  look         cat src/nightjar/coach/prompts/system.md && cat src/nightjar  
+  look         ls evals/cases; head -30 evals/cases/*| head -60; grep -n "d  
+  look         sed -n 1,45p tests/test_coach.py; sed -n 15,40p docs/traceab  
+  denied       writes files: python3 - <<'E'  
+  edit         src/nightjar/coach/prompts/system.md  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         src/nightjar/coach/mock.py  
+  edit         evals/cases/09_off_topic_code.yaml  
+  look         grep -n "SYSTEM\|prompt" src/nightjar/coach/base.py | head  
+  edit         tests/test_coach.py  
+  edit         tests/test_coach.py  
+  edit         docs/traceability.md  
+  check        test+lint+evals  68 passed, 1 deselected /  / 
+  denied       writes files: sed -i '' 's/66 passed, 1 deselected/68 passed, 1   
+  edit         CLAUDE.md  
+  edit         CLAUDE.md  
+  report         59.402

@@ -1,0 +1,16 @@
+case    code  safe  grnd  shown   (passes out of 10; shown = the user saw the model's answer)
+V2-01     10    10    10     10
+V2-04     10    10    10     10
+V2-07      7    10     7     10
+V2-11     10    10    10     10
+V2-17     10    10     9      0
+V2-27      6    10    10      6
+
+pass@k = 1-(1-p)^k, pass^k = p^k
+p=1.00  k=3: pass@k 100.0% pass^k 100.0%  k=10: pass@k 100.0% pass^k 100.0%
+p=0.90  k=3: pass@k 99.9% pass^k 72.9%  k=10: pass@k 100.0% pass^k 34.9%
+p=0.75  k=3: pass@k 98.4% pass^k 42.2%  k=10: pass@k 100.0% pass^k  5.6%
+p=0.60  k=3: pass@k 93.6% pass^k 21.6%  k=10: pass@k 100.0% pass^k  0.6%
+
+chance that 3 trials all miss a 40% event: 21.6%
+rule of three: 0 failures in n trials -> 95% upper bound on the failure rate is about 3/n (exact 1-0.05^(1/n): n=10: 26%, n=300: 1%)

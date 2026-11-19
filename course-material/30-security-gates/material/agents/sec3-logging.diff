@@ -1,0 +1,124 @@
+diff --git a/.gitignore b/.gitignore
+index 684b51b..ad1edf6 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -5,6 +5,7 @@ __pycache__/
+ .ruff_cache/
+ *.db
+ traces/*
++logs/
+ !traces/.gitkeep
+ test-results/
+ .DS_Store
+diff --git a/src/nightjar/search.py b/src/nightjar/search.py
+index 2e5fb06..2df996c 100644
+--- a/src/nightjar/search.py
++++ b/src/nightjar/search.py
+@@ -1,10 +1,15 @@
+ """Journal search: every word of the query must match a word in the note, typos allowed."""
+ 
++import json
++import os
+ import re
++from datetime import datetime
+ from difflib import SequenceMatcher
++from pathlib import Path
+ 
+ from nightjar.models import Night
+ 
++DEFAULT_SEARCH_LOG_PATH = Path(os.environ.get("NIGHTJAR_SEARCH_LOG_PATH", "logs/search.log"))
+ MIN_SIMILARITY = 0.8
+ MIN_FUZZY_LENGTH = 4  # shorter words must match exactly (or as a prefix): "bad" is not "bed"
+ 
+@@ -31,3 +36,11 @@ def note_matches(query: str, notes: str) -> bool:
+ 
+ def search_nights(nights: list[Night], query: str) -> list[Night]:
+     return [night for night in nights if note_matches(query, night.notes)]
++
++
++def log_search(path: Path, query: str, result_count: int, now: datetime) -> None:
++    """Append one JSON line per search (JSON keeps a query with newlines on one line)."""
++    record = {"at": now.isoformat(), "query": query, "results": result_count}
++    path.parent.mkdir(parents=True, exist_ok=True)
++    with path.open("a", encoding="utf-8") as log_file:
++        log_file.write(json.dumps(record) + "\n")
+diff --git a/src/nightjar/web.py b/src/nightjar/web.py
+index ea34bcf..119378d 100644
+--- a/src/nightjar/web.py
++++ b/src/nightjar/web.py
+@@ -19,7 +19,7 @@ from nightjar.coach.service import DEFAULT_TRACE_PATH
+ from nightjar.diary import Diary, local_input_to_aware, parse_csv
+ from nightjar.models import Night, User
+ from nightjar.nudge import next_nudge
+-from nightjar.search import search_nights
++from nightjar.search import DEFAULT_SEARCH_LOG_PATH, log_search, search_nights
+ from nightjar.sleep_window import usual_bedtime
+ 
+ HERE = Path(__file__).parent
+@@ -39,6 +39,7 @@ def create_app(
+     coach: Coach | None = None,
+     clock: Clock = system_clock,
+     trace_path: Path = DEFAULT_TRACE_PATH,
++    search_log_path: Path = DEFAULT_SEARCH_LOG_PATH,
+ ) -> FastAPI:
+     diary = diary or Diary(os.environ.get("NIGHTJAR_DB", "nightjar.db"))
+     coach = coach or get_coach()
+@@ -49,9 +50,12 @@ def create_app(
+     def render(request: Request, status_code: int = 200, **extra) -> HTMLResponse:
+         user, nights = diary.user(), diary.nights()
+         search = request.query_params.get("q", "").strip()
++        search_results = search_nights(nights, search) if search else None
++        if search_results is not None:
++            log_search(search_log_path, search, len(search_results), clock())
+         context = {
+             "search": search,
+-            "search_results": search_nights(nights, search) if search else None,
++            "search_results": search_results,
+             "user": user,
+             "nights": nights,
+             "usual_bedtime": usual_bedtime(nights),
+@@ -123,6 +127,8 @@ def create_app(
+     @app.get("/api/search")
+     def api_search(q: str = ""):
+         found = search_nights(diary.nights(), q.strip())
++        if q.strip():
++            log_search(search_log_path, q.strip(), len(found), clock())
+         return {
+             "q": q,
+             "nights": [
+diff --git a/tests/test_api.py b/tests/test_api.py
+index 14d5a55..8505a11 100644
+--- a/tests/test_api.py
++++ b/tests/test_api.py
+@@ -1,5 +1,6 @@
+ """API tests: the real app with a temp database, a fixed clock and the mock coach."""
+ 
++import json
+ from datetime import datetime
+ from pathlib import Path
+ from zoneinfo import ZoneInfo
+@@ -22,6 +23,7 @@ def client(tmp_path):
+         coach=MockCoach(),
+         clock=lambda: NOON_IN_TORONTO,
+         trace_path=tmp_path / "coach.jsonl",
++        search_log_path=tmp_path / "logs" / "search.log",
+     )
+     return TestClient(app)
+ 
+@@ -143,6 +145,16 @@ def test_search_finds_notes_and_tolerates_typos(client):
+     assert search(client, "") == []
+ 
+ 
++def test_searches_are_logged_with_text_and_result_count(client, tmp_path):
++    add_note(client, 10, "Drank coffee late")
++    search(client, "cofee")
++    client.get("/", params={"q": "zebra"})
++    search(client, "")
++    lines = (tmp_path / "logs" / "search.log").read_text().splitlines()
++    records = [json.loads(line) for line in lines]
++    assert [(r["query"], r["results"]) for r in records] == [("cofee", 1), ("zebra", 0)]
++
++
+ def test_search_page_shows_escaped_query_above_results(client):
+     add_note(client, 10, "Drank coffee late")
+     page = client.get("/", params={"q": "<b>coffee"})

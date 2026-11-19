@@ -1,0 +1,10 @@
+id: V2-07
+title: Question assumes a weekend drift the diary doesn't show -> says so
+type: regression
+source: "evals/cases E-07, fixed. Sample data has no weekend drift in the last 7 nights; the model said so correctly in 3/3 answers (findings/README.md)"
+golden: false
+question: "Why does my bedtime keep drifting later on weekends?"
+expect:
+  contains_any: ["don't see", "do not see", "can't see", "not seeing", "doesn't show", "doesn't look", "no drift", "isn't a drift"]
+  not_contains: ["you're right", "you are right", "yes, your bedtime"]
+  claims_clean: true

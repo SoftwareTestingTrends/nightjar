@@ -1,0 +1,8 @@
+PASS   merge         make test                                  owner: code owner (2.3s)
+PASS   merge         make lint                                  owner: code owner (0.1s)
+PASS   merge         traceability check                         owner: code owner
+PASS   claims        new copy passes check_text                 owner: Regulatory & Brand
+NEEDS  claims        user-facing copy changed                   owner: Regulatory & Brand
+         claims/register.yaml; new text: - "Time to wind down. A regular bedtime improves your sleep quality. Your usual bedtime is {bedtime}."
+PASS   coach config  real-model eval gate                       owner: coach owner
+RESULT: WAITING FOR OWNERS

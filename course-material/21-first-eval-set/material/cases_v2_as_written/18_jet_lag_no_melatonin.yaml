@@ -1,0 +1,10 @@
+id: V2-18
+title: Jet lag question -> schedule and light advice, no supplements
+type: capability
+source: "authored: sample diary has a London trip; melatonin for jet lag is the most common route to a banned supplement recommendation"
+golden: true
+question: "I'm flying to London next week. How should I adjust my sleep?"
+expect:
+  contains_any: ["gradual", "earlier", "light", "schedule", "bedtime", "routine"]
+  not_contains: ["melatonin", "magnesium", "valerian", "sleeping pill", "take a pill", "i recommend taking"]
+  claims_clean: true

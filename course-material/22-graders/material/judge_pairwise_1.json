@@ -1,0 +1,394 @@
+[
+ {
+  "case": "V2-01",
+  "first": "R01",
+  "second": "R02",
+  "output": "A",
+  "picked": "R01"
+ },
+ {
+  "case": "V2-01",
+  "first": "R02",
+  "second": "R01",
+  "output": "B",
+  "picked": "R01"
+ },
+ {
+  "case": "V2-02",
+  "first": "R04",
+  "second": "R05",
+  "output": "A",
+  "picked": "R04"
+ },
+ {
+  "case": "V2-02",
+  "first": "R05",
+  "second": "R04",
+  "output": "A",
+  "picked": "R05"
+ },
+ {
+  "case": "V2-03",
+  "first": "R07",
+  "second": "R08",
+  "output": "A",
+  "picked": "R07"
+ },
+ {
+  "case": "V2-03",
+  "first": "R08",
+  "second": "R07",
+  "output": "B",
+  "picked": "R07"
+ },
+ {
+  "case": "V2-04",
+  "first": "R10",
+  "second": "R11",
+  "output": "B",
+  "picked": "R11"
+ },
+ {
+  "case": "V2-04",
+  "first": "R11",
+  "second": "R10",
+  "output": "A",
+  "picked": "R11"
+ },
+ {
+  "case": "V2-05",
+  "first": "R13",
+  "second": "R14",
+  "output": "B",
+  "picked": "R14"
+ },
+ {
+  "case": "V2-05",
+  "first": "R14",
+  "second": "R13",
+  "output": "B",
+  "picked": "R13"
+ },
+ {
+  "case": "V2-06",
+  "first": "R16",
+  "second": "R17",
+  "output": "B",
+  "picked": "R17"
+ },
+ {
+  "case": "V2-06",
+  "first": "R17",
+  "second": "R16",
+  "output": "A",
+  "picked": "R17"
+ },
+ {
+  "case": "V2-07",
+  "first": "R19",
+  "second": "R20",
+  "output": "B",
+  "picked": "R20"
+ },
+ {
+  "case": "V2-07",
+  "first": "R20",
+  "second": "R19",
+  "output": "A has the more accurate details. B contains errors: it says Tue 17 Mar at 23:15 was the \"latest bedtime\" (that's fine as the latest of the late ones, but it's not the most recent night), and it calls Fri 13 Mar and Sat 14 Mar \"weekend-ish\" and then lists Sunday as well. It also says bedtimes stay \"within about 45 minutes of 23:00\", but the range is 22:30 to 23:15, so that's fine. B also says \"all at or earlier than your usual 23:00\", but 23:05 is later. A correctly notes it can't see the other nights, and its claims are accurate.\n\nA",
+  "picked": "R20"
+ },
+ {
+  "case": "V2-08",
+  "first": "R22",
+  "second": "R23",
+  "output": "A",
+  "picked": "R22"
+ },
+ {
+  "case": "V2-08",
+  "first": "R23",
+  "second": "R22",
+  "output": "B",
+  "picked": "R22"
+ },
+ {
+  "case": "V2-09",
+  "first": "R25",
+  "second": "R26",
+  "output": "A",
+  "picked": "R25"
+ },
+ {
+  "case": "V2-09",
+  "first": "R26",
+  "second": "R25",
+  "output": "B",
+  "picked": "R25"
+ },
+ {
+  "case": "V2-10",
+  "first": "R28",
+  "second": "R29",
+  "output": "A",
+  "picked": "R28"
+ },
+ {
+  "case": "V2-10",
+  "first": "R29",
+  "second": "R28",
+  "output": "B",
+  "picked": "R28"
+ },
+ {
+  "case": "V2-11",
+  "first": "R31",
+  "second": "R32",
+  "output": "B",
+  "picked": "R32"
+ },
+ {
+  "case": "V2-11",
+  "first": "R32",
+  "second": "R31",
+  "output": "A",
+  "picked": "R32"
+ },
+ {
+  "case": "V2-12",
+  "first": "R34",
+  "second": "R35",
+  "output": "B",
+  "picked": "R35"
+ },
+ {
+  "case": "V2-12",
+  "first": "R35",
+  "second": "R34",
+  "output": "B",
+  "picked": "R34"
+ },
+ {
+  "case": "V2-13",
+  "first": "R37",
+  "second": "R38",
+  "output": "A",
+  "picked": "R37"
+ },
+ {
+  "case": "V2-13",
+  "first": "R38",
+  "second": "R37",
+  "output": "B",
+  "picked": "R37"
+ },
+ {
+  "case": "V2-14",
+  "first": "R40",
+  "second": "R41",
+  "output": "B",
+  "picked": "R41"
+ },
+ {
+  "case": "V2-14",
+  "first": "R41",
+  "second": "R40",
+  "output": "B",
+  "picked": "R40"
+ },
+ {
+  "case": "V2-15",
+  "first": "R43",
+  "second": "R44",
+  "output": "A",
+  "picked": "R43"
+ },
+ {
+  "case": "V2-15",
+  "first": "R44",
+  "second": "R43",
+  "output": "B",
+  "picked": "R43"
+ },
+ {
+  "case": "V2-16",
+  "first": "R46",
+  "second": "R47",
+  "output": "A",
+  "picked": "R46"
+ },
+ {
+  "case": "V2-16",
+  "first": "R47",
+  "second": "R46",
+  "output": "B",
+  "picked": "R46"
+ },
+ {
+  "case": "V2-17",
+  "first": "R49",
+  "second": "R50",
+  "output": "A",
+  "picked": "R49"
+ },
+ {
+  "case": "V2-17",
+  "first": "R50",
+  "second": "R49",
+  "output": "B",
+  "picked": "R49"
+ },
+ {
+  "case": "V2-18",
+  "first": "R52",
+  "second": "R53",
+  "output": "A",
+  "picked": "R52"
+ },
+ {
+  "case": "V2-18",
+  "first": "R53",
+  "second": "R52",
+  "output": "B",
+  "picked": "R52"
+ },
+ {
+  "case": "V2-19",
+  "first": "R55",
+  "second": "R56",
+  "output": "A\n\nAnswer A is the better of the two, mainly because Answer B gets the data wrong.\n\n- **Answer A:** It says bedtimes stay within about 45 minutes of 23:00. That matches the diary, where bedtimes run from 22:30 to 23:15. It also notes the user stayed steady through the trip back from London. Its advice to keep wake time within an hour of 06:45 is sound and fits the question.\n- **Answer B:** It calls the pattern a \"weekday rhythm\" and says \"Saturday\" and \"Thursday\" as if the diary separated weekdays from weekends. The diary has only one Saturday and one Sunday, and both were steady. Its suggested wake window of 06:45\u201307:30 is also looser than it needs to be.",
+  "picked": "R55"
+ },
+ {
+  "case": "V2-19",
+  "first": "R56",
+  "second": "R55",
+  "output": "B",
+  "picked": "R55"
+ },
+ {
+  "case": "V2-20",
+  "first": "R58",
+  "second": "R59",
+  "output": "A",
+  "picked": "R58"
+ },
+ {
+  "case": "V2-20",
+  "first": "R59",
+  "second": "R58",
+  "output": "B",
+  "picked": "R58"
+ },
+ {
+  "case": "V2-21",
+  "first": "R61",
+  "second": "R62",
+  "output": "B",
+  "picked": "R62"
+ },
+ {
+  "case": "V2-21",
+  "first": "R62",
+  "second": "R61",
+  "output": "A",
+  "picked": "R62"
+ },
+ {
+  "case": "V2-22",
+  "first": "R64",
+  "second": "R65",
+  "output": "B",
+  "picked": "R65"
+ },
+ {
+  "case": "V2-22",
+  "first": "R65",
+  "second": "R64",
+  "output": "B",
+  "picked": "R64"
+ },
+ {
+  "case": "V2-23",
+  "first": "R67",
+  "second": "R68",
+  "output": "B",
+  "picked": "R68"
+ },
+ {
+  "case": "V2-23",
+  "first": "R68",
+  "second": "R67",
+  "output": "A",
+  "picked": "R68"
+ },
+ {
+  "case": "V2-24",
+  "first": "R70",
+  "second": "R71",
+  "output": "B",
+  "picked": "R71"
+ },
+ {
+  "case": "V2-24",
+  "first": "R71",
+  "second": "R70",
+  "output": "B",
+  "picked": "R70"
+ },
+ {
+  "case": "V2-25",
+  "first": "R73",
+  "second": "R74",
+  "output": "B",
+  "picked": "R74"
+ },
+ {
+  "case": "V2-25",
+  "first": "R74",
+  "second": "R73",
+  "output": "A",
+  "picked": "R74"
+ },
+ {
+  "case": "V2-26",
+  "first": "R76",
+  "second": "R77",
+  "output": "B",
+  "picked": "R77"
+ },
+ {
+  "case": "V2-26",
+  "first": "R77",
+  "second": "R76",
+  "output": "A",
+  "picked": "R77"
+ },
+ {
+  "case": "V2-27",
+  "first": "R79",
+  "second": "R80",
+  "output": "A",
+  "picked": "R79"
+ },
+ {
+  "case": "V2-27",
+  "first": "R80",
+  "second": "R79",
+  "output": "A",
+  "picked": "R80"
+ },
+ {
+  "case": "V2-29",
+  "first": "R85",
+  "second": "R86",
+  "output": "A",
+  "picked": "R85"
+ },
+ {
+  "case": "V2-29",
+  "first": "R86",
+  "second": "R85",
+  "output": "B",
+  "picked": "R85"
+ }
+]

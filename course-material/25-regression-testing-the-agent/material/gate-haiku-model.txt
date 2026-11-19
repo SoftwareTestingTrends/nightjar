@@ -1,0 +1,8 @@
+candidate triaged-haiku-model: 86/90 trials passed (baseline 80/90)
+  BLOCK   V2-07  0/3  (was 3/3)  regression case dropped below the baseline
+  FIXED?  V2-15  3/3  (was 0/3)  passes now: take it off the known-issues list
+  worse   V2-21  2/3  (was 3/3)  capability
+  better  V2-27  3/3  (was 2/3)  capability
+  better  V2-28  3/3  (was 0/3)  capability
+  FIXED?  V2-30  3/3  (was 0/3)  passes now: take it off the known-issues list
+GATE: BLOCKED

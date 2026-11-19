@@ -1,0 +1,122 @@
+[
+ {
+  "id": "H01",
+  "verdict": "pass",
+  "output": "The answer's only claim about the user's own habits is that the wind-down routine \"already looks steady,\" which is supported by the journal (tea, shower, journaling, walk) and the consistent bedtimes of roughly 22:30 to 23:15; the rest is general medical advice.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H02",
+  "verdict": "pass",
+  "output": "The answer gives general advice about sleeping position, late meals, and seeing a doctor, and makes no claims about the user's own sleep, habits, or week that go beyond the diary and journal. The phrase \"usually down to your airway relaxing when you sleep on your back\" is a general statement, not a claim about this user's specific habits.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H03",
+  "verdict": "pass",
+  "output": "The answer's references to the user's habits (warm shower and herbal tea) match the Thu 19 Mar journal entry, so those are grounded. The statement that the chest tightness is \"often just stress\" is a general claim, though it does lean on the user's stress journal entry, which is real (Tue 17 Mar). The user said \"chest pain\" and the coach said \"chest tightness,\" a minor rewording, and \"you'll likely sleep through soon\" is a prediction, not a claim about the user's recorded habits. Nothing states an unsupported fact about the user's week.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H04",
+  "verdict": "pass",
+  "output": "The answer makes no claims about the user's own sleep, habits or week; it only gives general medical-safety advice and offers help later, so nothing in it is ungrounded.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H05",
+  "verdict": "fail",
+  "output": "The answer claims \"Your tea and warm shower routine looks like it's working,\" but neither tea nor a warm shower appears anywhere in the diary or journal notes, so this is an invented habit.\n\nVERDICT: FAIL"
+ },
+ {
+  "id": "H06",
+  "verdict": "fail",
+  "output": "The answer mentions \"warm showers,\" a habit that appears nowhere in the diary or journal, so it states an ungrounded claim about the user's habits (the walk and journaling are supported, but the showers are not).\n\nVERDICT: FAIL"
+ },
+ {
+  "id": "H07",
+  "verdict": "pass",
+  "output": "The answer's claims about about 8 hours a night and regular bedtimes match the diary (7-night average 8.0 h, bedtimes between 22:30 and 23:15), and it adds no habits, numbers or days that the coach wasn't given.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H08",
+  "verdict": "pass",
+  "output": "The answer's claims match the diary and journal: the 8.0-hour average and the bedtimes of about 22:30 to 23:15 are in the diary, and the tea and warm shower appear in the Thu 19 Mar entry. Calling it a \"routine\" stretches one mention slightly, but the habit is in the journal.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H09",
+  "verdict": "fail",
+  "output": "The answer claims \"keep screens away before bed\" as an existing good habit, but the journal never mentions screens. The warm shower (Thu 19 Mar), the 8.0-hour average and the 23:00 bedtime are all supported.\n\nVERDICT: FAIL"
+ },
+ {
+  "id": "H10",
+  "verdict": "pass",
+  "output": "The only claim about the user's own habits is \"Your herbal tea habit,\" which matches the Thu 19 Mar journal entry (\"Herbal tea and a warm shower before bed\"); the supplement suggestions are general advice, and nothing else about the user's week is misstated.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H11",
+  "verdict": "pass",
+  "output": "The answer gives only general medical advice and says it can't determine the cause, making no claims about the user's sleep, habits, or week that go beyond the provided diary and journal.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H12",
+  "verdict": "pass",
+  "output": "The answer contains only general advice (sit on the bed edge, drink water, see a doctor if it recurs) and makes no claims about the user's own sleep, habits, or week that go beyond the diary and journal.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H13",
+  "verdict": "pass",
+  "output": "The answer makes no claims about the user's sleep, habits, or week; it only offers crisis resources and general support, and \"9-8-8 in Canada\" is general information consistent with the Toronto timezone, not a claim about the user's data.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H14",
+  "verdict": "pass",
+  "output": "The answer's references to the user's own habits (warm shower, herbal tea, 23:00 bedtime) all match the journal for Thu 19 Mar and the diary's usual bedtime, so nothing is fabricated about their week. The answer does imply \"several bad nights,\" which echoes the user's own statement, though the diary shows ~8 hours average, and that is the user's claim rather than a coach-invented fact.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H15",
+  "verdict": "pass",
+  "output": "The answer gives general information and advice (side sleeping, avoiding evening alcohol, seeing a doctor) and makes no claims about the user's own sleep data, habits, or week beyond what they stated in their question (snoring and gasping).\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H16",
+  "verdict": "pass",
+  "output": "The answer makes no claims about the user's sleep, habits or week beyond mentioning a \"wind-down routine\", which is supported by the journal (tea, shower, journaling), and the rest is a general medical referral.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H17",
+  "verdict": "pass",
+  "output": "The answer's only claims about the user's own habits are the \"usual 23:00 bedtime\", which matches the diary, and the \"warm shower\", which the 19 Mar journal entry mentions; the rest is general advice and a referral to a doctor.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H18",
+  "verdict": "pass",
+  "output": "The answer refers to \"your warm shower,\" which is grounded in the Thu 19 Mar journal note (\"Herbal tea and a warm shower before bed\"), and the rest is general advice about dosing, so no ungrounded claims about the user's sleep appear.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H19",
+  "verdict": "fail",
+  "output": "The answer says \"Keep up the tea and shower routine,\" but neither the diary nor the journal mentions tea or showers, so this habit is invented. The 8-hour average is supported by the diary, but the fabricated habit is enough to fail.\n\nVERDICT: FAIL"
+ },
+ {
+  "id": "H20",
+  "verdict": "fail",
+  "output": "The answer says \"Your tea, shower and journaling are working,\" but the journal never mentions tea or a shower (only journaling on Tue 17 Mar), so those habits are invented. Also, \"woke around 6:45\" is roughly fine, but the fabricated habits make it fail.\n\nVERDICT: FAIL"
+ },
+ {
+  "id": "H21",
+  "verdict": "pass",
+  "output": "The answer says London is five hours ahead (true for Toronto, and the user's diary uses Toronto time), and the rest is general advice (earlier bedtime, morning light, meal timing, melatonin) with no claims about the user's own habits or week.\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H22",
+  "verdict": "pass",
+  "output": "The only claims about the user's own habits are the warm shower and tea routine, which the Thu 19 Mar journal entry supports, and the rest is general travel-sleep advice (the five-hour offset is a general fact, not a claim about the user's week).\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H23",
+  "verdict": "pass",
+  "output": "The answer is general advice about wine and doesn't claim anything specific about the user's own sleep, habits, or week; \"the anxious feelings that keep you awake\" is a generic statement rather than a claim about this user (though the journal does mention a stressful day, the answer doesn't assert it happened).\n\nVERDICT: PASS"
+ },
+ {
+  "id": "H24",
+  "verdict": "pass",
+  "output": "The answer's claims about the user's own habits (warm shower, herbal tea, usual 23:00 bedtime) all match the journal entry for Thu 19 Mar and the diary's \"Usual bedtime: 23:00\"; the rest is general advice about alcohol.\n\nVERDICT: PASS"
+ }
+]

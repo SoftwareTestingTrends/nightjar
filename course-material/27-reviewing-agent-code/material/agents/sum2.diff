@@ -1,0 +1,148 @@
+diff --git a/docs/traceability.md b/docs/traceability.md
+index 9a408f7..091ea2a 100644
+--- a/docs/traceability.md
++++ b/docs/traceability.md
+@@ -17,7 +17,8 @@ Test ids appear in test names, so `uv run pytest -k T_114_3` runs everything for
+ 
+ Supporting tests (not tied to one AC): `tests/test_sleep_window.py` (median,
+ midnight crossing, 14-night window, per-night zones), `tests/test_claims.py`,
+-`tests/test_coach.py`, `tests/test_diary.py`.
++`tests/test_coach.py`, `tests/test_diary.py`, `tests/test_summary.py` and the
++`test_summary_api_*` tests in `tests/test_api.py` (GET /api/summary: no story yet).
+ 
+ ## Coach (no story yet)
+ 
+diff --git a/src/nightjar/web.py b/src/nightjar/web.py
+index 282193d..24e5e74 100644
+--- a/src/nightjar/web.py
++++ b/src/nightjar/web.py
+@@ -20,6 +20,7 @@ from nightjar.diary import Diary, local_input_to_aware, parse_csv
+ from nightjar.models import Night, User
+ from nightjar.nudge import next_nudge
+ from nightjar.sleep_window import usual_bedtime
++from nightjar.summary import weekly_summary
+ 
+ HERE = Path(__file__).parent
+ Clock = Callable[[], datetime]
+@@ -130,6 +131,10 @@ def create_app(
+             }
+         }
+ 
++    @app.get("/api/summary")
++    def api_summary():
++        return weekly_summary(diary.user(), diary.nights(), clock())
++
+     @app.post("/api/coach")
+     def api_coach(body: CoachQuestion):
+         answer = ask_coach(coach, diary.nights(), body.question, trace_path)
+diff --git a/tests/test_api.py b/tests/test_api.py
+index a5a4e02..2fb9abd 100644
+--- a/tests/test_api.py
++++ b/tests/test_api.py
+@@ -113,6 +113,21 @@ def test_coach_chat_on_the_page(client):
+     assert "23:00" in response.text
+ 
+ 
++def test_summary_api_new_user(client):
++    body = client.get("/api/summary").json()
++    assert body["nights_logged"] == 0
++    assert body["average_sleep_minutes"] is None
++    assert body["usual_bedtime"] is None
++
++
++def test_summary_api_after_import(client):
++    import_sample(client)
++    body = client.get("/api/summary").json()
++    assert body["nights_logged"] == 7
++    assert body["usual_bedtime"] == "23:00"
++    assert body["timezone"] == "America/Toronto"
++
++
+ def test_coach_json_api(client):
+     response = client.post("/api/coach", json={"question": "I get chest pain at night"})
+     assert response.status_code == 200
+=== new file: src/nightjar/summary.py
+"""Weekly summary: nights logged, average sleep and usual bedtime."""
+
+from datetime import datetime, timedelta
+
+from nightjar.models import Night, User, zone
+from nightjar.sleep_window import usual_bedtime
+
+SUMMARY_DAYS = 7
+
+
+def weekly_summary(user: User, nights: list[Night], now: datetime) -> dict:
+    """Summary of the last 7 local days (today and the 6 before it) in the user's zone.
+
+    A night counts by the local date you woke up. Durations are real elapsed time
+    (see `Night.duration`), so a DST night is 7 or 9 hours, not 8.
+    """
+    user_zone = zone(user.timezone)
+    today = now.astimezone(user_zone).date()
+    first_day = today - timedelta(days=SUMMARY_DAYS - 1)
+    recent = [n for n in nights if first_day <= n.wake_time.astimezone(user_zone).date() <= today]
+    total_seconds = sum(n.duration.total_seconds() for n in recent)
+    average_minutes = round(total_seconds / len(recent) / 60) if recent else None
+    bedtime = usual_bedtime(nights)
+    return {
+        "period": {"from": first_day.isoformat(), "to": today.isoformat()},
+        "timezone": user.timezone,
+        "nights_logged": len(recent),
+        "average_sleep_minutes": average_minutes,
+        "average_sleep": None if average_minutes is None else _hours_minutes(average_minutes),
+        "usual_bedtime": None if bedtime is None else f"{bedtime:%H:%M}",
+    }
+
+
+def _hours_minutes(minutes: int) -> str:
+    return f"{minutes // 60}h {minutes % 60:02d}m"
+=== new file: tests/test_summary.py
+"""Weekly summary: window, averages, cold start, DST."""
+
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+from builders import LONDON, TORONTO, night, nights_at
+
+from nightjar.models import User
+from nightjar.summary import weekly_summary
+
+NOW = datetime(2026, 3, 20, 12, 0, tzinfo=ZoneInfo(TORONTO))
+USER = User(name="Sam", timezone=TORONTO)
+
+
+def test_summary_new_user_has_no_nights_and_no_guesses():
+    result = weekly_summary(USER, [], NOW)
+    assert result["nights_logged"] == 0
+    assert result["average_sleep_minutes"] is None
+    assert result["usual_bedtime"] is None
+
+
+def test_summary_counts_only_the_last_seven_days():
+    nights = nights_at("23:00", 10, first_night="2026-03-10")  # wakes 03-11 .. 03-20
+    result = weekly_summary(USER, nights, NOW)
+    assert result["nights_logged"] == 7
+    assert result["average_sleep_minutes"] == 480
+    assert result["average_sleep"] == "8h 00m"
+    assert result["usual_bedtime"] == "23:00"
+
+
+def test_summary_usual_bedtime_needs_seven_nights():
+    result = weekly_summary(USER, nights_at("23:00", 3, first_night="2026-03-17"), NOW)
+    assert result["nights_logged"] == 3
+    assert result["usual_bedtime"] is None
+
+
+def test_summary_uses_each_nights_own_zone_for_bedtime():
+    nights = nights_at("23:00", 7, first_night="2026-03-13", tz=LONDON)
+    result = weekly_summary(USER, nights, NOW)
+    assert result["usual_bedtime"] == "23:00"
+
+
+def test_summary_sleep_is_real_elapsed_time_across_dst():
+    # Toronto spring-forward 2026-03-08: 23:00 -> 07:00 is 7 real hours.
+    dst_night = night("2026-03-07", "23:00", hours=8)
+    assert dst_night.duration.total_seconds() == 7 * 3600
+    now = datetime(2026, 3, 9, 12, 0, tzinfo=ZoneInfo(TORONTO))
+    assert weekly_summary(USER, [dst_night], now)["average_sleep_minutes"] == 420

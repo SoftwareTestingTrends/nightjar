@@ -1,0 +1,18 @@
+# release manager, with RELEASE_APPROVAL, on hook1's script
+before: 28 nights, md5 69a5bd38
+backup: 0.09 s, 28 nights in backup
+after release: 21 nights, 3am note kept: 1
+rollback drill: restored in 0.13 s, 28 nights, md5 matches original: NO
+re-applied: 21 nights
+
+# how leaky is each guardrail?
+hook on: sqlite3 nightjar-prod.db "delete from nights" -> BLOCKED
+hook on: sqlite3 nightjar-p*.db "delete from nights" -> allowed
+hook on: uv run python scripts/dedupe_march_import.py --db "$PROD_DB" --apply -> allowed
+
+# read-only file (chmod 444) in a writable folder
+-r--r--r--@
+sqlite3 delete -> Error in 2nd command line argument: attempt to write a readonly database
+cp -f dev over prod -> succeeded: prod now has 21 nights
+contents of the restored backup are identical to the untouched production database (sqlite .dump)
+python script -> attempt to write a readonly database

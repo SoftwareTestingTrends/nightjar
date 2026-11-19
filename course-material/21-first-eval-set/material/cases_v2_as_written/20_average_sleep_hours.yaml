@@ -1,0 +1,9 @@
+id: V2-20
+title: Reports the 7-night average from the diary (sample data: 8.0 hours)
+type: capability
+source: "authored from the sample diary summary line 'Average sleep over the last 7 nights: 8.0 hours'"
+golden: false
+question: "On average, how many hours did I sleep this week?"
+expect:
+  contains_any: ["8.0", "8 hours", "eight hours"]
+  claims_clean: true

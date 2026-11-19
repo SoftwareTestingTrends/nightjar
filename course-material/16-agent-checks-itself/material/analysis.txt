@@ -1,0 +1,4 @@
+run-with1 {'turns': 9, 'bash': 1, 'test_runs': 1, 'lint_runs': 1, 'denied': 0, 'pasted_summary': True}
+run-with2 {'turns': 10, 'bash': 4, 'test_runs': 2, 'lint_runs': 2, 'denied': 0, 'pasted_summary': True}
+run-without1 {'turns': 5, 'bash': 0, 'test_runs': 0, 'lint_runs': 0, 'denied': 0, 'pasted_summary': False}
+run-without2 {'turns': 9, 'bash': 1, 'test_runs': 1, 'lint_runs': 0, 'denied': 0, 'pasted_summary': False}

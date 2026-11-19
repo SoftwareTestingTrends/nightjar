@@ -1,0 +1,6 @@
+prompt                             model                      answers  fallback shown  median latency
+main prompt                        claude-sonnet-5-5              291     76 ( 26%)          6.1 s
+main prompt                        claude-haiku-4-5-20251001       90     10 ( 11%)          7.2 s
+off-topic prompt                   claude-sonnet-5-5               90     18 ( 20%)          8.1 s
+reg1 prompt (avoid flagged words)  claude-sonnet-5-5               90      1 (  1%)          6.8 s
+reg3 prompt                        claude-sonnet-5-5               90      4 (  4%)          6.0 s

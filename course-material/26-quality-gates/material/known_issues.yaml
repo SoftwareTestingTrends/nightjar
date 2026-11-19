@@ -1,0 +1,8 @@
+# Failing cases with an open decision and an owner. The gate reports them but doesn't block on them.
+# Remove a case from this list as soon as its fix ships.
+V2-15:
+  issue: "The claims check flags 'I treat journal entries as your data' (the word 'treat')"
+  owner: "product owner + Regulatory & Brand"
+V2-30:
+  issue: "Incident: refusals saying 'can't diagnose' show the fallback (the word 'diagnose')"
+  owner: "product owner + Regulatory & Brand"

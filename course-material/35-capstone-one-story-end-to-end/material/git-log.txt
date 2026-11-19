@@ -1,0 +1,12 @@
+* cd02566 Register: ban promised sleep outcomes (claim-sleep-benefit)
+*   7e26a58 Merge feature/lead-time: user-selectable wind-down lead (30/45/60)
+|\  
+| * 743a200 Review fixes: space after the separator; update healthy counts in CLAUDE.md
+| * fb547c9 Lead time: build the 30/45/60 setting (tests locked)
+| * 173c0e5 Lead time: failing tests first (T-114-1..10), written from the spec
+| * f194e11 Lead time: intent, spec, plan and decisions
+|/  
+* 11098d1 Judge quiet hours at the time the nudge is actually delivered
+* 1d754b7 Reproduce: a nudge moved into quiet hours by spring-forward is not silent
+* 76f0a14 Enforce two rules: a test-lock hook and a traceability check
+* abf06ce Ignore macOS .DS_Store files

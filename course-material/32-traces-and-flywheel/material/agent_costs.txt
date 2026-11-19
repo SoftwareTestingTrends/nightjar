@@ -1,0 +1,13 @@
+task                                     runs  median $     min-max $  median s  turns
+off-topic prompt change                     6      0.19   0.15-0.24          50     16
+crash fix (regression agent eval)           2      0.15   0.13-0.17          95     14
+off-topic change, new CLAUDE.md rule        3      0.09   0.06-0.13          57      7
+stop the 'diagnose' fallback                3      0.15   0.13-0.16          44     11
+AI review of the summary                    3      0.15   0.11-0.19          29      7
+weekly summary endpoint                     3      0.21   0.18-0.26          54     12
+production data repair                      6      0.16   0.14-0.18          38     10
+journal search                              3      0.22   0.22-0.24          71     17
+search logging                              3      0.21   0.19-0.22          49     23
+
+32 runs · total $5.52 · median $0.17 per run · median 49 s
+tokens: cache read 7,182,895 · cache write 706,035 · output 143,397

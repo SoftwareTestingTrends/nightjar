@@ -1,0 +1,7 @@
+PASS   merge         make test                                  owner: code owner (4.4s)
+PASS   merge         make lint                                  owner: code owner (0.4s)
+PASS   merge         traceability check                         owner: code owner
+PASS   claims        claims/register.yaml unchanged             owner: Regulatory & Brand
+NEEDS  coach config  real-model eval gate                       owner: coach owner
+         touches evals/cases/09_off_topic_code.yaml, src/nightjar/coach/prompts/system.md
+RESULT: WAITING FOR OWNERS

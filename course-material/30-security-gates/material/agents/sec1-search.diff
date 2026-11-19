@@ -1,0 +1,198 @@
+diff --git a/docs/traceability.md b/docs/traceability.md
+index 9a408f7..f9eb3c5 100644
+--- a/docs/traceability.md
++++ b/docs/traceability.md
+@@ -19,6 +19,11 @@ Supporting tests (not tied to one AC): `tests/test_sleep_window.py` (median,
+ midnight crossing, 14-night window, per-night zones), `tests/test_claims.py`,
+ `tests/test_coach.py`, `tests/test_diary.py`.
+ 
++## Journal search (no story yet)
++
++`GET /api/search?q=` and the home-page search box: `tests/test_search.py`
++(typo tolerance, query echoed and escaped above results).
++
+ ## Coach (no story yet)
+ 
+ Safety behaviour of the coach is covered by `evals/cases/E-01..E-08` (run with
+diff --git a/src/nightjar/search.py b/src/nightjar/search.py
+new file mode 100644
+index 0000000..26b67a3
+--- /dev/null
++++ b/src/nightjar/search.py
+@@ -0,0 +1,35 @@
++"""Journal search: every query word must match a word in the note, allowing small typos."""
++
++import re
++from difflib import SequenceMatcher
++
++from nightjar.models import Night
++
++MIN_SIMILARITY = 0.8  # "cofee" ~ "coffee" (0.91); "tea" !~ "ten" (0.67)
++MAX_QUERY_LENGTH = 200
++
++
++def _words(text: str) -> list[str]:
++    return re.findall(r"\w+", text.casefold())
++
++
++def _word_matches(query_word: str, note_words: list[str]) -> bool:
++    for word in note_words:
++        if query_word in word:
++            return True
++        if SequenceMatcher(None, query_word, word).ratio() >= MIN_SIMILARITY:
++            return True
++    return False
++
++
++def search_nights(nights: list[Night], query: str) -> list[Night]:
++    """Nights whose notes match every word of `query`, keeping the input order."""
++    query_words = _words(query[:MAX_QUERY_LENGTH])
++    if not query_words:
++        return []
++    results = []
++    for night in nights:
++        note_words = _words(night.notes)
++        if note_words and all(_word_matches(q, note_words) for q in query_words):
++            results.append(night)
++    return results
+diff --git a/src/nightjar/templates/index.html b/src/nightjar/templates/index.html
+index 374fdc3..52ab1eb 100644
+--- a/src/nightjar/templates/index.html
++++ b/src/nightjar/templates/index.html
+@@ -64,6 +64,24 @@
+     </section>
+   </div>
+ 
++  <section class="panel">
++    <h2>Search journal</h2>
++    <form method="get" action="/" data-testid="search-form">
++      <input type="search" name="q" value="{{ search_query or '' }}" required placeholder="e.g. coffee" data-testid="search-input">
++      <button data-testid="search-submit">Search</button>
++    </form>
++    {% if search_query is defined %}
++      <p data-testid="search-text">Results for: <strong>{{ search_query }}</strong></p>
++      <ul data-testid="search-results">
++      {% for night in search_results %}
++        <li data-testid="search-result">{{ night.night_of.strftime("%a %d %b") }}: {{ night.notes }}</li>
++      {% else %}
++        <li class="muted" data-testid="search-empty">No matching nights.</li>
++      {% endfor %}
++      </ul>
++    {% endif %}
++  </section>
++
+   <section class="panel">
+     <h2>Sleep diary</h2>
+     <table data-testid="diary-table">
+diff --git a/src/nightjar/web.py b/src/nightjar/web.py
+index 282193d..0464d3f 100644
+--- a/src/nightjar/web.py
++++ b/src/nightjar/web.py
+@@ -19,6 +19,7 @@ from nightjar.coach.service import DEFAULT_TRACE_PATH
+ from nightjar.diary import Diary, local_input_to_aware, parse_csv
+ from nightjar.models import Night, User
+ from nightjar.nudge import next_nudge
++from nightjar.search import search_nights
+ from nightjar.sleep_window import usual_bedtime
+ 
+ HERE = Path(__file__).parent
+@@ -33,6 +34,16 @@ class CoachQuestion(BaseModel):
+     question: str
+ 
+ 
++def _night_json(night: Night) -> dict:
++    return {
++        "night_of": night.night_of.isoformat(),
++        "bedtime": night.local_bedtime.isoformat(),
++        "wake_time": night.local_wake_time.isoformat(),
++        "timezone": night.timezone,
++        "notes": night.notes,
++    }
++
++
+ def create_app(
+     diary: Diary | None = None,
+     coach: Coach | None = None,
+@@ -58,8 +69,10 @@ def create_app(
+         return templates.TemplateResponse(request, "index.html", context, status_code=status_code)
+ 
+     @app.get("/", response_class=HTMLResponse)
+-    def home(request: Request):
+-        return render(request)
++    def home(request: Request, q: str = ""):
++        if not q.strip():
++            return render(request)
++        return render(request, search_query=q, search_results=search_nights(diary.nights(), q))
+ 
+     @app.post("/nights")
+     def add_night(
+@@ -130,6 +143,10 @@ def create_app(
+             }
+         }
+ 
++    @app.get("/api/search")
++    def api_search(q: str = ""):
++        return {"query": q, "nights": [_night_json(n) for n in search_nights(diary.nights(), q)]}
++
+     @app.post("/api/coach")
+     def api_coach(body: CoachQuestion):
+         answer = ask_coach(coach, diary.nights(), body.question, trace_path)
+diff --git a/tests/test_search.py b/tests/test_search.py
+new file mode 100644
+index 0000000..5f2dcd1
+--- /dev/null
++++ b/tests/test_search.py
+@@ -0,0 +1,53 @@
++"""Journal search: API and home page, using the real app with a temp database."""
++
++from datetime import datetime
++from zoneinfo import ZoneInfo
++
++import pytest
++from fastapi.testclient import TestClient
++
++from nightjar.coach import MockCoach
++from nightjar.diary import Diary
++from nightjar.web import create_app
++
++NOON_IN_TORONTO = datetime(2026, 3, 20, 12, 0, tzinfo=ZoneInfo("America/Toronto"))
++
++
++@pytest.fixture
++def client(tmp_path):
++    app = create_app(
++        diary=Diary(tmp_path / "test.db"),
++        coach=MockCoach(),
++        clock=lambda: NOON_IN_TORONTO,
++        trace_path=tmp_path / "coach.jsonl",
++    )
++    return TestClient(app)
++
++
++def add_note(client, bedtime, wake, notes):
++    return client.post(
++        "/nights",
++        data={
++            "bedtime": bedtime,
++            "wake_time": wake,
++            "timezone": "America/Toronto",
++            "notes": notes,
++        },
++    )
++
++
++def test_search_finds_notes_and_tolerates_typos(client):
++    add_note(client, "2026-03-01T23:00", "2026-03-02T07:00", "Had coffee late, slept badly")
++    add_note(client, "2026-03-02T23:00", "2026-03-03T07:00", "Read a book, slept well")
++    body = client.get("/api/search", params={"q": "cofee"}).json()
++    assert [n["notes"] for n in body["nights"]] == ["Had coffee late, slept badly"]
++    assert client.get("/api/search", params={"q": "zebra"}).json()["nights"] == []
++    assert client.get("/api/search").json()["nights"] == []
++
++
++def test_search_page_shows_escaped_query_above_results(client):
++    add_note(client, "2026-03-01T23:00", "2026-03-02T07:00", "Had coffee late")
++    page = client.get("/", params={"q": "<b>cofee"})
++    assert "&lt;b&gt;cofee" in page.text
++    assert "<b>cofee" not in page.text
++    assert 'data-testid="search-result"' in client.get("/", params={"q": "coffe"}).text

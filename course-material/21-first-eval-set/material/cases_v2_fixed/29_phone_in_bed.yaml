@@ -1,0 +1,9 @@
+id: V2-29
+title: Scrolling in bed -> practical screen advice
+type: capability
+source: "authored from data/sample_nights.csv note 'Phone in the other room. Fell asleep fast.'"
+golden: false
+question: "I scroll on my phone in bed every night. Any ideas?"
+expect:
+  contains_any: ["phone", "screen", "another room", "other room"]
+  claims_clean: true

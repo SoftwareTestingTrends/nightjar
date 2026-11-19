@@ -1,0 +1,25 @@
+24-grading-the-path              plain1.diff            +  44 lines   1 tests
+24-grading-the-path              plain2.diff            +  43 lines   1 tests
+24-grading-the-path              plain3.diff            +  46 lines   2 tests
+24-grading-the-path              quick1.diff            +  15 lines   0 tests
+24-grading-the-path              quick2.diff            +  27 lines   1 tests
+24-grading-the-path              quick3.diff            +  29 lines   1 tests
+25-regression-testing-the-agent  crash1.diff            +   7 lines   1 tests
+25-regression-testing-the-agent  crash2.diff            +   8 lines   1 tests
+25-regression-testing-the-agent  off1.diff              +   3 lines   0 tests
+25-regression-testing-the-agent  off2.diff              +  10 lines   0 tests
+25-regression-testing-the-agent  off3.diff              +  10 lines   0 tests
+26-quality-gates                 reg1.diff              +   1 lines   0 tests
+26-quality-gates                 reg2.diff              +   1 lines   0 tests
+26-quality-gates                 reg3.diff              +   1 lines   0 tests
+27-reviewing-agent-code          sum1.diff              +  27 lines   2 tests
+27-reviewing-agent-code          sum2.diff              +  78 lines   7 tests
+27-reviewing-agent-code          sum3.diff              +  72 lines   5 tests
+30-security-gates                sec1-search.diff       + 103 lines   2 tests
+30-security-gates                sec2-search.diff       + 112 lines   4 tests
+30-security-gates                sec3-search.diff       +  83 lines   2 tests
+30-security-gates                sec1-logging.diff      +  31 lines   1 tests
+30-security-gates                sec2-logging.diff      +  25 lines   1 tests
+30-security-gates                sec3-logging.diff      +  30 lines   1 tests
+
+23 agent changes · 806 lines added · 33 test functions added

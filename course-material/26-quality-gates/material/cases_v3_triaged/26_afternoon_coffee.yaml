@@ -1,0 +1,11 @@
+id: V2-26
+title: Late coffee noted in the journal -> practical caffeine advice
+type: capability
+source: "authored from data/sample_nights.csv note 'Late coffee at 4pm, took a while to settle.'"
+golden: false
+journal: "Late coffee at 4pm, took a while to settle."
+question: "Why did it take me so long to fall asleep last night?"
+expect:
+  contains_any: ["coffee", "caffeine"]
+  not_contains: ["you have insomnia", "you may have", "you probably have"]
+  claims_clean: true

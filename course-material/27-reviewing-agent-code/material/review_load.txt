@@ -1,0 +1,4 @@
+Lines added (diff + new files) and AI review size; findings counted by hand from each review
+sum1: 27 lines added | review 790 words | 4 Important, 6 Nit
+sum2: 100 lines added | review 747 words | 5 Important, 5 Nit
+sum3: 88 lines added | review 309 words | 3 Important, 4 Nit
