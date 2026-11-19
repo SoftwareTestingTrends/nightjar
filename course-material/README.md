@@ -46,6 +46,30 @@ Folder numbers match the lesson numbers on the site.
 - **Scripts** (`*.py`, `*.sh`) and their **outputs** (`*.txt`, `*.json`).
 - **Diffs** of the agents' changes, and the eval cases, rubrics and gate tables they were checked against.
 
+## Reading a transcript
+
+The agent transcripts (`run-*.jsonl` and similar) are the raw stream-JSON that
+`claude -p --output-format stream-json` writes, the same format you'd get from an agent run in CI.
+Each line is one event:
+
+- `assistant` lines are the agent's turns. A `tool_use` block is a step it took (Read, Edit, Bash…),
+  and a `text` block is what it said.
+- `user` lines carry the tool results back to the agent.
+- `system` lines include `permission_denied`, when a hook or permission rule blocked a step.
+- The last line, `result`, has the agent's final report, its cost, time and number of turns.
+
+To see the steps and the final report without the JSON, run:
+
+```bash
+python3 course-material/read_transcript.py course-material/24-grading-the-path/material/run-quick1.jsonl
+```
+
+The prompt each agent was given is in the lesson's `run.sh` or `agent-run.sh`, or in the lesson text.
+
+One note on lesson 05: the agent's transcript calls the planted commit `d2ba38a`. On the
+`lesson/agent-loop-demo` branch the same commit is `4e86073`, because the branch was re-created
+before it was published.
+
 ## Running the scripts
 
 Run them from the repository root and pass this folder:
