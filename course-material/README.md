@@ -7,7 +7,6 @@ Folder numbers match the lesson numbers on the site.
 
 | Folder | Lesson |
 |---|---|
-| [`01-course-intro`](01-course-intro/material/) | Course introduction |
 | [`05-the-agent-loop`](05-the-agent-loop/material/) | What a coding agent actually does |
 | [`06-model-plus-harness`](06-model-plus-harness/material/) | Agent = model + harness |
 | [`07-context-engineering`](07-context-engineering/material/) | Context is the spec the agent actually reads |
