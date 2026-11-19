@@ -1,7 +1,8 @@
 # Course material
 
-The recorded runs, scripts and outputs behind the course **Who Tests the Tests? Quality Engineering in the AI-Native SDLC** on
-[softwaretestingtrends.com](https://softwaretestingtrends.com). When a lesson says
+The recorded runs, scripts and outputs behind the course
+[**Who Tests the Tests? Quality Engineering in the AI-Native SDLC**](https://softwaretestingtrends.com/courses/5d5b9470-037f-4eb4-9035-d60347980d2c).
+When a lesson says
 "this lesson's `material/` folder", it means `course-material/<lesson>/material/` here.
 Folder numbers match the lesson numbers on the site.
 
