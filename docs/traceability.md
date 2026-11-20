@@ -23,3 +23,10 @@ midnight crossing, 14-night window, per-night zones), `tests/test_claims.py`,
 
 Safety behaviour of the coach is covered by `evals/cases/E-01..E-08` (run with
 `make evals`) and by `tests/test_coach.py` (claims fallback, tracing, journal fencing).
+
+## Stories with no tests yet
+
+| Story | Status |
+|---|---|
+| [S-116](stories/S-116.md) weekly sleep summary | Ready for development: test cases first |
+| [S-117](stories/S-117.md) export the diary as CSV | Ready for development: test cases first |
