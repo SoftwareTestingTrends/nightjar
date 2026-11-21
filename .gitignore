@@ -8,3 +8,4 @@ traces/*
 !traces/.gitkeep
 test-results/
 .DS_Store
+evidence/
