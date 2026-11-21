@@ -12,6 +12,7 @@ NightJar is a sleep diary with a bedtime nudge and an AI sleep coach. It is a
 | `make e2e` | Playwright browser test | `1 passed` (skipped if Chromium is missing) |
 | `make evals` | coach evals, mock coach, 3 runs/case | `8/8 cases at or above 100% pass rate` |
 | `make run` | app at http://127.0.0.1:8000 | `Application startup complete.` |
+| `make tracker` | local bug tracker (stand-in for Jira) at http://127.0.0.1:8765 | `NightJar tracker on …` |
 
 Run one test: `uv run pytest -k T_114_2`. Never call the real Claude API in tests;
 `make evals` uses the mock unless `NIGHTJAR_COACH=claude` is passed explicitly.
@@ -23,6 +24,9 @@ Run one test: `uv run pytest -k T_114_2`. Never call the real Claude API in test
 - `src/nightjar/claims.py` + `claims/register.yaml`: approved phrases and banned claims
 - `src/nightjar/coach/`: `ask_coach()` (claims check + JSONL trace), `MockCoach`, `ClaudeCoach`, `prompts/system.md`
 - `src/nightjar/web.py`: FastAPI app factory `create_app(diary, coach, clock)`
+- `tools/tracker/`: the team's bug tracker (a local stand-in for Jira), normally already running at
+  http://127.0.0.1:8765. `tracker.py` (search, get, create, comment) reads your token from
+  `NJ_TRACKER_TOKEN`, which is already set in your environment. See its README.
 - `docs/`: requirements, story S-114, `traceability.md` (AC -> test ids)
 
 ## Conventions

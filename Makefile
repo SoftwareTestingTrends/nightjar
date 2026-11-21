@@ -1,5 +1,5 @@
 # One command per job. Every target exits non-zero on failure.
-.PHONY: install test e2e lint format evals run
+.PHONY: install test e2e lint format evals run tracker
 
 # Evals use the offline mock unless you pass NIGHTJAR_COACH=claude.
 NIGHTJAR_COACH ?= mock
@@ -27,3 +27,6 @@ evals:  ## coach evals, 3 runs per case
 
 run:  ## start the app at http://127.0.0.1:8000
 	uv run uvicorn nightjar.web:create_app --factory --reload --port 8000
+
+tracker:  ## local bug tracker (a stand-in for Jira) at http://127.0.0.1:8765, fresh seed issues
+	python3 tools/tracker/server.py --seed

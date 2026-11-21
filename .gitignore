@@ -9,3 +9,5 @@ traces/*
 test-results/
 .DS_Store
 evidence/
+.tracker/
+bug-drafts/
