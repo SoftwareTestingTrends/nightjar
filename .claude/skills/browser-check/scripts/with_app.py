@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Start NightJar on a free port with an empty, throwaway database, run a command, then stop the app.
+"""Start NightJar on a free port with an empty, throwaway database, run a command,
+then stop the app.
 
     python3 with_app.py [--csv nights.csv] -- <command, with {url} where the app's address goes>
 
@@ -10,6 +11,7 @@ that file are loaded before the command runs. The exit code is the command's.
 Example:
     python3 with_app.py -- uv run python /tmp/check.py {url}
 """
+
 import argparse
 import os
 import shutil
@@ -22,7 +24,8 @@ import urllib.request
 
 LOAD_CSV = (
     "import sys; from nightjar.diary import Diary, parse_csv; "
-    "d = Diary(sys.argv[1]); n = d.add_nights(parse_csv(open(sys.argv[2], encoding='utf-8').read())); "
+    "d = Diary(sys.argv[1]); "
+    "n = d.add_nights(parse_csv(open(sys.argv[2], encoding='utf-8').read())); "
     "print(f'loaded {n} nights')"
 )
 
@@ -36,7 +39,9 @@ def free_port():
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--csv", help="diary CSV to load first (bedtime,wake_time,timezone,notes)")
-    parser.add_argument("command", nargs=argparse.REMAINDER, help="command to run; {url} becomes the app's URL")
+    parser.add_argument(
+        "command", nargs=argparse.REMAINDER, help="command to run; {url} becomes the app's URL"
+    )
     args = parser.parse_args()
     command = args.command[1:] if args.command[:1] == ["--"] else args.command
     if not command:
@@ -53,7 +58,17 @@ def main():
     port = free_port()
     url = f"http://127.0.0.1:{port}"
     server = subprocess.Popen(
-        ["uv", "run", "uvicorn", "nightjar.web:create_app", "--factory", "--port", str(port), "--log-level", "warning"],
+        [
+            "uv",
+            "run",
+            "uvicorn",
+            "nightjar.web:create_app",
+            "--factory",
+            "--port",
+            str(port),
+            "--log-level",
+            "warning",
+        ],
         env=env,
     )
     try:

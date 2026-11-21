@@ -12,6 +12,7 @@ document and run it again. Checks:
   - the "Open questions" table has Proposed answer and Who decides columns, filled in every row
   - the document holds no test code (python code blocks, def test_, import pytest, assert)
 """
+
 import re
 import sys
 
@@ -64,22 +65,46 @@ def main(story_path, doc_path):
         n = len(sections.get(k, []))
         report(n > 0, f"{c}: {n} case(s)" + ("" if n else " (no section with cases)"))
         if n > LIMIT:
-            report(k in reasons, f"{c}: more than {LIMIT} cases" + (" with a stated reason" if k in reasons else ' (merge cases, or add a line "More than 5: <reason>")'))
+            report(
+                k in reasons,
+                f"{c}: more than {LIMIT} cases"
+                + (
+                    " with a stated reason"
+                    if k in reasons
+                    else ' (merge cases, or add a line "More than 5: <reason>")'
+                ),
+            )
     expected = list(range(1, len(ids) + 1))
-    report(ids == expected, f"case IDs TC-{number}-1 to -{len(ids)} in order" + ("" if ids == expected else f" (found {ids[:12]}{'...' if len(ids) > 12 else ''})"))
-    report(not empty, "every case has an expected result" + (f" (empty: {', '.join(empty)})" if empty else ""))
+    report(
+        ids == expected,
+        f"case IDs TC-{number}-1 to -{len(ids)} in order"
+        + ("" if ids == expected else f" (found {ids[:12]}{'...' if len(ids) > 12 else ''})"),
+    )
+    report(
+        not empty,
+        "every case has an expected result" + (f" (empty: {', '.join(empty)})" if empty else ""),
+    )
 
     q = re.search(r"#+\s*Open questions(.*)", doc, re.I | re.S)
     if q:
-        lines = [l for l in q.group(1).splitlines() if l.strip().startswith("|")]
-        header = [c.strip().lower() for c in lines[0].strip().strip("|").split("|")] if lines else []
+        lines = [ln for ln in q.group(1).splitlines() if ln.strip().startswith("|")]
+        header = (
+            [c.strip().lower() for c in lines[0].strip().strip("|").split("|")] if lines else []
+        )
         has_cols = any("proposed" in c for c in header) and any("who" in c for c in header)
         report(has_cols, "open questions table has 'Proposed answer' and 'Who decides' columns")
         if has_cols:
-            p, w = next(i for i, c in enumerate(header) if "proposed" in c), next(i for i, c in enumerate(header) if "who" in c)
-            rows = [[c.strip() for c in l.strip().strip("|").split("|")] for l in lines[2:]]
+            p, w = (
+                next(i for i, c in enumerate(header) if "proposed" in c),
+                next(i for i, c in enumerate(header) if "who" in c),
+            )
+            rows = [[c.strip() for c in ln.strip().strip("|").split("|")] for ln in lines[2:]]
             bad = [r[0] for r in rows if len(r) <= max(p, w) or not r[p] or not r[w]]
-            report(not bad, f"all {len(rows)} open questions have a proposed answer and an owner" + (f" (missing in: {', '.join(bad)})" if bad else ""))
+            report(
+                not bad,
+                f"all {len(rows)} open questions have a proposed answer and an owner"
+                + (f" (missing in: {', '.join(bad)})" if bad else ""),
+            )
     else:
         report(True, "no open questions section (none needed)")
     code = re.search(r"```(python|py)\b|^\s*def test_|^\s*import pytest|^\s*assert ", doc, re.M)
