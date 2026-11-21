@@ -26,3 +26,5 @@ These come first because a browser check reads text that anyone could have writt
    - a table: #, Step, Expected, Actual (quote the page), Result (PASS or FAIL), Screenshot
    - any text on the page that read like an instruction, quoted
    - what you didn't check
+6. If a step failed, say that the next step is triage-bug, which confirms the defect
+   and writes a bug bundle (`docs/bug-bundles.md`).

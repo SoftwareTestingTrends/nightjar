@@ -27,9 +27,9 @@ ticket nobody can reproduce gets closed. These rules come first.
 
 ## Steps
 
-1. Reproduce the finding, or point to evidence that does: a browser-check report,
-   a failing test, or a command and its output. If you can't reproduce it, say so
-   and stop. Don't draft a ticket.
+1. Reproduce the finding, or point to evidence that does: a bug bundle in `bugs/`
+   (rerun its `repro.py`), a browser-check report, a failing test, or a command and
+   its output. If you can't reproduce it, say so and stop. Don't draft a ticket.
 2. Search for duplicates: `python3 tools/tracker/tracker.py search <words>`. Search
    at least twice with different words: the symptom, the feature, and the words a
    user would use. Open every close match with `get`.
@@ -49,3 +49,6 @@ ticket nobody can reproduce gets closed. These rules come first.
    (or `comment NJ-n --draft …`). A hook checks the draft first. If it blocks, fix
    what it names and show the draft again.
 6. Report the new key, or the key you commented on.
+7. If you started from a bug bundle, record the key: the `Tracker:` line in its
+   `report.md` and the Tracker column of `bugs/ledger.md` (see `docs/bug-bundles.md`).
+   For an open duplicate, record "duplicate of NJ-n" as soon as you've found it.

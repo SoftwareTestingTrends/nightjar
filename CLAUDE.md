@@ -27,6 +27,7 @@ Run one test: `uv run pytest -k T_114_2`. Never call the real Claude API in test
 - `tools/tracker/`: the team's bug tracker (a local stand-in for Jira), normally already running at
   http://127.0.0.1:8765. `tracker.py` (search, get, create, comment) reads your token from
   `NJ_TRACKER_TOKEN`, which is already set in your environment. See its README.
+- `docs/bug-bundles.md`: how the testing skills hand bugs to each other (`bugs/D-n-…/` + `bugs/ledger.md`)
 - `docs/`: requirements, story S-114, `traceability.md` (AC -> test ids)
 
 ## Conventions
