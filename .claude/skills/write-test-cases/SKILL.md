@@ -22,15 +22,11 @@ A tester and a product owner read this document together, line by line, in one m
 2. Write the cases to `docs/test-cases/<story-id>.md`. Create the folder if it doesn't exist.
 3. Start the file with the test data you'll reuse: the user, their time zone, the dates and the "now" each case assumes.
 4. Write one table per acceptance criterion, plus one for any non-functional requirement. Use the columns ID (`TC-<story number>-<n>`), Condition, Steps and Expected result. Give concrete data: dates, times and time zones.
-5. Test both sides of every number in the story. Consider:
-   - dates and times around midnight
-   - a change of time zone
-   - daylight saving in America/Toronto and Europe/London
-   - no data, and the minimum data
-   - any text the user sees passing the claims check (`docs/claims.md`)
+5. Test both sides of every number in the story. For users, dates, daylight-saving days and journal notes, use the team's conventions in `references/test-data.md`: open it before you write the test data.
 6. Every expected result must come from the story or the documents it links to. If they don't say, add an open question instead of guessing.
 7. End the file with "Open questions" as a table: #, Question, Cases affected, Proposed answer, Who decides. Product owns the stories; Regulatory & Brand owns the claims register.
-8. Reply with the file path, the number of cases per acceptance criterion, and the open questions.
+8. Check the document: `python3 ${CLAUDE_SKILL_DIR}/scripts/check_cases.py docs/stories/<story-id>.md docs/test-cases/<story-id>.md`. Fix every FAIL and run it again until it passes. If a criterion really needs more than 5 cases, keep them and add a line under its heading: `More than 5: <reason>`.
+9. Reply with the file path, the number of cases per acceptance criterion, the checker's last line, and the open questions.
 
 ## Example rows
 
