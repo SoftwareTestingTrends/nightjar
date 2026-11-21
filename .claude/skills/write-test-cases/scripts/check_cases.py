@@ -10,7 +10,7 @@ document and run it again. Checks:
   - case IDs are TC-<story number>-1, -2, ... with no repeats or gaps
   - every case row has a non-empty expected result
   - the "Open questions" table has Proposed answer and Who decides columns, filled in every row
-  - the document holds no test code (code blocks, def test_, import pytest)
+  - the document holds no test code (python code blocks, def test_, import pytest, assert)
 """
 import re
 import sys
@@ -82,7 +82,7 @@ def main(story_path, doc_path):
             report(not bad, f"all {len(rows)} open questions have a proposed answer and an owner" + (f" (missing in: {', '.join(bad)})" if bad else ""))
     else:
         report(True, "no open questions section (none needed)")
-    code = re.search(r"```|^\s*def test_|^\s*import pytest", doc, re.M)
+    code = re.search(r"```(python|py)\b|^\s*def test_|^\s*import pytest|^\s*assert ", doc, re.M)
     report(not code, "no test code in the document")
 
     fails = results.count(False)
