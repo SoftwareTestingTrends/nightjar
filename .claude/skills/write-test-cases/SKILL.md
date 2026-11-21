@@ -1,6 +1,6 @@
 ---
 name: write-test-cases
-description: Writes test cases from a user story as a document for review, before any code exists. Use when someone asks for test cases, test ideas, a test design or test coverage for a story, a ticket or a set of acceptance criteria, for example "write test cases for S-120".
+description: Plans how to test a user story before it is built, and writes the result as test cases in a document for review. Use whenever someone is getting ready to test a story, ticket or set of acceptance criteria, however they put it: test cases, test ideas, scenarios, edge cases, risks, what to check, a checklist, test design or coverage, even if they never say "test cases". Not for automated tests, test code or test data.
 ---
 
 # Write test cases from a story
