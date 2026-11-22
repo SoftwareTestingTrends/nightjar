@@ -15,6 +15,9 @@ and follow it exactly.
 1. Reproduce the report as given, against a throwaway database (never `nightjar.db`).
 2. If it doesn't reproduce in 3 tries, say what you tried, add a ledger row with
    status `not reproduced`, and stop.
+   If it reproduces but no requirement or story says what should happen, it's still
+   `confirmed`: write "Not specified" under Expected and add a question for product.
+   Deciding the behaviour is fine is product's call, not yours.
 3. If it does, write `repro.py`: the fewest steps that show the defect, exiting 1 while
    it's present and 0 once it's fixed. Run it 3 times.
 4. Write `report.md` and add the ledger row (status `confirmed`, tracker `not filed`).
