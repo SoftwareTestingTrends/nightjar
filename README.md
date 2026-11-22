@@ -1,9 +1,15 @@
 # NightJar
 
 NightJar is a sleep diary with a gentle bedtime nudge and an AI sleep coach.
-It is the running example in the course
-[**Who Tests the Tests? Quality Engineering in the AI-Native SDLC**](https://softwaretestingtrends.com/courses/5d5b9470-037f-4eb4-9035-d60347980d2c).
-Each lesson's recorded runs, scripts and outputs are in [`course-material/`](course-material/).
+It is the running example in two courses on
+[softwaretestingtrends.com](https://softwaretestingtrends.com/courses):
+
+- [**Who Tests the Tests? Quality Engineering in the AI-Native SDLC**](https://softwaretestingtrends.com/courses/5d5b9470-037f-4eb4-9035-d60347980d2c).
+  Each lesson's recorded runs, scripts and outputs are in [`course-material/`](course-material/).
+- [**Teach the Agent to Test: Building Agent Skills for QA**](https://softwaretestingtrends.com/courses).
+  You build testing skills for NightJar, lesson by lesson. Each lesson that changes
+  NightJar has its own branch (`git checkout lesson/first-skill`, and so on); start
+  from `main` and return to it after each lesson.
 
 The company and team around NightJar are fictional. The app is real: it runs on
 your laptop with no hardware, no phone and (by default) no API key.
