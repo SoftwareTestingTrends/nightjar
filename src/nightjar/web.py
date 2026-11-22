@@ -9,7 +9,7 @@ from datetime import UTC, datetime, time
 from pathlib import Path
 
 from fastapi import FastAPI, Form, Request, UploadFile
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
@@ -17,7 +17,7 @@ from pydantic import BaseModel
 from nightjar.coach import Coach, ask_coach, get_coach
 from nightjar.coach.service import DEFAULT_TRACE_PATH
 from nightjar.diary import Diary, local_input_to_aware, parse_csv
-from nightjar.models import Night, User
+from nightjar.models import Night, User, zone
 from nightjar.nudge import next_nudge
 from nightjar.sleep_window import usual_bedtime
 
@@ -90,6 +90,16 @@ def create_app(
             return render(request, status_code=400, error=f"Import failed. {error}")
         count = diary.add_nights(nights)
         return RedirectResponse(f"/?imported={count}", status_code=303)
+
+    @app.get("/export")
+    def export_csv():
+        today = clock().astimezone(zone(diary.user().timezone)).date()
+        filename = f"nightjar-diary-{today.isoformat()}.csv"
+        return Response(
+            diary.export_csv(),
+            media_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+        )
 
     @app.post("/settings")
     def save_settings(

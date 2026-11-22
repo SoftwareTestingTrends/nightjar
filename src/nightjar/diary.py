@@ -72,6 +72,22 @@ class Diary:
             self.add_night(night)
         return len(nights)
 
+    def export_csv(self) -> str:
+        """The whole diary as CSV, in the same columns as the import (S-117)."""
+        out = io.StringIO()
+        writer = csv.writer(out, lineterminator="\n")
+        writer.writerow(["bedtime", "wake_time", "timezone", "notes"])
+        for night in self.nights():
+            writer.writerow(
+                [
+                    night.bedtime.isoformat(),
+                    night.wake_time.isoformat(),
+                    night.timezone,
+                    night.notes,
+                ]
+            )
+        return out.getvalue()
+
     def nights(self) -> list[Night]:
         """All nights, newest first."""
         with self._connect() as db:
