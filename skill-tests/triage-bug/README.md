@@ -31,6 +31,17 @@ python3 skill-tests/triage-bug/summary.py skill-tests/triage-bug/results \
 that passed every check, mean time, mean turns and each eval's result. Compare the new
 rows with the last ones before you trust either.
 
+Reading a rerun that changed:
+
+1. **What changed?** `run.json` says the model, the Claude Code version, the app commit and
+   the skill version. Change one thing at a time when you can.
+2. **Which eval moved?** Read the per-eval column, then the agent's reply for the runs that
+   failed. If the agent is right and the label is wrong (a bug that's since been fixed,
+   say), update `evals.json` in the same commit as the app change.
+3. **Is it a break or a wobble?** 3/3 to 0/3 is a break. 3/3 to 2/3 can be chance: rerun
+   that one eval ten times (`for n in $(seq 1 10); do zsh skill-tests/triage-bug/run.sh 2 with_skill $n results-eval2; done`)
+   before you change the skill.
+
 You can also aggregate with skill-creator's script, from its skill folder:
 `python -m scripts.aggregate_benchmark <path to skill-tests/triage-bug/results> --skill-name triage-bug`.
 Results are gitignored. The run copies leave out `skill-tests/`, so the agent can't read
