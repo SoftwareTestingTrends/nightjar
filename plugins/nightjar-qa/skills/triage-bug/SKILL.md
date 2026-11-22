@@ -1,6 +1,6 @@
 ---
 name: triage-bug
-description: Confirms whether something reported broken in NightJar really is, and writes a bug bundle with a minimal repro script and a row in the defect ledger. Use when someone reports or suspects a NightJar bug ("X seems broken", "is this a bug?", "reproduce this"), or when a browser-check step fails. Not for filing tickets (that's /file-bug) and not for checking whether a known bug is fixed (that's verify-fix).
+description: Confirms whether something reported broken in NightJar really is, and writes a bug bundle with a minimal repro script and a row in the defect ledger. Use when someone reports or suspects a NightJar bug ("X seems broken", "is this a bug?", "reproduce this"), or when a browser-check step fails. Not for filing tickets (that's /nightjar-qa:file-bug) and not for checking whether a known bug is fixed (that's verify-fix).
 ---
 
 # Triage a bug
@@ -24,4 +24,4 @@ and follow it exactly.
    Check the ledger first: if a row already describes this defect, update that row
    instead of adding a new one.
 5. Hand off. Filing changes something the team sees, so you can't start it: tell the
-   person the exact command to run, `/file-bug bugs/D-<n>-<short-name>`.
+   person the exact command to run, `/nightjar-qa:file-bug bugs/D-<n>-<short-name>`.

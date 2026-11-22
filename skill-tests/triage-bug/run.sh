@@ -12,18 +12,20 @@ NAME=$(python3 -c "import json;print([x for x in json.load(open('$K/evals.json')
 R=$OUT/eval-$E-$NAME/$CFG/run-$N; C=$(mktemp -d)/nightjar
 mkdir -p $R $C && git -C $ROOT archive HEAD | tar -x -C $C
 rm -rf $C/skill-tests $C/course-material
-[[ $CFG == without_skill ]] && rm -rf $C/.claude/skills/triage-bug $C/.claude/skills/test-nightjar
+# The skills ship as the nightjar-qa plugin; both configurations load it from the copy,
+# and without_skill removes triage-bug and the router from that copy first.
+[[ $CFG == without_skill ]] && rm -rf $C/plugins/nightjar-qa/skills/triage-bug $C/plugins/nightjar-qa/skills/test-nightjar
 cd $C && git init -q && git add -A && git -c user.email=eval@example.invalid -c user.name=eval commit -qm base && uv sync -q
 PROMPT=$(python3 -c "
 import json;d=json.load(open('$K/evals.json'));e=[x for x in d['evals'] if x['id']==$E][0]
 p=e['prompt']+' '+d['deliverable']
-print(('/triage-bug '+p) if '$CFG'=='with_skill' else p)")
+print(('/nightjar-qa:triage-bug '+p) if '$CFG'=='with_skill' else p)")
 echo "$PROMPT" > $R/prompt.txt
-claude -p "$PROMPT" --model $MODEL --setting-sources project --strict-mcp-config \
+claude -p "$PROMPT" --model $MODEL --setting-sources project --strict-mcp-config --plugin-dir $C/plugins/nightjar-qa \
   --allowedTools "Read,Write,Edit,Glob,Grep,Skill,Bash(python3:*),Bash(uv run:*),Bash(ls:*),Bash(mkdir:*),Bash(make:*),Bash(git status)" \
   --output-format stream-json --verbose < /dev/null > $R/transcript.jsonl 2>$R/stderr.txt
 python3 $K/grade.py $K/evals.json $E $C $R
 python3 $K/run_info.py $R "$MODEL" "$(claude --version)" "$(git -C $ROOT rev-parse --short HEAD)" \
-  "$(git -C $ROOT rev-parse --short HEAD:.claude/skills/triage-bug)"
+  "$(git -C $ROOT rev-parse --short HEAD:plugins/nightjar-qa/skills/triage-bug)"
 mkdir -p $R/outputs && [[ -d $C/bugs ]] && cp -r $C/bugs $R/outputs/
 rm -rf ${C:h}

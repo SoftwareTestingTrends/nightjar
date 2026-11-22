@@ -1,8 +1,8 @@
 #!/bin/zsh
 # Self-test for the file-bug hook. From the repository root:
-#   zsh .claude/skills/file-bug/scripts/test_check_filing.sh
+#   zsh plugins/nightjar-qa/skills/file-bug/scripts/test_check_filing.sh
 # Prints each case and the hook's exit code (2 = blocked, 0 = allowed).
-HOOK=${1:-.claude/skills/file-bug/scripts/check_filing.py}; HOOK=${HOOK:A}
+HOOK=${1:-plugins/nightjar-qa/skills/file-bug/scripts/check_filing.py}; HOOK=${HOOK:A}
 T=$(mktemp -d); cd $T; mkdir -p bug-drafts .tracker
 cat > bug-drafts/good.md <<'D'
 # [Diary] Bedtime in the skipped spring hour is saved an hour later

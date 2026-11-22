@@ -14,7 +14,7 @@ why in one sentence, and starts it.
 | Whether something reported broken really is, and why | triage-bug |
 | Whether a known defect is fixed now | verify-fix |
 | What to test for a story | write-test-cases |
-| How to get a bug into the tracker | tell them to run `/file-bug` (you can't start it) |
+| How to get a bug into the tracker | tell them to run `/nightjar-qa:file-bug` (you can't start it) |
 
 Ask a question only when the answer would change which skill runs. If the request
 already says enough, start.

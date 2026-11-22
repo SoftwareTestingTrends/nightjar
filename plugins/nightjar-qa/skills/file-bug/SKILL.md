@@ -1,13 +1,13 @@
 ---
 name: file-bug
-description: Files a NightJar bug in the team's tracker. Searches for duplicates first, drafts the ticket from a template, and files it only after a person approves the draft. Use when someone runs /file-bug with a finding (a failed check, a browser-check report, or a defect they describe). Not for investigating why something fails, and not for writing test cases.
+description: Files a NightJar bug in the team's tracker. Searches for duplicates first, drafts the ticket from a template, and files it only after a person approves the draft. Use when someone runs /nightjar-qa:file-bug with a finding (a failed check, a browser-check report, or a defect they describe). Not for investigating why something fails, and not for writing test cases.
 disable-model-invocation: true
 hooks:
   PreToolUse:
     - matcher: "Bash"
       hooks:
         - type: command
-          command: '"${CLAUDE_PROJECT_DIR}"/.claude/skills/file-bug/scripts/check_filing.py'
+          command: '"${CLAUDE_PLUGIN_ROOT}"/skills/file-bug/scripts/check_filing.py'
 ---
 
 # File a bug
