@@ -9,7 +9,7 @@
 | grading-the-path, quick1 | E-09 outside the documented traceability range | Merge gate (quality-gates lesson) |
 | grading-the-path, plain2 | Formatter changed code after the last test run | Model judge |
 | grading-the-path, plain3 | A test that only checks the prompt's text | Reading the diff |
-| reviewing-agent-code, sum1–3 | Three readings of "the last 7 days"; disagree with the coach's average | Side-by-side run on the same diary |
+| reviewing-agent-code, sum1–3 | Two readings of "the last 7 days" (sum1 and sum3 rolling 168 h, sum2 calendar days); disagree with the coach's average | Side-by-side run on the same diary |
 | reviewing-agent-code, sum2 | Nights dated in the user's current zone | AI reviewer |
 | reviewing-agent-code, sum1 | `average_sleep_minutes > 0` as the only check of the average | AI reviewer |
 
