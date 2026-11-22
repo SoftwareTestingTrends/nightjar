@@ -1,0 +1,5 @@
+date,claude_version,model,skill_tree,config,pass_rate,perfect_runs,mean_seconds,mean_turns,per_eval,note
+2026-11-21,2.1.328,claude-sonnet-5-5,a1cc85b,with_skill,0.85,12/15,26.1,10.7,1:3/3 2:0/3 3:3/3 4:3/3 5:3/3,before the unspecified-behaviour rule
+2026-11-21,2.1.328,claude-sonnet-5-5,a1cc85b,without_skill,0.95,14/15,24.0,8.9,1:3/3 2:2/3 3:3/3 4:3/3 5:3/3,before the unspecified-behaviour rule
+2026-11-21,2.1.328,claude-sonnet-5-5,c21513d,with_skill,1.00,15/15,29.6,12.3,1:3/3 2:3/3 3:3/3 4:3/3 5:3/3,unspecified-behaviour rule added
+2026-11-21,2.1.328,claude-sonnet-5-5,c21513d,without_skill,0.95,14/15,22.7,7.7,1:3/3 2:2/3 3:3/3 4:3/3 5:3/3,unspecified-behaviour rule added
