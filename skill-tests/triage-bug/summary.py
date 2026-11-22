@@ -6,6 +6,7 @@ Prints, per configuration: mean pass rate, runs that passed every check, mean ti
 mean turns, then each eval's runs that passed everything. With --append, adds one row
 per configuration to the history file, so every rerun can be compared with the last.
 """
+
 import argparse
 import csv
 import json
@@ -22,12 +23,14 @@ args = ap.parse_args()
 runs = defaultdict(list)  # config -> [(eval, grading, timing, info)]
 for grading_file in sorted(args.results.glob("eval-*/*/run-*/grading.json")):
     run = grading_file.parent
-    runs[run.parent.name].append((
-        run.parent.parent.name,
-        json.loads(grading_file.read_text()),
-        json.loads((run / "timing.json").read_text()),
-        json.loads((run / "run.json").read_text()) if (run / "run.json").exists() else {},
-    ))
+    runs[run.parent.name].append(
+        (
+            run.parent.parent.name,
+            json.loads(grading_file.read_text()),
+            json.loads((run / "timing.json").read_text()),
+            json.loads((run / "run.json").read_text()) if (run / "run.json").exists() else {},
+        )
+    )
 
 rows = []
 for config in ("with_skill", "without_skill"):
@@ -44,24 +47,31 @@ for config in ("with_skill", "without_skill"):
     for name, g, _, _ in items:
         per_eval[name][0] += g["summary"]["pass_rate"] == 1.0
         per_eval[name][1] += 1
-    print(f"{config}: pass rate {statistics.mean(rates):.0%}, {perfect}/{len(items)} runs passed everything, "
-          f"{seconds:.1f} s, {turns:.1f} turns  [{first.get('requested_model', '?')}, "
-          f"Claude Code {first.get('claude_version', '?')}]")
+    print(
+        f"{config}: pass rate {statistics.mean(rates):.0%}, "
+        f"{perfect}/{len(items)} runs passed everything, "
+        f"{seconds:.1f} s, {turns:.1f} turns  [{first.get('requested_model', '?')}, "
+        f"Claude Code {first.get('claude_version', '?')}]"
+    )
     for name, (ok, total) in sorted(per_eval.items()):
         print(f"    {name}: {ok}/{total}")
-    rows.append({
-        "date": max((i.get("finished", "") for i in infos), default="")[:10],
-        "claude_version": first.get("claude_version", ""),
-        "model": first.get("requested_model", ""),
-        "skill_tree": first.get("skill_tree", ""),
-        "config": config,
-        "pass_rate": f"{statistics.mean(rates):.2f}",
-        "perfect_runs": f"{perfect}/{len(items)}",
-        "mean_seconds": f"{seconds:.1f}",
-        "mean_turns": f"{turns:.1f}",
-        "per_eval": " ".join(f"{n.split('-')[1]}:{ok}/{total}" for n, (ok, total) in sorted(per_eval.items())),
-        "note": args.note,
-    })
+    rows.append(
+        {
+            "date": max((i.get("finished", "") for i in infos), default="")[:10],
+            "claude_version": first.get("claude_version", ""),
+            "model": first.get("requested_model", ""),
+            "skill_tree": first.get("skill_tree", ""),
+            "config": config,
+            "pass_rate": f"{statistics.mean(rates):.2f}",
+            "perfect_runs": f"{perfect}/{len(items)}",
+            "mean_seconds": f"{seconds:.1f}",
+            "mean_turns": f"{turns:.1f}",
+            "per_eval": " ".join(
+                f"{n.split('-')[1]}:{ok}/{total}" for n, (ok, total) in sorted(per_eval.items())
+            ),
+            "note": args.note,
+        }
+    )
 
 if args.append and rows:
     new = not args.append.exists()
