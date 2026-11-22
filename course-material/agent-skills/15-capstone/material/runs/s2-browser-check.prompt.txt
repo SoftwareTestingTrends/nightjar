@@ -1,0 +1,1 @@
+The S-117 export is ready to test. Check it in the browser with the sample diary (data/sample_nights.csv), against the AC1 to AC4 cases in docs/test-cases/S-117.md.

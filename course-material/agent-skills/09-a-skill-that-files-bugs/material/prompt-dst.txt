@@ -1,0 +1,1 @@
+Logging a night with bedtime 2026-03-08 02:30 and wake time 09:00 in America/Toronto (the hour the clocks skip in spring) saves the bedtime as 03:30 with no warning, and Slept shows 5h 30m.

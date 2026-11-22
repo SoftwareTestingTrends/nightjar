@@ -1,0 +1,66 @@
+[
+  {
+    "key": "NJ-4",
+    "type": "Bug",
+    "status": "Done",
+    "summary": "[Nudge] Reminder skipped during quiet hours instead of delivered silently",
+    "description": "Steps: set quiet hours 22:00-07:00, log 7 nights with a usual bedtime of 23:00.\nExpected: the 22:15 reminder is delivered silently (PR-21 item 4).\nActual: no reminder at all.\nFixed in nudge.py: quiet hours now set silent=True.",
+    "comments": []
+  },
+  {
+    "key": "NJ-7",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Import] No feedback while a large CSV uploads",
+    "description": "Uploading a CSV with a few hundred nights takes a couple of seconds and the page shows nothing until it reloads. Users click Import again.\nExpected: a busy state on the Import button.\nActual: no change until the page reloads.",
+    "comments": []
+  },
+  {
+    "key": "NJ-9",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Coach] Long answers are cut off mid-sentence",
+    "description": "Asking the coach a broad question ('how do I fix my sleep schedule?') sometimes returns an answer that stops mid-sentence.\nSeen with the Claude coach, not the mock.",
+    "comments": []
+  },
+  {
+    "key": "NJ-11",
+    "type": "Bug",
+    "status": "Done",
+    "summary": "[Diary] Slept time is an hour off across the autumn clock change",
+    "description": "Night of Sat 31 Oct 2026, America/Toronto, bed 23:00, up 07:00. The clocks go back at 02:00, so the night lasted 9h.\nExpected: Slept 9h 0m.\nActual: Slept 8h 0m.\nCause: durations were subtracted in local wall-clock time. Fixed: Night.duration now subtracts in UTC.",
+    "comments": []
+  },
+  {
+    "key": "NJ-12",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Import] Re-uploading a CSV adds the same nights again",
+    "description": "While preparing the demo I uploaded data/sample_nights.csv, then uploaded it again by mistake. The diary now lists every night twice (42 rows).\nExpected: nights already in the diary are not added again.\nActual: every night is stored a second time.",
+    "comments": []
+  },
+  {
+    "key": "NJ-14",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Settings] Quiet hours can't end at midnight",
+    "description": "Setting quiet hours 21:00 to 00:00 is rejected with 'Invalid time'. Entering 23:59 works.\nExpected: 00:00 is accepted as the end of quiet hours.",
+    "comments": []
+  },
+  {
+    "key": "NJ-15",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Export] CSV export writes times with +00:00 instead of the night's own UTC offset",
+    "description": "## Steps to reproduce\n\n1. Start with an empty diary.\n2. Add one night: bedtime `2026-03-01T00:25:00-05:00`, wake `2026-03-01T07:30:00-05:00`, zone `America/Toronto`.\n3. Download the export (`/export`, or `Diary.export_csv()`).\n\n## Expected\n\nS-117 AC3: times are ISO 8601 with the UTC offset of that night's own zone, e.g.\n`2026-03-01T00:25:00-05:00,2026-03-01T07:30:00-05:00,America/Toronto,`\n\n## Actual\n\n`2026-03-01T05:25:00+00:00,2026-03-01T12:30:00+00:00,America/Toronto,`\n\nThe instants are correct; only the offset and wall time are wrong. This also breaks AC6 (round-trip fidelity of local times).\n\n## Evidence\n\n`uv run python bugs/D-1-export-offset-utc/repro.py` exits 1 and prints the +00:00 row above.\n\n## Environment\n\nNightJar at commit 64f34e5 (S-117 first version), local run, test data only.\n\n## Notes\n\nLikely cause (from reading code, not fixed): `Diary.nights()` rebuilds datetimes from the UTC text in `bedtime_utc`, and `export_csv` (`src/nightjar/diary.py:75`) calls `.isoformat()` without converting to `zone(night.timezone)`.\nSearches (export, UTC, CSV, offset, timezone, and phrase variants) found no duplicate. NJ-11 (Done) is related but different: duration across DST, not export format.\n\nReproduced 3 of 3 times. Related: NJ-11.",
+    "comments": []
+  },
+  {
+    "key": "NJ-16",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Export] CSV export lists nights newest first when the diary has several nights",
+    "description": "## Steps to reproduce\n\n1. Start with an empty diary.\n2. Add three nights with bedtimes 2026-03-01, 2026-03-02, 2026-03-03 (notes: first, second, third).\n3. Download the export (`/export`, or `Diary.export_csv()`).\n\n## Expected\n\nS-117 AC4: nights in \"night of\" order, oldest first: first, second, third.\n\n## Actual\n\nRows come out in the order third, second, first (newest first).\n\n## Evidence\n\n`uv run python bugs/D-2-export-order-newest-first/repro.py` prints\n`export order: ['third', 'second', 'first']` and exits 1 (exits 0 once fixed).\n\n## Environment\n\nNightJar main at 64f34e5, local app, test data only.\n\n## Notes\n\nLikely cause (from reading the code, not verified by a fix): `export_csv` (`src/nightjar/diary.py:75`) iterates `self.nights()`, which is `ORDER BY bedtime_utc DESC` for the diary page. The export needs its own ascending order; `nights()` itself should stay as is because the page relies on it.\n\nReproduced 3 of 3 times. Related: none.",
+    "comments": []
+  }
+]

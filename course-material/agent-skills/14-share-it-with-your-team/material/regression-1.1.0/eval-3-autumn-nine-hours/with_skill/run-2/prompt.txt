@@ -1,0 +1,1 @@
+/nightjar-qa:triage-bug My night of Saturday 31 October 2026 in America/Toronto shows 9h slept, but I was in bed from 23:00 to 07:00. That's 8 hours, so the calculation looks wrong. If it's a real bug, write a minimal script at bugs/<short-name>/repro.py that exits 1 while the bug is present and 0 once it's fixed. If it isn't a bug, say so and don't write one.

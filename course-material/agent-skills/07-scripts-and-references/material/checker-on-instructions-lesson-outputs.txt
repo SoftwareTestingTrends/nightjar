@@ -1,0 +1,39 @@
+== A-capitals-1-S-117.md
+13 passed, 0 failed
+== A-capitals-2-S-117.md
+13 passed, 0 failed
+== A-capitals-3-S-117.md
+13 passed, 0 failed
+== B-reasons-1-S-117.md
+FAIL  AC3: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+13 passed, 1 failed
+== B-reasons-2-S-117.md
+FAIL  AC3: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+13 passed, 1 failed
+== B-reasons-3-S-117.md
+FAIL  AC3: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+13 passed, 1 failed
+== baseline-1-S-117.md
+FAIL  AC1: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC3: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC4: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC5: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC6: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  open questions table has 'Proposed answer' and 'Who decides' columns
+11 passed, 6 failed
+== baseline-2-S-117.md
+FAIL  AC1: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC3: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC4: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC5: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC6: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  open questions table has 'Proposed answer' and 'Who decides' columns
+11 passed, 6 failed
+== baseline-3-S-117.md
+FAIL  AC1: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC3: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC4: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC5: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  AC6: more than 5 cases (merge cases, or add a line "More than 5: <reason>")
+FAIL  open questions table has 'Proposed answer' and 'Who decides' columns
+11 passed, 6 failed

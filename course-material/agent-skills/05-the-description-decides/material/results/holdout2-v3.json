@@ -1,0 +1,194 @@
+[
+ {
+  "id": "G1",
+  "should_trigger": true,
+  "query": "Sam's on holiday, can you prep the testing for the CSV export story?",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "G2",
+  "should_trigger": true,
+  "query": "what are the boundary values in S-116?",
+  "trigger_rate": 0.0,
+  "pass": false,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rn \\\"S-116\\\" /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj | head -20\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rn \\\"S-116\\\" /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj 2>/dev/null | head -30\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rn \\\"S-116\\\" /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj | head -20\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "G3",
+  "should_trigger": true,
+  "query": "I'm pairing with dev on S-117 tomorrow, give me things to poke at",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117: things to poke at while pairing with dev tomorrow\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "G4",
+  "should_trigger": true,
+  "query": "how would you test the weekly summary?",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"how would you test the weekly summary?\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"how would you test the weekly summary?\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"how would you test the weekly summary?\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "G5",
+  "should_trigger": false,
+  "query": "is S-116 done yet? check the git log",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"git log --all --oneline -i --grep=\\\"S-116\\\"; echo \\\"---\\\"; git log --oneline | head -20\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"git log --all --oneline -i --grep=\\\"S-116\\\"; git log --oneline | head -20\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"git log --all --oneline -i --grep=\\\"S-116\\\"; git log --oneline | head -20\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "G6",
+  "should_trigger": false,
+  "query": "generate 30 nights of sample CSV data I can import",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"ls -la; git ls-files | head -30; grep -rIl -i \\\"csv\\\\|night\\\" --exclude-dir=.git . | head\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && ls -la && git ls-files | head -30 && grep -ril \\\"csv\\\\|",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && ls -a && git ls-files | head -50 && grep -rilE \\\"csv|ni",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "G7",
+  "should_trigger": false,
+  "query": "the e2e test is slow, can you speed it up?",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"git ls-files | grep -iE 'e2e|playwright|cypress|wdio|jest|vitest' | head -50; ls; cat package.json 2>/dev/null | head -50\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"ls; cat package.json 2>/dev/null | head -40; git ls-files | grep -iE 'e2e|playwright|cypress' | head -30\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"git ls-files | grep -iE 'e2e|playwright|cypress|wdio|package.json|conftest|pytest' | head -50; ls\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "G8",
+  "should_trigger": false,
+  "query": "turn docs/test-cases/S-116.md into pytest tests",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Read",
+    "args": "{\"file_path\": \"/private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj/docs/test-cases/S-116.md\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Read",
+    "args": "{\"file_path\": \"/private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj/docs/test-cases/S-116.md\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Read",
+    "args": "{\"file_path\": \"/private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj/docs/test-cases/S-116.md\"}",
+    "triggered": false
+   }
+  ]
+ }
+]

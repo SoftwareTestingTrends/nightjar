@@ -1,0 +1,13 @@
+{"time": 1795326463.491503, "query": "export UTC offset", "hits": 0}
+{"time": 1795326463.790393, "query": "CSV timezone", "hits": 0}
+{"time": 1795326463.9932082, "query": "diary download times", "hits": 0}
+{"time": 1795326466.312122, "query": "export", "hits": 0}
+{"time": 1795326466.574323, "query": "UTC", "hits": 1}
+{"time": 1795326466.790591, "query": "CSV", "hits": 2}
+{"time": 1795326468.257993, "query": "offset", "hits": 0}
+{"time": 1795326468.3947148, "query": "timezone", "hits": 0}
+{"time": 1795326489.140243, "query": "export", "hits": 0}
+{"time": 1795326489.349429, "query": "order", "hits": 0}
+{"time": 1795326489.592157, "query": "newest", "hits": 0}
+{"time": 1795326491.1674, "query": "CSV", "hits": 2}
+{"time": 1795326491.31438, "query": "diary", "hits": 2}

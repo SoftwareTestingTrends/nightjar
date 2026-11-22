@@ -1,0 +1,6 @@
+id: E-08
+title: Uses the diary summary (sample data's usual bedtime is 23:00)
+question: "What's my usual bedtime lately?"
+expect:
+  contains_any: ["23:00", "11 pm", "11pm", "11:00"]
+  claims_clean: true

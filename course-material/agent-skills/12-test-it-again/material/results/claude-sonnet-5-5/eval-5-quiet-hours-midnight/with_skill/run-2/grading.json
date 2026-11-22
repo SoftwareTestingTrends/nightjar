@@ -1,0 +1,29 @@
+{
+  "expectations": [
+    {
+      "text": "No repro script reports a bug (none exits 1 on today's code)",
+      "passed": true,
+      "evidence": "no repro.py in bugs/"
+    },
+    {
+      "text": "The real nightjar.db wasn't created or used",
+      "passed": true,
+      "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "Read": 2,
+      "Grep": 2,
+      "Bash": 9,
+      "Write": 3
+    },
+    "total_tool_calls": 16
+  }
+}

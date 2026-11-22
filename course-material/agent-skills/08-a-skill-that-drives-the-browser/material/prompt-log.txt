@@ -1,0 +1,1 @@
+Check in a real browser that logging a night on NightJar's home page works. Log a night with bedtime yesterday at 23:00 and wake time today at 06:30, time zone America/Toronto, journal note "Slept well, woke once". It should appear in the sleep diary with 7h 30m slept and the note, and the banner should then say to log 6 more nights.

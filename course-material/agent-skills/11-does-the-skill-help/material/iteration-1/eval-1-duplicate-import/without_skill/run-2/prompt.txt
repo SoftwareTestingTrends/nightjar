@@ -1,0 +1,1 @@
+Importing the same CSV twice seems to store every night twice. Can you look into it? If it's a real bug, write a minimal script at bugs/<short-name>/repro.py that exits 1 while the bug is present and 0 once it's fixed. If it isn't a bug, say so and don't write one.

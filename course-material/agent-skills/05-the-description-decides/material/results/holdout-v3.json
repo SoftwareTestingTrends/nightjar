@@ -1,0 +1,194 @@
+[
+ {
+  "id": "H1",
+  "should_trigger": true,
+  "query": "S-117 is in refinement on Thursday. What scenarios should I bring?",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117 \u2014 scenarios to bring to Thursday's refinement\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117 \u2014 scenarios to bring to refinement on Thursday\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117 \u2014 scenarios to bring to Thursday's refinement\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "H2",
+  "should_trigger": true,
+  "query": "help me figure out the risky bits of the weekly summary story so I can plan testing",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"help me figure out the risky bits of the weekly summary story so I can plan testing\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"help me figure out the risky bits of the weekly summary story so I can plan testing\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "H3",
+  "should_trigger": true,
+  "query": "negative cases for the CSV export story?",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"negative cases for the CSV export story\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"negative cases for the CSV export story\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"negative cases for the CSV export story\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "H4",
+  "should_trigger": true,
+  "query": "draft a checklist of what to verify for S-116",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-116 \u2014 draft a checklist of what to verify\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"draft a checklist of what to verify for S-116\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-116 \u2014 draft a checklist of what to verify\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "H5",
+  "should_trigger": false,
+  "query": "write unit tests for check_text in src/nightjar/claims.py",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Read",
+    "args": "{\"file_path\": \"/private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj/src/nightjar/claims.py\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Read",
+    "args": "{\"file_path\": \"/private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj/src/nightjar/claims.py\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && cat src/nightjar/claims.py && ls . tests 2>/dev/null\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "H6",
+  "should_trigger": false,
+  "query": "are there any flaky tests in tests/?",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"ls -R tests | head -50; grep -rniE \\\"sleep|random|time\\\\.time|datetime\\\\.now|skip|xfail|retry|flaky|network|requests\\\\.|http\\\" tests | head -40\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"ls tests/ 2>&1 | head -50; grep -rniE \\\"sleep|random|skip|retry|flaky|xfail|time\\\\.time|datetime\\\\.now|Date\\\\.now|setTimeout\\\" tests/ 2>/dev/null | head -50\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"ls -R tests | head -100; grep -rnE \\\"sleep|random|time\\\\.time|datetime\\\\.now|Date\\\\.now|setTimeout|skip|xfail|retry|flaky\\\" tests | head -50\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "H7",
+  "should_trigger": false,
+  "query": "explain what S-116 is about to a new developer",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && grep -rIn \\\"S-116\\\" . 2>/dev/null | head -30; git log -",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && grep -rIn \\\"S-116\\\" . 2>/dev/null | head -30; ls\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && grep -rIn \\\"S-116\\\" . 2>/dev/null | head -30; ls\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "H8",
+  "should_trigger": false,
+  "query": "add a Playwright test that clicks Save night and checks the diary row",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"ls; cat package.json playwright.config.* 2>/dev/null; git ls-files | head -50; grep -rIl \\\"Save night\\\" --exclude-dir=node_modules . | head\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"ls; cat package.json playwright.config.* 2>/dev/null | head -50; grep -rIl \\\"Save night\\\" . --exclude-dir=node_modules --exclude-dir=.git | head\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && git ls-files | head -100 && cat package.json playwright",
+    "triggered": false
+   }
+  ]
+ }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "key": "NJ-4",
+    "type": "Bug",
+    "status": "Done",
+    "summary": "[Nudge] Reminder skipped during quiet hours instead of delivered silently",
+    "description": "Steps: set quiet hours 22:00-07:00, log 7 nights with a usual bedtime of 23:00.\nExpected: the 22:15 reminder is delivered silently (PR-21 item 4).\nActual: no reminder at all.\nFixed in nudge.py: quiet hours now set silent=True.",
+    "comments": []
+  },
+  {
+    "key": "NJ-7",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Import] No feedback while a large CSV uploads",
+    "description": "Uploading a CSV with a few hundred nights takes a couple of seconds and the page shows nothing until it reloads. Users click Import again.\nExpected: a busy state on the Import button.\nActual: no change until the page reloads.",
+    "comments": []
+  },
+  {
+    "key": "NJ-9",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Coach] Long answers are cut off mid-sentence",
+    "description": "Asking the coach a broad question ('how do I fix my sleep schedule?') sometimes returns an answer that stops mid-sentence.\nSeen with the Claude coach, not the mock.",
+    "comments": []
+  },
+  {
+    "key": "NJ-11",
+    "type": "Bug",
+    "status": "Done",
+    "summary": "[Diary] Slept time is an hour off across the autumn clock change",
+    "description": "Night of Sat 31 Oct 2026, America/Toronto, bed 23:00, up 07:00. The clocks go back at 02:00, so the night lasted 9h.\nExpected: Slept 9h 0m.\nActual: Slept 8h 0m.\nCause: durations were subtracted in local wall-clock time. Fixed: Night.duration now subtracts in UTC.",
+    "comments": []
+  },
+  {
+    "key": "NJ-12",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Import] Re-uploading a CSV adds the same nights again",
+    "description": "While preparing the demo I uploaded data/sample_nights.csv, then uploaded it again by mistake. The diary now lists every night twice (42 rows).\nExpected: nights already in the diary are not added again.\nActual: every night is stored a second time.",
+    "comments": []
+  },
+  {
+    "key": "NJ-14",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Settings] Quiet hours can't end at midnight",
+    "description": "Setting quiet hours 21:00 to 00:00 is rejected with 'Invalid time'. Entering 23:59 works.\nExpected: 00:00 is accepted as the end of quiet hours.",
+    "comments": []
+  }
+]

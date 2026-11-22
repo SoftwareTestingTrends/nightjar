@@ -1,0 +1,10 @@
+[
+ {"id": "H1", "should_trigger": true, "query": "S-117 is in refinement on Thursday. What scenarios should I bring?"},
+ {"id": "H2", "should_trigger": true, "query": "help me figure out the risky bits of the weekly summary story so I can plan testing"},
+ {"id": "H3", "should_trigger": true, "query": "negative cases for the CSV export story?"},
+ {"id": "H4", "should_trigger": true, "query": "draft a checklist of what to verify for S-116"},
+ {"id": "H5", "should_trigger": false, "query": "write unit tests for check_text in src/nightjar/claims.py"},
+ {"id": "H6", "should_trigger": false, "query": "are there any flaky tests in tests/?"},
+ {"id": "H7", "should_trigger": false, "query": "explain what S-116 is about to a new developer"},
+ {"id": "H8", "should_trigger": false, "query": "add a Playwright test that clicks Save night and checks the diary row"}
+]

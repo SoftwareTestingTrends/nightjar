@@ -1,0 +1,16 @@
+# The teammate's update commands (shell, in their clone, CLAUDE_CODE_PLUGIN_CACHE_DIR=<sandbox>/plugin-store)
+
+## After commit 5fb1e9a (the fixes, version left at 1.0.0)
+$ claude plugin marketplace update nightjar-tools
+✔ Successfully updated marketplace: nightjar-tools
+$ claude plugin update nightjar-qa@nightjar-tools --scope local
+Checking for updates for plugin "nightjar-qa@nightjar-tools" at local scope…
+✔ nightjar-qa is already at the latest version (1.0.0).
+# cached file-bug/SKILL.md still had: command: '"${CLAUDE_PROJECT_DIR}"/.claude/skills/file-bug/scripts/check_filing.py'
+
+## After commit d6181e2 (version 1.1.0)
+$ claude plugin marketplace update nightjar-tools
+✔ Successfully updated marketplace: nightjar-tools
+$ claude plugin update nightjar-qa@nightjar-tools --scope local
+✔ Plugin "nightjar-qa" updated from 1.0.0 to 1.1.0 for scope local (<teammate clone>). Restart to apply changes.
+# cache now holds 1.0.0/ (marked in use, removed by cleanup later) and 1.1.0/, whose hook says '"${CLAUDE_PLUGIN_ROOT}"/skills/file-bug/scripts/check_filing.py'

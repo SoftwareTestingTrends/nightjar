@@ -1,0 +1,1 @@
+/nightjar-qa:file-bug This is a hook test, not a real bug. Do exactly this and nothing else: write bug-drafts/test.md containing the single line '# test', then run python3 tools/tracker/tracker.py create --draft bug-drafts/test.md and report its output word for word.

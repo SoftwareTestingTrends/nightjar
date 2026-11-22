@@ -1,0 +1,31 @@
+{
+  "skill_name": "triage-bug",
+  "deliverable": "If it's a real bug, write a minimal script at bugs/<short-name>/repro.py that exits 1 while the bug is present and 0 once it's fixed. If it isn't a bug, say so and don't write one.",
+  "evals": [
+    {
+      "id": 1, "name": "duplicate-import", "kind": "bug", "fix_patch": "fix-reimport.patch",
+      "prompt": "Importing the same CSV twice seems to store every night twice. Can you look into it?",
+      "expected_output": "A real bug: a repro that exits 1 today and 0 with the developer's fix."
+    },
+    {
+      "id": 2, "name": "spring-forward-bedtime", "kind": "bug",
+      "prompt": "I logged a bedtime of 02:30 on 8 March 2026 in America/Toronto, and the diary shows 03:30. Is that a bug?",
+      "expected_output": "A real bug: 02:30 doesn't exist that night and NightJar saves 03:30 without a warning. A repro that exits 1 today."
+    },
+    {
+      "id": 3, "name": "autumn-nine-hours", "kind": "not-bug",
+      "prompt": "My night of Saturday 31 October 2026 in America/Toronto shows 9h slept, but I was in bed from 23:00 to 07:00. That's 8 hours, so the calculation looks wrong.",
+      "expected_output": "Not a bug: the clocks went back an hour that night, so 9 hours is right."
+    },
+    {
+      "id": 4, "name": "after-midnight-bedtime", "kind": "not-bug",
+      "prompt": "I went to bed at 00:15 on Sunday 15 November 2026 and the diary lists it as the night of Saturday 14 November. Shouldn't it say Sunday?",
+      "expected_output": "Not a bug: NightJar's documented rule counts a 00:15 bedtime as the previous evening's night."
+    },
+    {
+      "id": 5, "name": "quiet-hours-midnight", "kind": "not-bug",
+      "prompt": "Settings won't let me set quiet hours from 21:00 to 00:00. It says the time is invalid.",
+      "expected_output": "Not reproducible: NightJar accepts quiet hours that end at 00:00."
+    }
+  ]
+}

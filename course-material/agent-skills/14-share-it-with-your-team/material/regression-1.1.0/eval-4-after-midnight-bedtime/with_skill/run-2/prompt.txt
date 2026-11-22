@@ -1,0 +1,1 @@
+/nightjar-qa:triage-bug I went to bed at 00:15 on Sunday 15 November 2026 and the diary lists it as the night of Saturday 14 November. Shouldn't it say Sunday? If it's a real bug, write a minimal script at bugs/<short-name>/repro.py that exits 1 while the bug is present and 0 once it's fixed. If it isn't a bug, say so and don't write one.

@@ -1,0 +1,482 @@
+[
+ {
+  "id": "T1",
+  "should_trigger": true,
+  "query": "write test cases for S-117",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "T2",
+  "should_trigger": true,
+  "query": "what should we test for the weekly sleep summary story before dev picks it up?",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "T3",
+  "should_trigger": true,
+  "query": "give me test ideas for the CSV export (S-117)",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"CSV export (S-117)\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"CSV export (S-117)\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"CSV export (S-117)\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "T4",
+  "should_trigger": true,
+  "query": "Priya wants test coverage for S-116 at tomorrow's refinement meeting, can you draft it",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-116\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-116\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-116\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "T5",
+  "should_trigger": true,
+  "query": "list the edge cases we need to check for docs/stories/S-116.md",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"docs/stories/S-116.md \u2014 list the edge cases we need to check\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"docs/stories/S-116.md \u2014 list the edge cases we need to check\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"docs/stories/S-116.md \u2014 list the edge cases we need to check\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "T6",
+  "should_trigger": true,
+  "query": "can u do test design for s-117 pls",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "T7",
+  "should_trigger": true,
+  "query": "I need QA scenarios for the diary export story",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "T8",
+  "should_trigger": true,
+  "query": "acceptance tests for S-116? just the scenarios, product will review them",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-116\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-116\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-116\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "T9",
+  "should_trigger": true,
+  "query": "turn the acceptance criteria in S-117 into test cases I can run by hand",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\", \"args\": \"S-117\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "T10",
+  "should_trigger": true,
+  "query": "before anyone codes the weekly summary, what could go wrong with it that we should check?",
+  "trigger_rate": 1.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"write-test-cases\"}",
+    "triggered": true
+   }
+  ]
+ },
+ {
+  "id": "N1",
+  "should_trigger": false,
+  "query": "write a pytest test for the 7-night rule in sleep_window.py",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && find . -name \\\"sleep_window*\\\" -not -path \\\"./.git/*\\\";",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && git ls-files | head -50 && find . -name 'sleep_window*'",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"find . -name \\\"sleep_window*\\\" -not -path \\\"./node_modules/*\\\"; ls\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "N2",
+  "should_trigger": false,
+  "query": "make test is failing on test_T_114_2, can you fix it?",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"make test 2>&1 | tail -40; grep -rn \\\"T_114_2\\\" --include=* . 2>/dev/null | head\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"make test 2>&1 | tail -40; grep -rn \\\"T_114_2\\\" . --include=* -l 2>/dev/null | head\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"make test 2>&1 | tail -40; grep -rn \\\"T_114_2\\\" --include=* . 2>/dev/null | head\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "N3",
+  "should_trigger": false,
+  "query": "review docs/test-cases/S-116.md and tell me if any expected results are wrong",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Read",
+    "args": "{\"file_path\": \"/private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj/docs/test-cases/S-116.md\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Read",
+    "args": "{\"file_path\": \"/private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj/docs/test-cases/S-116.md\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Read",
+    "args": "{\"file_path\": \"/private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj/docs/test-cases/S-116.md\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "N4",
+  "should_trigger": false,
+  "query": "summarise S-117 in two sentences for the release notes",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rn \\\"S-117\\\" . --include=* -I 2>/dev/null | head -20\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rIl \\\"S-117\\\" . 2>/dev/null | head; git log --all --oneline --grep=\\\"S-117\\\" | head\", \"description\": \"Search repo for S-117 references\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rIl \\\"S-117\\\" . 2>/dev/null | head\", \"description\": \"Search repo for S-117\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "N5",
+  "should_trigger": false,
+  "query": "how many tests does make test run?",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -n -A5 '^test' Makefile; ls\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -n -A5 '^test' Makefile 2>/dev/null; ls\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -n -A5 '^test' Makefile; ls\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "N6",
+  "should_trigger": false,
+  "query": "update docs/traceability.md so it lists the T-114 tests",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cat docs/traceability.md; grep -rn \\\"T-114\\\" . --include=* -l 2>/dev/null | head -20\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cat docs/traceability.md; grep -rn \\\"T-114\\\" . --include=* -l 2>/dev/null | head -20\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cat docs/traceability.md; grep -rn \\\"T-114\\\" . --include=* -I --exclude-dir=.git | head -50\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "N7",
+  "should_trigger": false,
+  "query": "estimate S-116 in story points",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rIl \\\"S-116\\\" . 2>/dev/null | head; ls\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rIl \\\"S-116\\\" . 2>/dev/null | head; ls\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rl \\\"S-116\\\" . 2>/dev/null | head; ls\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "N8",
+  "should_trigger": false,
+  "query": "automate TC-116-30 as a pytest test",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rn \\\"TC-116-30\\\" . 2>/dev/null | head; ls\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && grep -rn \\\"TC-116-30\\\" . 2>/dev/null | head; ls\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"cd /private/tmp/claude-501/-Users-you-ai-projects-video-generator-ai/6341de11-3d9f-4d6b-a52c-4f81853d5e47/scratchpad/desc/nj && grep -rn \\\"TC-116-30\\\" . 2>/dev/null | head; ls\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "N9",
+  "should_trigger": false,
+  "query": "check that the home page loads in a real browser",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"run\", \"args\": \"check that the home page loads in a real browser\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"run\", \"args\": \"check that the home page loads in a real browser\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Skill",
+    "args": "{\"skill\": \"run\", \"args\": \"check that the home page loads in a real browser\"}",
+    "triggered": false
+   }
+  ]
+ },
+ {
+  "id": "N10",
+  "should_trigger": false,
+  "query": "rewrite the acceptance criteria in S-116 so they're easier to test",
+  "trigger_rate": 0.0,
+  "pass": true,
+  "runs": [
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rl \\\"S-116\\\" . --exclude-dir=node_modules --exclude-dir=.git 2>/dev/null | head\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rn \\\"S-116\\\" . --include=* -l 2>/dev/null | head\"}",
+    "triggered": false
+   },
+   {
+    "first_tool": "Bash",
+    "args": "{\"command\": \"grep -rIl \\\"S-116\\\" . 2>/dev/null | head\"}",
+    "triggered": false
+   }
+  ]
+ }
+]

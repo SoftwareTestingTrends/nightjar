@@ -1,0 +1,1 @@
+Installing plugin "nightjar-qa@nightjar-tools"...✔ Successfully installed plugin: nightjar-qa@nightjar-tools (scope: local)

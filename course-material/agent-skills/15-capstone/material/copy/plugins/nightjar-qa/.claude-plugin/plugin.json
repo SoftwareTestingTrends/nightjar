@@ -1,0 +1,9 @@
+{
+  "name": "nightjar-qa",
+  "displayName": "NightJar QA",
+  "version": "1.1.0",
+  "description": "NightJar's testing skills: test cases from a story, a browser check, bug triage, filing and fix verification, a router, and a review of third-party skills.",
+  "author": { "name": "NightJar QA" },
+  "repository": "https://github.com/SoftwareTestingTrends/nightjar",
+  "license": "MIT"
+}

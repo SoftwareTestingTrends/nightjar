@@ -1,0 +1,56 @@
+:root {
+  --night: #0b1533;
+  --panel: #142350;
+  --line: #2a3d78;
+  --text: #e8edff;
+  --muted: #9fb0dd;
+  --moon: #f4d67a;
+  --error: #ff9b9b;
+}
+* { box-sizing: border-box; }
+:root { color-scheme: dark; }
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--text);
+  font: 20px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+header, main { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+header { padding-top: 24px; }
+h1 { margin: 0; color: var(--moon); font-size: 44px; }
+h2 { margin: 0 0 12px; font-size: 26px; }
+h2:not(:first-child) { margin-top: 28px; }
+.tagline, .muted { color: var(--muted); }
+.small { font-size: 16px; }
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin: 20px 0;
+}
+.nudge .big { font-size: 30px; margin: 0 0 8px; }
+.nudge strong { color: var(--moon); }
+.panel > :last-child { margin-bottom: 0; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.columns .panel { margin: 0; }
+label { display: block; margin-bottom: 10px; color: var(--muted); }
+form.inline label { display: inline-block; margin-right: 12px; }
+input, textarea, button {
+  font: inherit;
+  color: var(--text);
+  background: var(--night);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+label input, label textarea, form > textarea { display: block; width: 100%; margin-top: 4px; }
+form.inline label input { display: inline-block; width: auto; }
+button { background: var(--moon); color: var(--night); border: 0; font-weight: 600; cursor: pointer; }
+blockquote { margin: 16px 0 0; padding: 12px 16px; border-left: 4px solid var(--moon); background: var(--night); }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; }
+.error { color: var(--error); font-weight: 600; }
+.notice { color: var(--moon); }
+@media (max-width: 900px) { .columns { grid-template-columns: 1fr; } }

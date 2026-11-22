@@ -1,0 +1,1 @@
+We're thinking of installing the Snagly plugin for our testing. A copy is checked out at ../snagly. Can we use it? Write the review to docs/reviews/.

@@ -1,0 +1,1057 @@
+{
+  "metadata": {
+    "skill_name": "triage-bug",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-11-22T00:18:40Z",
+    "evals_run": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 30.6,
+        "tokens": 233890,
+        "tool_calls": 15,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/D-1-csv-reimport-duplicates/repro.py \u2192 exit 1 (1-night CSV imported twice -> 2 nights stored (expected 1))"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/D-1-csv-reimport-duplicates/repro.py \u2192 exit 1 (1-night CSV imported twice -> 2 nights stored (expected 1))"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The repro exits 0 with the developer's fix applied",
+          "passed": true,
+          "evidence": "exit 0 (1-night CSV imported twice -> 1 nights stored (expected 1))"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 34.9,
+        "tokens": 344263,
+        "tool_calls": 15,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/D-1-csv-reimport-duplicates/repro.py \u2192 exit 1 (BUG: importing a 2-night CSV twice stored 4 nights (expected 2))"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/D-1-csv-reimport-duplicates/repro.py \u2192 exit 1 (BUG: importing a 2-night CSV twice stored 4 nights (expected 2))"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The repro exits 0 with the developer's fix applied",
+          "passed": true,
+          "evidence": "exit 0 (OK: re-import stored 2 nights)"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 27.5,
+        "tokens": 243928,
+        "tool_calls": 14,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/D-1-csv-reimport-duplicates/repro.py \u2192 exit 1 (1-night CSV imported twice -> 2 nights stored (expected 1))"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/D-1-csv-reimport-duplicates/repro.py \u2192 exit 1 (1-night CSV imported twice -> 2 nights stored (expected 1))"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The repro exits 0 with the developer's fix applied",
+          "passed": true,
+          "evidence": "exit 0 (1-night CSV imported twice -> 1 nights stored (expected 1))"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 47.0,
+        "tokens": 380265,
+        "tool_calls": 14,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/D-1-nonexistent-local-time-shifted/repro.py \u2192 exit 1 (typed 02:30, HTTP 303, diary shows 03:30)"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/D-1-nonexistent-local-time-shifted/repro.py \u2192 exit 1 (typed 02:30, HTTP 303, diary shows 03:30)"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 49.9,
+        "tokens": 377190,
+        "tool_calls": 16,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/D-1-dst-gap-bedtime-shifted/repro.py \u2192 exit 1 (BUG: entered 02:30 on 2026-03-08 in America/Toronto, diary shows 03:30)"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/D-1-dst-gap-bedtime-shifted/repro.py \u2192 exit 1 (BUG: entered 02:30 on 2026-03-08 in America/Toronto, diary shows 03:30)"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 43.6,
+        "tokens": 344567,
+        "tool_calls": 14,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/D-1-spring-forward-bedtime-shifted/repro.py \u2192 exit 1 (BUG: typed 02:30, HTTP 303, diary shows 03:30 with no warning)"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/D-1-spring-forward-bedtime-shifted/repro.py \u2192 exit 1 (BUG: typed 02:30, HTTP 303, diary shows 03:30 with no warning)"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 16.5,
+        "tokens": 104017,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 14.3,
+        "tokens": 104911,
+        "tool_calls": 5,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 11.2,
+        "tokens": 77489,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 13.2,
+        "tokens": 106359,
+        "tool_calls": 5,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "configuration": "with_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 14.3,
+        "tokens": 104982,
+        "tool_calls": 5,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "configuration": "with_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 13.6,
+        "tokens": 108813,
+        "tool_calls": 6,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 44.7,
+        "tokens": 373316,
+        "tool_calls": 17,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "bugs/quiet-hours-midnight/repro.py \u2192 exit 0 (POST /settings 21:00-00:00 -> HTTP 303 saved (datetime.time(21, 0), datetime.tim)"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "with_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 40.3,
+        "tokens": 407546,
+        "tool_calls": 21,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "bugs/quiet-end-midnight/repro.py \u2192 exit 0 (POST /settings 21:00-00:00 -> HTTP 303, saved quiet_end=00:00:00)"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "with_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 42.2,
+        "tokens": 367650,
+        "tool_calls": 15,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "bugs/quiet-hours-midnight/repro.py \u2192 exit 0 (POST /settings 21:00-00:00 -> HTTP 303; saved quiet_end=00:00:00)"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 28.4,
+        "tokens": 267691,
+        "tool_calls": 9,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/duplicate-csv-import/repro.py \u2192 exit 1 (2 distinct nights imported twice -> 4 stored (expected 2))"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/duplicate-csv-import/repro.py \u2192 exit 1 (2 distinct nights imported twice -> 4 stored (expected 2))"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The repro exits 0 with the developer's fix applied",
+          "passed": true,
+          "evidence": "exit 0 (2 distinct nights imported twice -> 2 stored (expected 2))"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 28.1,
+        "tokens": 259930,
+        "tool_calls": 10,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/duplicate-csv-import/repro.py \u2192 exit 1 (BUG: 4 nights stored after importing the same 2-night CSV twice (expected 2))"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/duplicate-csv-import/repro.py \u2192 exit 1 (BUG: 4 nights stored after importing the same 2-night CSV twice (expected 2))"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The repro exits 0 with the developer's fix applied",
+          "passed": true,
+          "evidence": "exit 0 (OK: 2 nights after importing a 2-night CSV twice)"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 24.4,
+        "tokens": 234406,
+        "tool_calls": 9,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/duplicate-import/repro.py \u2192 exit 1 (BUG: 4 nights stored after importing the same 2-night CSV twice (expected 2))"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/duplicate-import/repro.py \u2192 exit 1 (BUG: 4 nights stored after importing the same 2-night CSV twice (expected 2))"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The repro exits 0 with the developer's fix applied",
+          "passed": true,
+          "evidence": "exit 0 (OK: 2 distinct nights after importing the same 2-night CSV twice)"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.25,
+        "passed": 1,
+        "failed": 3,
+        "total": 4,
+        "time_seconds": 11.2,
+        "tokens": 74055,
+        "tool_calls": 2,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": false,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": false,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": false,
+          "evidence": "no repro to run"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 40.8,
+        "tokens": 251481,
+        "tool_calls": 10,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/dst-gap-bedtime/repro.py \u2192 exit 1 (BUG: typed 02:30 (nonexistent, DST gap), diary shows 03:30, no warning)"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/dst-gap-bedtime/repro.py \u2192 exit 1 (BUG: typed 02:30 (nonexistent, DST gap), diary shows 03:30, no warning)"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 36.3,
+        "tokens": 198807,
+        "tool_calls": 7,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A repro script exists in bugs/",
+          "passed": true,
+          "evidence": "bugs/spring-forward-bedtime-shift/repro.py \u2192 exit 1 (BUG: entered 02:30 (does not exist in Toronto on 2026-03-08), saved as 03:30)"
+        },
+        {
+          "text": "The repro exits 1 on today's code (the bug is present)",
+          "passed": true,
+          "evidence": "bugs/spring-forward-bedtime-shift/repro.py \u2192 exit 1 (BUG: entered 02:30 (does not exist in Toronto on 2026-03-08), saved as 03:30)"
+        },
+        {
+          "text": "The repro gives exit 1 three more times in a row",
+          "passed": true,
+          "evidence": "exit codes [1, 1, 1]"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 11.5,
+        "tokens": 47748,
+        "tool_calls": 1,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 13.5,
+        "tokens": 74119,
+        "tool_calls": 3,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 10.0,
+        "tokens": 71698,
+        "tool_calls": 2,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 15.7,
+        "tokens": 74475,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "configuration": "without_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 8.8,
+        "tokens": 75079,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "configuration": "without_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 10.7,
+        "tokens": 74531,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 29.3,
+        "tokens": 231260,
+        "tool_calls": 9,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "without_skill",
+      "run_number": 2,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 34.0,
+        "tokens": 346833,
+        "tool_calls": 12,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "bugs/quiet-hours-midnight/repro.py \u2192 exit 0 (status 303 start 21:00:00 end 00:00:00)"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "without_skill",
+      "run_number": 3,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 37.4,
+        "tokens": 320482,
+        "tool_calls": 14,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No repro script reports a bug (none exits 1 on today's code)",
+          "passed": true,
+          "evidence": "no repro.py in bugs/"
+        },
+        {
+          "text": "The real nightjar.db wasn't created or used",
+          "passed": true,
+          "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 29.5867,
+        "stddev": 14.5133,
+        "min": 11.2,
+        "max": 49.9
+      },
+      "tokens": {
+        "mean": 245279.0667,
+        "stddev": 130527.6424,
+        "min": 77489,
+        "max": 407546
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.95,
+        "stddev": 0.1936,
+        "min": 0.25,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 22.6733,
+        "stddev": 11.5086,
+        "min": 8.8,
+        "max": 40.8
+      },
+      "tokens": {
+        "mean": 173506.3333,
+        "stddev": 105893.4693,
+        "min": 47748,
+        "max": 346833
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.05",
+      "time_seconds": "+6.9",
+      "tokens": "+71773"
+    }
+  },
+  "notes": []
+}

@@ -1,0 +1,15 @@
+    Blocked by the file-bug hook:
+    - search for duplicates first: 0 different search(es) in the last two hours, need 2
+  exit 2  no searches yet: should block
+  exit 0  two searches, good draft: should pass
+    Blocked by the file-bug hook:
+    - missing section: ## Expected
+  exit 2  missing Expected section: should block
+    Blocked by the file-bug hook:
+    - contains an email address
+  exit 2  email address in draft: should block
+    Blocked by the file-bug hook:
+    - draft file not found: bug-drafts/missing.md
+  exit 2  draft file missing: should block
+  exit 0  a search: should pass untouched
+  exit 0  another command: should pass untouched

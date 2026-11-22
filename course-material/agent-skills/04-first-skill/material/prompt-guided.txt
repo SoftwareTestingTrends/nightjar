@@ -1,0 +1,8 @@
+Write test cases for story S-116 (docs/stories/S-116.md) for me to review before development starts.
+
+- Write them as a document, not code: save them to docs/test-cases/S-116.md.
+- Work only from the story and the documents it links to. Don't read src/ or tests/: the code doesn't exist yet, and test cases must come from the spec, not from code.
+- Use one table per acceptance criterion, with the columns ID (TC-116-1, TC-116-2, ...), Condition, Steps and Expected result. Give concrete data: dates, times, time zones.
+- Cover both sides of every number in the story, dates and times around midnight, time zone changes, daylight saving in America/Toronto and Europe/London, no data and the minimum data, and the claims check on any text the user sees.
+- Every expected result must come from the story. If the story doesn't say, don't guess: put it under "Open questions" at the end, with who should answer it.
+- Finish your reply with how many cases you wrote per acceptance criterion and the open questions.

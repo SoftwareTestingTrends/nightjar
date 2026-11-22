@@ -1,0 +1,6 @@
+Grader self-test, 2026-11-21 (before any agent run), on a fresh copy of lesson/handoffs:
+- eval 1 (bug), no repro                      → 1/5 (only the nightjar.db check passes)   expected
+- eval 1 (bug), last lesson's known-good repro → 5/5 (exists, exit 1, 1-1-1, exit 0 with the fix, no db)   expected
+- eval 3 (not a bug), the same repro          → 1/2 (a repro that reports a bug fails the eval)   expected
+- eval 3 (not a bug), no repro                → 2/2   expected
+The fix patch reverted cleanly (git status clean after grading).

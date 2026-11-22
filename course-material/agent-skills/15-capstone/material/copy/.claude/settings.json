@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "ask": [
+      "Bash(*tracker.py create *)",
+      "Bash(*tracker.py comment *)"
+    ]
+  }
+}

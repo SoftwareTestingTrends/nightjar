@@ -6,6 +6,10 @@ When a lesson says
 "this lesson's `material/` folder", it means `course-material/<lesson>/material/` here.
 Folder numbers match the lesson numbers on the site.
 
+The material for **Teach the Agent to Test: Building Agent Skills for QA** is in
+[`agent-skills/`](agent-skills/).
+
+
 | Folder | Lesson |
 |---|---|
 | [`05-the-agent-loop`](05-the-agent-loop/material/) | What a coding agent actually does |

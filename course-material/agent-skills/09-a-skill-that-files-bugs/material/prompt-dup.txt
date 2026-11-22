@@ -1,0 +1,1 @@
+I found a bug: importing the same CSV twice stores every night twice, so 4 nights in the file show up as 8 in the diary, and the nudge starts before there are 7 real nights. Please file it in our tracker.

@@ -1,0 +1,1 @@
+I logged a bedtime of 02:30 on 8 March 2026 in America/Toronto, and the diary shows 03:30. Is that a bug? If it's a real bug, write a minimal script at bugs/<short-name>/repro.py that exits 1 while the bug is present and 0 once it's fixed. If it isn't a bug, say so and don't write one.

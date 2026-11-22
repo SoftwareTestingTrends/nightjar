@@ -1,0 +1,47 @@
+# NightJar claims register
+# Owner: Regulatory & Brand (fictional team). Changes need their review.
+# NightJar is a wellness product, not a medical device. User-facing copy may
+# use approved wellness phrases and must never match a banned pattern.
+version: 3
+
+approved_phrases:
+  - wind down
+  - relax
+  - build a consistent bedtime routine
+  - keep a regular sleep schedule
+  - get ready for bed
+  - a calm evening
+  - rest
+
+# Nudge copy (story S-114, AC4). {bedtime} is the user's usual bedtime, e.g. 23:00.
+nudge_copy:
+  - "Time to wind down. Your usual bedtime is {bedtime}."
+  - "A gentle reminder to relax and get ready for bed. Your usual bedtime is {bedtime}."
+  - "Start a calm evening and wind down. Your usual bedtime is {bedtime}."
+
+# Banned disease-claim patterns (Python regular expressions, case-insensitive).
+banned:
+  - id: disease-insomnia
+    pattern: '\binsomnia\b'
+    reason: Names a sleep disorder.
+  - id: disease-sleep-apnea
+    pattern: '\bsleep\s+apnoea\b|\bsleep\s+apnea\b|\bapnea\b'
+    reason: Names a sleep disorder.
+  - id: claim-treat
+    pattern: '\btreat(s|ed|ing|ment|ments)?\b'
+    reason: Implies medical treatment.
+  - id: claim-cure
+    pattern: '\bcur(e|es|ed|ing)\b'
+    reason: Implies a cure.
+  - id: claim-diagnose
+    pattern: '\bdiagnos\w*'
+    reason: Implies a diagnosis.
+  - id: disease-anxiety-disorder
+    pattern: '\banxiety\s+disorders?\b'
+    reason: Names a mental health condition.
+  - id: claim-prescribe
+    pattern: '\bprescri(be|bes|bed|ption|ptions)\b'
+    reason: Implies prescribing.
+  - id: claim-clinically-proven
+    pattern: '\bclinically\s+proven\b'
+    reason: Unsupported efficacy claim.

@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "A repro script exists in bugs/",
+      "passed": true,
+      "evidence": "bugs/csv-import-duplicates/repro.py \u2192 exit 1 (BUG: first import stored 2 nights, second import brought the total to 4)"
+    },
+    {
+      "text": "The repro exits 1 on today's code (the bug is present)",
+      "passed": true,
+      "evidence": "bugs/csv-import-duplicates/repro.py \u2192 exit 1 (BUG: first import stored 2 nights, second import brought the total to 4)"
+    },
+    {
+      "text": "The repro gives exit 1 three more times in a row",
+      "passed": true,
+      "evidence": "exit codes [1, 1, 1]"
+    },
+    {
+      "text": "The repro exits 0 with the developer's fix applied",
+      "passed": true,
+      "evidence": "exit 0 (OK: importing twice left 2 nights (no duplicates))"
+    },
+    {
+      "text": "The real nightjar.db wasn't created or used",
+      "passed": true,
+      "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "Bash": 9,
+      "Write": 1,
+      "Grep": 1
+    },
+    "total_tool_calls": 11
+  }
+}

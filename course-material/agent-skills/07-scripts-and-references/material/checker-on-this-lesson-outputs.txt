@@ -1,0 +1,48 @@
+== scripted-1
+PASS  AC1: 4 case(s)
+PASS  AC2: 3 case(s)
+PASS  AC3: 5 case(s)
+PASS  AC4: 3 case(s)
+PASS  AC5: 5 case(s)
+PASS  AC6: 4 case(s)
+PASS  Edge: 2 case(s)
+PASS  Non-functional: 2 case(s)
+PASS  case IDs TC-117-1 to -28 in order
+PASS  every case has an expected result
+PASS  open questions table has 'Proposed answer' and 'Who decides' columns
+PASS  all 6 open questions have a proposed answer and an owner
+PASS  no test code in the document
+
+13 passed, 0 failed
+== scripted-2
+PASS  AC1: 4 case(s)
+PASS  AC2: 3 case(s)
+PASS  AC3: 5 case(s)
+PASS  AC4: 3 case(s)
+PASS  AC5: 5 case(s)
+PASS  AC6: 4 case(s)
+PASS  Edge: 2 case(s)
+PASS  Non-functional: 3 case(s)
+PASS  case IDs TC-117-1 to -29 in order
+PASS  every case has an expected result
+PASS  open questions table has 'Proposed answer' and 'Who decides' columns
+PASS  all 11 open questions have a proposed answer and an owner
+PASS  no test code in the document
+
+13 passed, 0 failed
+== scripted-3
+PASS  AC1: 5 case(s)
+PASS  AC2: 3 case(s)
+PASS  AC3: 5 case(s)
+PASS  AC4: 4 case(s)
+PASS  AC5: 5 case(s)
+PASS  AC6: 4 case(s)
+PASS  Edge: 2 case(s)
+PASS  Non-functional: 2 case(s)
+PASS  case IDs TC-117-1 to -30 in order
+PASS  every case has an expected result
+PASS  open questions table has 'Proposed answer' and 'Who decides' columns
+PASS  all 9 open questions have a proposed answer and an owner
+PASS  no test code in the document
+
+13 passed, 0 failed

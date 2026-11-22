@@ -1,0 +1,38 @@
+{
+  "expectations": [
+    {
+      "text": "A repro script exists in bugs/",
+      "passed": true,
+      "evidence": "bugs/D-1-dst-gap-bedtime-shifted/repro.py \u2192 exit 1 (DEFECT: entered 02:30 (DST gap), diary silently shows 03:30)"
+    },
+    {
+      "text": "The repro exits 1 on today's code (the bug is present)",
+      "passed": true,
+      "evidence": "bugs/D-1-dst-gap-bedtime-shifted/repro.py \u2192 exit 1 (DEFECT: entered 02:30 (DST gap), diary silently shows 03:30)"
+    },
+    {
+      "text": "The repro gives exit 1 three more times in a row",
+      "passed": true,
+      "evidence": "exit codes [1, 1, 1]"
+    },
+    {
+      "text": "The real nightjar.db wasn't created or used",
+      "passed": true,
+      "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "Bash": 9,
+      "Write": 4,
+      "Read": 1
+    },
+    "total_tool_calls": 14
+  }
+}

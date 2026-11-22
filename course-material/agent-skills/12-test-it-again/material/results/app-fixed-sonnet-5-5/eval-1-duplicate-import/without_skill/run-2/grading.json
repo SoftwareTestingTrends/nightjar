@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "A repro script exists in bugs/",
+      "passed": false,
+      "evidence": "no repro.py in bugs/"
+    },
+    {
+      "text": "The repro exits 1 on today's code (the bug is present)",
+      "passed": false,
+      "evidence": "no repro.py in bugs/"
+    },
+    {
+      "text": "The repro gives exit 1 three more times in a row",
+      "passed": false,
+      "evidence": "no repro to run"
+    },
+    {
+      "text": "The repro exits 0 with the developer's fix applied",
+      "passed": false,
+      "evidence": "no repro, or the fix didn't apply"
+    },
+    {
+      "text": "The real nightjar.db wasn't created or used",
+      "passed": true,
+      "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 4,
+    "total": 5,
+    "pass_rate": 0.2
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "Grep": 1,
+      "Read": 2,
+      "Bash": 3
+    },
+    "total_tool_calls": 6
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "expectations": [
+    {
+      "text": "No repro script reports a bug (none exits 1 on today's code)",
+      "passed": true,
+      "evidence": "bugs/quiet-hours-midnight/repro.py \u2192 exit 0 (status=303 saved quiet_end=00:00:00)"
+    },
+    {
+      "text": "The real nightjar.db wasn't created or used",
+      "passed": true,
+      "evidence": "nightjar.db after the agent: False; after the grader ran the repros: False"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "Read": 4,
+      "Grep": 1,
+      "Glob": 1,
+      "Bash": 11,
+      "Write": 2
+    },
+    "total_tool_calls": 19
+  }
+}

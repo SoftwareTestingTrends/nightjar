@@ -1,0 +1,1 @@
+/snagly:flow-runner Walk through the sleep diary at APP_URL and check it shows the four nights I logged this week (Toronto time): Sat 15 Nov bed 23:05, wake 06:40; Sun 16 Nov bed 23:40, wake 07:10; Mon 17 Nov bed 22:50, wake 06:20; night of Tue 18 Nov bed 00:25 (on the 19th), wake 08:00. The app is already running; don't start or stop it.

@@ -1,0 +1,24 @@
+diff --git a/src/nightjar/diary.py b/src/nightjar/diary.py
+index 79ed8e5..f50939c 100644
+--- a/src/nightjar/diary.py
++++ b/src/nightjar/diary.py
+@@ -68,9 +68,17 @@ class Diary:
+             )
+ 
+     def add_nights(self, nights: list[Night]) -> int:
++        """Add nights that aren't in the diary yet; return how many were added."""
++        with self._connect() as db:
++            existing = set(db.execute("SELECT bedtime_utc, wake_time_utc FROM nights").fetchall())
++        added = 0
+         for night in nights:
+-            self.add_night(night)
+-        return len(nights)
++            key = (_to_utc_text(night.bedtime), _to_utc_text(night.wake_time))
++            if key not in existing:
++                self.add_night(night)
++                existing.add(key)
++                added += 1
++        return added
+ 
+     def nights(self) -> list[Night]:
+         """All nights, newest first."""

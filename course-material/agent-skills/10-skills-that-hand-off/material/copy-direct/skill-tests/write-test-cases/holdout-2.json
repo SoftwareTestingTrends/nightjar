@@ -1,0 +1,10 @@
+[
+ {"id": "G1", "should_trigger": true, "query": "Sam's on holiday, can you prep the testing for the CSV export story?"},
+ {"id": "G2", "should_trigger": true, "query": "what are the boundary values in S-116?"},
+ {"id": "G3", "should_trigger": true, "query": "I'm pairing with dev on S-117 tomorrow, give me things to poke at"},
+ {"id": "G4", "should_trigger": true, "query": "how would you test the weekly summary?"},
+ {"id": "G5", "should_trigger": false, "query": "is S-116 done yet? check the git log"},
+ {"id": "G6", "should_trigger": false, "query": "generate 30 nights of sample CSV data I can import"},
+ {"id": "G7", "should_trigger": false, "query": "the e2e test is slow, can you speed it up?"},
+ {"id": "G8", "should_trigger": false, "query": "turn docs/test-cases/S-116.md into pytest tests"}
+]

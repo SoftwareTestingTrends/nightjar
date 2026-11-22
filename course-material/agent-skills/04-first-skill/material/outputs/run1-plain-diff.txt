@@ -1,0 +1,83 @@
+diff --git a/docs/traceability.md b/docs/traceability.md
+index d07e9ac..4e58935 100644
+--- a/docs/traceability.md
++++ b/docs/traceability.md
+@@ -24,9 +24,25 @@ midnight crossing, 14-night window, per-night zones), `tests/test_claims.py`,
+ Safety behaviour of the coach is covered by `evals/cases/E-01..E-08` (run with
+ `make evals`) and by `tests/test_coach.py` (claims fallback, tracing, journal fencing).
+ 
++## S-116 weekly sleep summary (tests written, no code yet)
++
++`tests/test_weekly_summary.py` is skipped until `nightjar.summary` exists
++(assumed interface is in its docstring).
++
++| Criterion | Test id | Tests |
++|---|---|---|
++| AC1: window = seven "night of" dates before today, user's current zone | T-116-1 | `tests/test_weekly_summary.py::test_T_116_1_*` |
++| AC2: nights logged, average asleep, usual bedtime | T-116-2 | `tests/test_weekly_summary.py::test_T_116_2_*` |
++| AC3: mean, rounded to 5 min, "7 h 25 min" | T-116-3 | `tests/test_weekly_summary.py::test_T_116_3_*` |
++| AC4: median local bedtime, per-night zone, midnight | T-116-4 | `tests/test_weekly_summary.py::test_T_116_4_*` |
++| AC5: fewer than 3 nights, prompt only | T-116-5 | `tests/test_weekly_summary.py::test_T_116_5_*` |
++| AC6: claims check | T-116-6 | `tests/test_weekly_summary.py::test_T_116_6_*` |
++| NFR: home page, above the diary | T-116-7 | `tests/test_api.py::test_T_116_7_*` (skipped until `nightjar.summary` exists) |
++| NFR: real elapsed time across DST | T-116-8 | `tests/test_weekly_summary.py::test_T_116_8_*` |
++
+ ## Stories with no tests yet
+ 
+ | Story | Status |
+ |---|---|
+-| [S-116](stories/S-116.md) weekly sleep summary | Ready for development: test cases first |
++| [S-117](stories/S-117.md) export the diary as CSV | Ready for development: test cases first |
+ | [S-117](stories/S-117.md) export the diary as CSV | Ready for development: test cases first |
+diff --git a/tests/test_api.py b/tests/test_api.py
+index a5a4e02..b152b11 100644
+--- a/tests/test_api.py
++++ b/tests/test_api.py
+@@ -1,5 +1,6 @@
+ """API tests: the real app with a temp database, a fixed clock and the mock coach."""
+ 
++import importlib.util
+ from datetime import datetime
+ from pathlib import Path
+ from zoneinfo import ZoneInfo
+@@ -14,6 +15,11 @@ from nightjar.web import create_app
+ SAMPLE_CSV = Path(__file__).parents[1] / "data" / "sample_nights.csv"
+ NOON_IN_TORONTO = datetime(2026, 3, 20, 12, 0, tzinfo=ZoneInfo("America/Toronto"))
+ 
++# S-116 is test-first: its page tests are skipped until the summary module exists.
++needs_summary = pytest.mark.skipif(
++    importlib.util.find_spec("nightjar.summary") is None, reason="S-116 not implemented yet"
++)
++
+ 
+ @pytest.fixture
+ def client(tmp_path):
+@@ -117,3 +123,28 @@ def test_coach_json_api(client):
+     response = client.post("/api/coach", json={"question": "I get chest pain at night"})
+     assert response.status_code == 200
+     assert "seek medical care" in response.json()["answer"]
++
++
++# Story S-116: the weekly summary sits on the home page, above the sleep diary.
++# The clock is fixed at 20 March, so the window is the nights of 13..19 March.
++@needs_summary
++def test_T_116_7_page_shows_summary_above_the_diary(client):
++    for day in (16, 17, 18):
++        client.post(
++            "/nights",
++            data={
++                "bedtime": f"2026-03-{day}T23:00",
++                "wake_time": f"2026-03-{day + 1}T07:00",
++                "timezone": "America/Toronto",
++            },
++        )
++    page = client.get("/").text
++    assert 'data-testid="weekly-summary"' in page
++    assert page.index('data-testid="weekly-summary"') < page.index('data-testid="diary-table"')
++    assert "8 h 0 min" in page
++    assert "23:00" in page
++
++
++@needs_summary
++def test_T_116_7_page_shows_prompt_with_too_few_nights(client):
++    assert "Log at least 3 nights this week to see your summary." in client.get("/").text

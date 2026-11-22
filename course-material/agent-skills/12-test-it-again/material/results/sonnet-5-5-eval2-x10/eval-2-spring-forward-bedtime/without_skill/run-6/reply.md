@@ -1,0 +1,8 @@
+**This isn't a bug, so I haven't written a repro script.**
+
+- **The time you entered didn't exist.** On 8 March 2026, Toronto clocks jumped from 01:59 EST straight to 03:00 EDT. 02:30 never happened that night.
+- **The diary resolved it to a real moment.** I ran `local_input_to_aware("2026-03-08T02:30", "America/Toronto")`. It gives `02:30-05:00`, which is 07:30 UTC. That is the same instant as 03:30 EDT. The diary stores UTC and rebuilds local time from the stored zone, so it displays 03:30.
+- **The code says this is intended.** `at_local_time` in `src/nightjar/nudge.py:43-50` documents that skipped wall times move forward an hour ("02:30 on spring-forward day becomes 03:30"). `test_T_114_6_nudge_time_skipped_by_dst_moves_forward_an_hour` tests the nudge side of it, and the NFR "correct across DST (Toronto, London)" is in `docs/traceability.md`. The diary applies the same rule, so the two agree.
+- **Nothing is miscalculated.** Duration is computed in UTC, and a 01:30 bedtime on the same night round-trips unchanged.
+
+**A possible improvement, not a defect:** the form never tells you it moved your time. It could reject nonexistent times with a message like "02:30 doesn't exist in America/Toronto on that date", or show a note when it adjusts the time. The same applies to the ambiguous repeated hour in autumn, where the diary silently picks the first occurrence. If you want that treated as a requirement, I can log it as an enhancement with a repro for the new behaviour. As things stand, the current behaviour is consistent with the project's stated rules.

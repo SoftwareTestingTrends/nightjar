@@ -1,0 +1,5 @@
+# The person reviewed both drafts and filed them (the ask rule keeps this step with a person).
+$ python3 tools/tracker/tracker.py create --draft bug-drafts/export-offset-utc.md
+Created NJ-15: [Export] CSV export writes times with +00:00 instead of the night's own UTC offset
+$ python3 tools/tracker/tracker.py create --draft bug-drafts/export-order-newest-first.md
+Created NJ-16: [Export] CSV export lists nights newest first when the diary has several nights

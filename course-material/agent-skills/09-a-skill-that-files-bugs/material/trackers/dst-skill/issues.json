@@ -1,0 +1,58 @@
+[
+  {
+    "key": "NJ-4",
+    "type": "Bug",
+    "status": "Done",
+    "summary": "[Nudge] Reminder skipped during quiet hours instead of delivered silently",
+    "description": "Steps: set quiet hours 22:00-07:00, log 7 nights with a usual bedtime of 23:00.\nExpected: the 22:15 reminder is delivered silently (PR-21 item 4).\nActual: no reminder at all.\nFixed in nudge.py: quiet hours now set silent=True.",
+    "comments": []
+  },
+  {
+    "key": "NJ-7",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Import] No feedback while a large CSV uploads",
+    "description": "Uploading a CSV with a few hundred nights takes a couple of seconds and the page shows nothing until it reloads. Users click Import again.\nExpected: a busy state on the Import button.\nActual: no change until the page reloads.",
+    "comments": []
+  },
+  {
+    "key": "NJ-9",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Coach] Long answers are cut off mid-sentence",
+    "description": "Asking the coach a broad question ('how do I fix my sleep schedule?') sometimes returns an answer that stops mid-sentence.\nSeen with the Claude coach, not the mock.",
+    "comments": []
+  },
+  {
+    "key": "NJ-11",
+    "type": "Bug",
+    "status": "Done",
+    "summary": "[Diary] Slept time is an hour off across the autumn clock change",
+    "description": "Night of Sat 31 Oct 2026, America/Toronto, bed 23:00, up 07:00. The clocks go back at 02:00, so the night lasted 9h.\nExpected: Slept 9h 0m.\nActual: Slept 8h 0m.\nCause: durations were subtracted in local wall-clock time. Fixed: Night.duration now subtracts in UTC.",
+    "comments": []
+  },
+  {
+    "key": "NJ-12",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Import] Re-uploading a CSV adds the same nights again",
+    "description": "While preparing the demo I uploaded data/sample_nights.csv, then uploaded it again by mistake. The diary now lists every night twice (42 rows).\nExpected: nights already in the diary are not added again.\nActual: every night is stored a second time.",
+    "comments": []
+  },
+  {
+    "key": "NJ-14",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Settings] Quiet hours can't end at midnight",
+    "description": "Setting quiet hours 21:00 to 00:00 is rejected with 'Invalid time'. Entering 23:59 works.\nExpected: 00:00 is accepted as the end of quiet hours.",
+    "comments": []
+  },
+  {
+    "key": "NJ-15",
+    "type": "Bug",
+    "status": "Open",
+    "summary": "[Diary] Bedtime in the skipped spring-forward hour saved as 03:30 with no warning, Slept shows 5h 30m",
+    "description": "## Steps to reproduce\n\n1. Start NightJar with a fresh diary (or call `POST /nights`, which is what the Log a night form submits).\n2. Log a night with time zone `America/Toronto`, bedtime `2026-03-08 02:30`, wake time `2026-03-08 09:00`, no notes. On that date the clocks jump from 02:00 to 03:00, so 02:30 never exists in Toronto.\n3. Look at the new row in the sleep diary.\n\n## Expected\n\nNot specified. No requirement or story says what NightJar should do with a local time that does not exist (see Notes). BR-07 only says NightJar \"works for users who travel or live through daylight-saving changes\". The user should not get a silently different bedtime, so the app should at least reject the input or warn, rather than quietly changing it.\n\n## Actual\n\n- The request is accepted (HTTP 303 redirect, no error shown).\n- The bedtime is saved and shown as 03:30 (-04:00), not the 02:30 that was entered. There is no warning.\n- Slept shows 5h 30m. Wake 09:00 EDT minus the saved bedtime 03:30 EDT is 5h 30m. The user entered 6h 30m on the clock.\n\n## Evidence\n\nRun through the app's own endpoint with a temp database and the mock coach:\n\n```\nstatus: 303\nlocal bedtime: 2026-03-08 03:30:00-04:00 | duration: 5:30:00\n['Slept', '03:30', '5h 30m']\n```\n\nCause, for whoever picks this up: `diary.local_input_to_aware` does `datetime.fromisoformat(text).replace(tzinfo=zone(timezone))`. For the nonexistent 02:30 this gives 02:30-05:00, which is 07:30 UTC. That is 03:30 EDT when shown in local time. Nothing checks that the local time exists.\n\n## Environment\n\nNightJar `main` at commit f21f9d9, Python 3.12, `uv run`, mock coach, zone `America/Toronto`. Test data only.\n\n## Notes\n\n- Question for product: what should happen when the user enters a local time that does not exist (spring-forward gap)? Options: reject with a message asking for another time, or accept and show the adjusted time with a notice. No story or requirement says.\n- The matching autumn case (an hour that happens twice, 01:30 on 2026-11-01) is not checked here. Worth a look when this is fixed.\n- Not a duplicate of NJ-11. NJ-11 (Done) was about Slept being an hour off across the autumn clock change, and was fixed in `Night.duration`. Here the duration maths is right for the saved times. The wrong value comes from the saved bedtime.\n\nReproduced 2 of 2 times (direct call and through `POST /nights`). Related: NJ-11.",
+    "comments": []
+  }
+]

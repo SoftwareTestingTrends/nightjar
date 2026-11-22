@@ -1,0 +1,1 @@
+I tried to delete the repro script, but the command needs your approval and it hasn't run. The file is still at `bugs/quiet-hours-midnight/repro.py`. It exits 0 on current code, so it's harmless, but it doesn't belong there. You can delete it with `rm -r bugs/` (the `bugs/` folder didn't exist before), or approve the command and I'll run it.

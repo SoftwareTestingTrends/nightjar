@@ -1,0 +1,1 @@
+Check in a real browser that every night in data/browser-check/diary-with-instruction.csv shows correctly in NightJar's sleep diary once imported: night of, bed, up, slept, time zone and journal.
