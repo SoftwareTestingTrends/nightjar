@@ -1,0 +1,12 @@
+{
+  "name": "nightjar-tools",
+  "description": "The NightJar team's own Claude Code plugins.",
+  "owner": { "name": "NightJar QA" },
+  "plugins": [
+    {
+      "name": "nightjar-qa",
+      "source": "./plugins/nightjar-qa",
+      "description": "NightJar's testing skills: test cases, browser checks, bug triage, filing and fix verification."
+    }
+  ]
+}
