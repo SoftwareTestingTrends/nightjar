@@ -77,11 +77,14 @@ class Diary:
         out = io.StringIO()
         writer = csv.writer(out, lineterminator="\n")
         writer.writerow(["bedtime", "wake_time", "timezone", "notes"])
-        for night in self.nights():
+        # Oldest first (AC4); nights() is newest first for the diary page, so keep it as it is.
+        for night in reversed(self.nights()):
+            own_zone = zone(night.timezone)
             writer.writerow(
                 [
-                    night.bedtime.isoformat(),
-                    night.wake_time.isoformat(),
+                    # Each night in its own zone's offset (AC3); stored values are UTC.
+                    night.bedtime.astimezone(own_zone).isoformat(),
+                    night.wake_time.astimezone(own_zone).isoformat(),
                     night.timezone,
                     night.notes,
                 ]

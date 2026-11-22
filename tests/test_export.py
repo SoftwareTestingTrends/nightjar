@@ -26,12 +26,12 @@ def client(tmp_path):
     return TestClient(app)
 
 
-def log_night(client, notes=""):
+def log_night(client, notes="", bedtime="2026-03-18T23:00", wake_time="2026-03-19T07:00"):
     client.post(
         "/nights",
         data={
-            "bedtime": "2026-03-18T23:00",
-            "wake_time": "2026-03-19T07:00",
+            "bedtime": bedtime,
+            "wake_time": wake_time,
             "timezone": "America/Toronto",
             "notes": notes,
         },
@@ -57,3 +57,17 @@ def test_notes_with_commas_and_quotes_survive(client):
 
 def test_empty_diary_exports_the_header_only(client):
     assert client.get("/export").text == "bedtime,wake_time,timezone,notes\n"
+
+
+def test_times_use_each_nights_own_offset(client):
+    log_night(client, bedtime="2026-03-01T00:25", wake_time="2026-03-01T07:30")
+    rows = list(csv.reader(io.StringIO(client.get("/export").text)))
+    assert rows[1][:2] == ["2026-03-01T00:25:00-05:00", "2026-03-01T07:30:00-05:00"]
+
+
+def test_nights_are_oldest_first(client):
+    log_night(client, bedtime="2026-03-10T23:00", wake_time="2026-03-11T07:00", notes="second")
+    log_night(client, bedtime="2026-03-09T23:00", wake_time="2026-03-10T07:00", notes="first")
+    log_night(client, bedtime="2026-03-11T23:00", wake_time="2026-03-12T07:00", notes="third")
+    rows = list(csv.reader(io.StringIO(client.get("/export").text)))
+    assert [row[3] for row in rows[1:]] == ["first", "second", "third"]
