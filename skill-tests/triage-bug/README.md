@@ -12,6 +12,9 @@ for e in 1 2 3 4 5; do for c in with_skill without_skill; do for n in 1 2 3; do
 done; done; done
 ```
 
+The skills ship as the `nightjar-qa` plugin (`plugins/nightjar-qa/`). Both configurations load it
+with `--plugin-dir`; `without_skill` removes `triage-bug` and the router from the copy first.
+
 The model is pinned: `run.sh` uses `claude-sonnet-5-5` unless you set `MODEL`
 (`MODEL=claude-haiku-5-5 zsh skill-tests/triage-bug/run.sh …`). Each run writes `run.json`
 with the model asked for, the models that actually answered, the Claude Code version,

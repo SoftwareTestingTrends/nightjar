@@ -13,3 +13,5 @@ date,claude_version,model,skill_tree,config,pass_rate,perfect_runs,mean_seconds,
 2026-11-22,2.1.330,claude-sonnet-5-5,c21513d,without_skill,0.79,11/15,23.3,8.3,1:0/3 2:2/3 3:3/3 4:3/3 5:3/3,app change: D-1 fix applied (scratch commit); eval 1 label now stale
 2026-11-22,2.1.330,claude-sonnet-5-5,c21513d,with_skill,0.93,9/10,44.0,14.6,2:9/10,"spring-forward only, 10 runs each"
 2026-11-22,2.1.330,claude-sonnet-5-5,c21513d,without_skill,0.47,3/10,27.9,8.3,2:3/10,"spring-forward only, 10 runs each"
+2026-11-22,2.1.330,claude-sonnet-5-5,dafa5d4,with_skill,0.95,14/15,28.8,11.3,1:3/3 2:2/3 3:3/3 4:3/3 5:3/3,packaged as nightjar-qa 1.1.0 (handoff names changed)
+2026-11-22,2.1.330,claude-sonnet-5-5,dafa5d4,without_skill,0.90,13/15,24.1,8.3,1:3/3 2:1/3 3:3/3 4:3/3 5:3/3,packaged as nightjar-qa 1.1.0 (handoff names changed)
